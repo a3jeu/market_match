@@ -1,54 +1,87 @@
-# MarketMatch Crew
+# Market & Match (CrewAI)
 
-Welcome to the MarketMatch Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Ce projet génère automatiquement une newsletter hebdomadaire **Market & Match** sur les nouveautés IA liées au **sport** et/ou à la **finance**, via une orchestration multi-agents.
+
+Pipeline:
+- recherche l'actualité récente sur le web via **SerperDevTool**,
+- sélectionne 4 à 6 nouvelles non redondantes,
+- lance un **sous-crew par nouvelle** (avec sections détaillées),
+- génère introduction + titre via agents dédiés,
+- génère un agent dédié par réseau social,
+- génère un prompt image spécifique à chaque nouvelle,
+- génère le HTML FR/EN avec sections en gras,
+- exporte l'édition dans un dossier versionné,
+- conserve l'historique pour éviter de répéter les mêmes nouvelles d'une semaine à l'autre.
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Assure-toi d'avoir Python >=3.10 <3.14. Ce projet utilise [UV](https://docs.astral.sh/uv/).
 
-First, if you haven't already, install uv:
+Installe `uv` si nécessaire:
 
 ```bash
 pip install uv
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+Depuis la racine du projet:
 ```bash
 crewai install
 ```
-### Customizing
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+### Variables `.env`
 
-- Modify `src/market_match/config/agents.yaml` to define your agents
-- Modify `src/market_match/config/tasks.yaml` to define your tasks
-- Modify `src/market_match/crew.py` to add your own logic, tools and specific args
-- Modify `src/market_match/main.py` to add custom inputs for your agents and tasks
+Tu dois avoir au minimum:
 
-## Running the Project
+```env
+OPENAI_API_KEY=...
+SERPER_API_KEY=...
+MARKET_MATCH_RESEARCH_MODEL=gpt-4o-mini
+MARKET_MATCH_WRITING_MODEL=gpt-5-mini
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
+# Tracing CrewAI / OTel
+CREWAI_TRACING_ENABLED=true
+OTEL_SDK_DISABLED=false
+OTEL_TRACES_EXPORTER=console
 ```
 
-This command initializes the market_match Crew, assembling the agents and assigning them tasks as defined in your configuration.
+## Exécution
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+Lancer avec les valeurs par défaut (date du jour + prochain numéro d'édition):
 
-## Understanding Your Crew
+```bash
+crewai run
+```
 
-The market_match Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+Lancer avec paramètres personnalisés via JSON CLI:
 
-## Support
+```bash
+python -m market_match.main "{\"edition_number\": 8, \"edition_date\": \"2026-03-03\"}"
+```
 
-For support, questions, or feedback regarding the MarketMatch Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
+## Sorties générées
 
-Let's create wonders together with the power and simplicity of crewAI.
+Chaque édition est exportée dans:
+
+`editions/edition_{no_edition}_{YYYY-MM-DD}/`
+
+Fichiers générés:
+- `metadata.json`
+- `trace_config.json`
+- `title_fr.json` / `title_en.json`
+- `introduction_fr.json` / `introduction_en.json`
+- `news_01.json` à `news_0N.json`
+- `image_prompt_news_01.json` à `image_prompt_news_0N.json`
+- `thumbnail_prompt_news_01.json`
+- `facebook_fr.json` / `linkedin_fr.json` / `twitter_fr.json`
+- `newsletter_fr.html` / `newsletter_en.html`
+- `report.md` (sortie brute de curation)
+
+Historique des sujets déjà publiés:
+- `data/published_news.json`
+
+## Personnalisation rapide
+
+- Agents: `src/market_match/config/agents.yaml`
+- Tâches: `src/market_match/config/tasks.yaml`
+- Orchestration/export: `src/market_match/crew.py`
+- Entrée CLI: `src/market_match/main.py`

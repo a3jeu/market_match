@@ -1,17 +1,70 @@
-research_task:
+scout_news_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
-  expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    Nous préparons l'édition #{edition_number} de Market & Match pour la date {edition_date}.
+    Utilise la recherche web (Serper) pour trouver 10 à 14 nouvelles IA des 7 derniers jours,
+    strictement reliées au sport ou à la finance (ou les deux).
 
-reporting_task:
-  description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Contraintes de collecte:
+    - Pour chaque nouvelle pressentie, fais au moins 2 recherches web ciblées.
+    - Privilégie annonces officielles, médias crédibles, billets techniques, résultats mesurables.
+    - Évite rumeurs et contenus trop marketing.
+    - Inclus au minimum 2 sources par nouvelle potentielle.
+
+    IMPORTANT: Réponds en JSON strict uniquement (pas de markdown, pas de texte autour).
+
+    Structure attendue:
+    {
+      "candidates": [
+        {
+          "event_id": "id-court-et-stable",
+          "headline": "...",
+          "summary": "...",
+          "domain": "sport|finance|sport+finance",
+          "why_new_this_week": "...",
+          "sources": [
+            {"label": "...", "url": "https://..."}
+          ]
+        }
+      ]
+    }
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    Un JSON strict avec 10 à 14 candidates sourcées.
+  agent: trend_scout
+
+curate_and_validate_task:
+  description: >
+    À partir de la présélection, conserve exactement 4 à 6 nouvelles maximisant pertinence,
+    diversité et clarté d'impact.
+
+    Étapes obligatoires:
+    1) Utilise l'outil d'historique des publications pour vérifier les sujets déjà traités.
+    2) Écarte les nouvelles déjà couvertes (même événement, même annonce, même résultat).
+    3) Pour chaque nouvelle retenue, recoupe les faits avec 2 à 3 sources.
+    4) Corrige toute ambiguïté factuelle.
+
+    IMPORTANT: Réponds en JSON strict uniquement (pas de markdown, pas de texte autour).
+
+    Structure attendue:
+    {
+      "selected_news": [
+        {
+          "event_id": "...",
+          "headline": "...",
+          "domain": "sport|finance|sport+finance",
+          "why_new_this_week": "...",
+          "validated_facts": ["..."],
+          "editorial_angle": "...",
+          "sources": [
+            {"label": "...", "url": "https://..."}
+          ]
+        }
+      ]
+    }
+
+    Contraintes de sortie:
+    - Entre 4 et 6 nouvelles exactement.
+    - 2 à 3 sources par nouvelle.
+    - Aucune nouvelle déjà traitée historiquement.
+  expected_output: >
+    Un JSON strict avec 4 à 6 nouvelles validées dans selected_news.
+  agent: fact_checker

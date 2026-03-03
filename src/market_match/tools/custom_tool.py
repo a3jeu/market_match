@@ -1,19 +1,159 @@
+from __future__ import annotations
+
+import json
+from hashlib import sha256
+from pathlib import Path
+from typing import Any, Type
+
 from crewai.tools import BaseTool
-from typing import Type
 from pydantic import BaseModel, Field
 
 
-class MyCustomToolInput(BaseModel):
-    """Input schema for MyCustomTool."""
-    argument: str = Field(..., description="Description of the argument.")
+def _project_root() -> Path:
+    return Path(__file__).resolve().parents[3]
 
-class MyCustomTool(BaseTool):
-    name: str = "Name of my tool"
-    description: str = (
-        "Clear description for what this tool is useful for, your agent will need this information to use it."
+
+def _data_dir() -> Path:
+    directory = _project_root() / "data"
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
+
+
+def _history_file() -> Path:
+    return _data_dir() / "published_news.json"
+
+
+def _history_payload() -> dict[str, Any]:
+    file_path = _history_file()
+    if not file_path.exists():
+        payload = {
+            "editions": [],
+            "seen_signatures": [],
+        }
+        file_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        return payload
+
+    try:
+        return json.loads(file_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        payload = {
+            "editions": [],
+            "seen_signatures": [],
+        }
+        file_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        return payload
+
+
+def build_signature(title: str, url: str = "") -> str:
+    normalized = f"{title.strip().lower()}|{url.strip().lower()}"
+    return sha256(normalized.encode("utf-8")).hexdigest()
+
+
+class ReadPublishedNewsInput(BaseModel):
+    max_items: int = Field(
+        default=120,
+        description="Maximum number of the most recent news signatures/titles to return.",
     )
-    args_schema: Type[BaseModel] = MyCustomToolInput
 
-    def _run(self, argument: str) -> str:
-        # Implementation goes here
-        return "this is an example of a tool output, ignore it and move along."
+
+class ReadPublishedNewsTool(BaseTool):
+    name: str = "read_published_news_history"
+    description: str = (
+        "Read previously published newsletter items to avoid repeating the same news across editions."
+    )
+    args_schema: Type[BaseModel] = ReadPublishedNewsInput
+
+    def _run(self, max_items: int = 120) -> str:
+        payload = _history_payload()
+        editions = payload.get("editions", [])
+        seen = payload.get("seen_signatures", [])
+
+        flattened_items: list[dict[str, Any]] = []
+        for edition in editions[-max_items:]:
+            for item in edition.get("items", []):
+                flattened_items.append(
+                    {
+                        "edition": edition.get("edition_number"),
+                        "date": edition.get("edition_date"),
+                        "title": item.get("title", ""),
+                        "source": item.get("source", ""),
+                        "signature": item.get("signature", ""),
+                    }
+                )
+
+        result = {
+            "recent_items": flattened_items[-max_items:],
+            "seen_signatures": seen,
+            "guidance": "Do not reuse or paraphrase the same core event if title/source strongly overlaps with an existing signature.",
+        }
+        return json.dumps(result, ensure_ascii=False, indent=2)
+
+
+class SavePublishedEditionInput(BaseModel):
+    edition_number: int = Field(..., description="Edition number, e.g. 12")
+    edition_date: str = Field(..., description="Edition date in YYYY-MM-DD format")
+    items_json: str = Field(
+        ...,
+        description=(
+            "A JSON array of objects. Each object should contain at least a title and optionally one source URL. "
+            "Example: [{\"title\":\"...\",\"source\":\"https://...\"}]"
+        ),
+    )
+
+
+class SavePublishedEditionTool(BaseTool):
+    name: str = "save_published_edition_history"
+    description: str = (
+        "Persist newsletter edition metadata and news signatures after publication so future editions can avoid duplicates."
+    )
+    args_schema: Type[BaseModel] = SavePublishedEditionInput
+
+    def _run(self, edition_number: int, edition_date: str, items_json: str) -> str:
+        payload = _history_payload()
+
+        try:
+            items = json.loads(items_json)
+        except json.JSONDecodeError as exc:
+            return f"Invalid items_json payload: {exc}"
+
+        if not isinstance(items, list):
+            return "Invalid items_json payload: expected a JSON list."
+
+        normalized_items: list[dict[str, str]] = []
+        signatures_to_add: set[str] = set()
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            title = str(item.get("title", "")).strip()
+            source = str(item.get("source", "")).strip()
+            if not title:
+                continue
+            signature = build_signature(title=title, url=source)
+            signatures_to_add.add(signature)
+            normalized_items.append(
+                {
+                    "title": title,
+                    "source": source,
+                    "signature": signature,
+                }
+            )
+
+        payload.setdefault("editions", [])
+        payload.setdefault("seen_signatures", [])
+
+        payload["editions"].append(
+            {
+                "edition_number": edition_number,
+                "edition_date": edition_date,
+                "items": normalized_items,
+            }
+        )
+
+        existing_signatures = set(payload["seen_signatures"])
+        payload["seen_signatures"] = sorted(existing_signatures.union(signatures_to_add))
+
+        _history_file().write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+        return (
+            f"Saved edition {edition_number} ({edition_date}) with "
+            f"{len(normalized_items)} items in {_history_file().as_posix()}."
+        )
