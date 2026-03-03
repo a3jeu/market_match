@@ -1,0 +1,24 @@
+[project]
+name = "market_match"
+version = "0.1.0"
+description = "market_match using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]==1.9.3"
+]
+
+[project.scripts]
+market_match = "market_match.main:run"
+run_crew = "market_match.main:run"
+train = "market_match.main:train"
+replay = "market_match.main:replay"
+test = "market_match.main:test"
+run_with_trigger = "market_match.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
