@@ -6,12 +6,16 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, List
 
+from rich.console import Console
+from rich.panel import Panel
+
 from crewai import Agent, Crew, Process, Task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import SerperDevTool
 
 from market_match.tools import ReadPublishedNewsTool, SavePublishedEditionTool
+from market_match.utils import extract_body_html, extract_json, format_template, safe_slug
 
 
 @CrewBase
@@ -72,14 +76,36 @@ class MarketMatch:
         )
 
     def _enable_tracing(self) -> dict[str, str]:
+        self._load_dotenv_file()
+
         os.environ.setdefault("CREWAI_TRACING_ENABLED", "true")
         os.environ.setdefault("OTEL_SDK_DISABLED", "false")
-        os.environ.setdefault("OTEL_TRACES_EXPORTER", "console")
+
+        current_exporter = (os.environ.get("OTEL_TRACES_EXPORTER") or "").strip().lower()
+        if not current_exporter or current_exporter == "console":
+            os.environ["OTEL_TRACES_EXPORTER"] = "otlp"
+
         return {
             "CREWAI_TRACING_ENABLED": os.environ.get("CREWAI_TRACING_ENABLED", ""),
             "OTEL_SDK_DISABLED": os.environ.get("OTEL_SDK_DISABLED", ""),
             "OTEL_TRACES_EXPORTER": os.environ.get("OTEL_TRACES_EXPORTER", ""),
         }
+
+    def _load_dotenv_file(self) -> None:
+        env_path = self.project_root / ".env"
+        if not env_path.exists():
+            return
+
+        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key:
+                os.environ.setdefault(key, value)
 
     def _published_history_file(self) -> Path:
         return self.project_root / "data" / "published_news.json"
@@ -101,327 +127,274 @@ class MarketMatch:
         latest = max((int(item.get("edition_number", 0)) for item in editions), default=0)
         return latest + 1
 
-    @staticmethod
-    def _extract_json(raw_output: str) -> dict[str, Any]:
-        cleaned = raw_output.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.replace("```json", "").replace("```", "").strip()
-
-        if cleaned.startswith("{") and cleaned.endswith("}"):
-            return json.loads(cleaned)
-
-        first_brace = cleaned.find("{")
-        last_brace = cleaned.rfind("}")
-        if first_brace == -1 or last_brace == -1 or last_brace <= first_brace:
-            raise ValueError("No JSON object found in output.")
-
-        return json.loads(cleaned[first_brace:last_brace + 1])
+    # _extract_json, _extract_body_html, and _safe_slug have been moved to market_match.utils
+    # as extract_json, extract_body_html, and safe_slug.
 
     @staticmethod
-    def _extract_body_html(full_html: str) -> str:
-        """Return only the content inside <body>…</body>, stripping the outer tags."""
-        import re
-        match = re.search(r"<body[^>]*>(.*?)</body>", full_html, re.DOTALL | re.IGNORECASE)
-        if match:
-            return match.group(1).strip()
-        return full_html
+    def _first_non_empty(*values: str | None) -> str:
+        for value in values:
+            if value and str(value).strip():
+                return str(value).strip()
+        return ""
 
-    @staticmethod
-    def _safe_slug(text: str, fallback: str) -> str:
-        base = "".join(ch.lower() if ch.isalnum() else "-" for ch in text)
-        compact = "-".join(part for part in base.split("-") if part)
-        return compact[:70] if compact else fallback
+    def _trace_info_from_inputs(self, inputs: dict[str, Any] | None) -> tuple[str, str, str]:
+        if not isinstance(inputs, dict):
+            return "", "", ""
+
+        trigger_payload = inputs.get("crewai_trigger_payload")
+        if not isinstance(trigger_payload, dict):
+            return "", "", ""
+
+        session_id = self._first_non_empty(
+            trigger_payload.get("session_id"),
+            trigger_payload.get("trace_session_id"),
+            trigger_payload.get("trace_batch_id"),
+        )
+        access_code = self._first_non_empty(
+            trigger_payload.get("access_code"),
+            trigger_payload.get("trace_access_code"),
+        )
+        url = self._first_non_empty(
+            trigger_payload.get("url"),
+            trigger_payload.get("trace_url"),
+        )
+        return session_id, access_code, url
+
+    def _resolve_trace_info(self, runtime_inputs: dict[str, Any]) -> tuple[str, str, str]:
+        env_session_id = self._first_non_empty(
+            os.environ.get("CREWAI_TRACE_SESSION_ID"),
+            os.environ.get("CREWAI_TRACE_BATCH_ID"),
+            os.environ.get("TRACE_SESSION_ID"),
+            os.environ.get("TRACE_BATCH_ID"),
+        )
+        env_access_code = self._first_non_empty(
+            os.environ.get("CREWAI_TRACE_ACCESS_CODE"),
+            os.environ.get("TRACE_ACCESS_CODE"),
+        )
+        env_url = self._first_non_empty(
+            os.environ.get("CREWAI_TRACE_URL"),
+            os.environ.get("TRACE_URL"),
+        )
+
+        input_session_id, input_access_code, input_url = self._trace_info_from_inputs(runtime_inputs)
+
+        session_id = self._first_non_empty(env_session_id, input_session_id)
+        access_code = self._first_non_empty(env_access_code, input_access_code)
+        url = self._first_non_empty(env_url, input_url)
+
+        if not url and session_id:
+            if access_code:
+                url = f"https://app.crewai.com/crewai_plus/ephemeral_trace_batches/{session_id}?access_code={access_code}"
+            else:
+                url = f"https://app.crewai.com/crewai_plus/ephemeral_trace_batches/{session_id}"
+
+        return session_id, access_code, url
+
+    def _print_startup_banner(self, runtime_inputs: dict[str, Any]) -> None:
+        console = Console()
+        session_id, access_code, url = self._resolve_trace_info(runtime_inputs)
+        exporter = (os.environ.get("OTEL_TRACES_EXPORTER") or "").strip().lower()
+        tracing_enabled = (os.environ.get("CREWAI_TRACING_ENABLED") or "").strip().lower() == "true"
+        has_trace_link = bool(session_id and access_code and url)
+        live_web = tracing_enabled and exporter != "console" and exporter != "" and has_trace_link
+        status = "[bold green]READY[/]" if live_web else "[bold yellow]PENDING[/]"
+        hint = (
+            "[dim]Le lien web apparaît généralement après la finalisation du batch,\n"
+            "ou immédiatement si crewai_trigger_payload contient session/access/url.[/]"
+        )
+        content = (
+            f"🌐 Live Web Trace: {status}\n"
+            f"✅ Trace batch session ID: {session_id or '[dim]N/A[/]'}\n\n"
+            f"🔗 View here: {url or '[dim]N/A[/]'}\n"
+            f"🔑 Access Code: {access_code or '[dim]N/A[/]'}\n\n"
+            f"{hint}"
+        )
+        console.print(
+            Panel(
+                content,
+                title="[bold green]Trace Batch[/]",
+                border_style="green",
+                padding=(1, 4),
+            )
+        )
+
+    def _run_topup_crew(self, runtime_inputs: dict[str, Any], existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Run a supplementary research+curation pass to complete a short selection."""
+        needed = 4 - len(existing)
+        existing_ids = json.dumps([item.get("event_id", "") for item in existing], ensure_ascii=False)
+
+        topup_inputs = {
+            **runtime_inputs,
+            "found_count": len(existing),
+            "needed_count": needed,
+            "existing_event_ids": existing_ids,
+        }
+
+        scout_agent = Agent(
+            config=self.agents_config["trend_scout"],  # type: ignore[index]
+            tools=[self.serper_tool, self.read_history_tool],
+            llm=self.research_model,
+            verbose=True,
+        )
+        curator_agent = Agent(
+            config=self.agents_config["fact_checker"],  # type: ignore[index]
+            tools=[self.serper_tool, self.read_history_tool],
+            llm=self.research_model,
+            verbose=True,
+        )
+
+        scout_cfg = self.tasks_config["topup_scout_task"]  # type: ignore[index]
+        scout_task = Task(
+            description=format_template(scout_cfg["description"], **topup_inputs),
+            expected_output=format_template(scout_cfg["expected_output"], **topup_inputs),
+            agent=scout_agent,
+        )
+        curate_cfg = self.tasks_config["topup_curate_task"]  # type: ignore[index]
+        curate_task = Task(
+            description=format_template(curate_cfg["description"], **topup_inputs),
+            expected_output=format_template(curate_cfg["expected_output"], **topup_inputs),
+            agent=curator_agent,
+            context=[scout_task],
+        )
+
+        result = Crew(
+            agents=[scout_agent, curator_agent],
+            tasks=[scout_task, curate_task],
+            process=Process.sequential,
+            verbose=True,
+        ).kickoff(inputs=topup_inputs)
+
+        payload = extract_json(getattr(result, "raw", str(result)))
+        extras = payload.get("selected_news", [])
+        if not isinstance(extras, list):
+            return []
+        existing_ids_set = {item.get("event_id", "") for item in existing}
+        return [item for item in extras if isinstance(item, dict) and item.get("event_id", "") not in existing_ids_set]
 
     def _run_selection_crew(self, runtime_inputs: dict[str, Any]) -> list[dict[str, Any]]:
+        console = Console()
         selection_result = self.crew().kickoff(inputs=runtime_inputs)
-        payload = self._extract_json(getattr(selection_result, "raw", str(selection_result)))
+        payload = extract_json(getattr(selection_result, "raw", str(selection_result)))
 
         selected_news = payload.get("selected_news", [])
         if not isinstance(selected_news, list):
-            raise ValueError("Selection payload does not contain 'selected_news' list.")
+            selected_news = []
 
         selected_news = [item for item in selected_news if isinstance(item, dict)]
+
         if len(selected_news) < 4:
-            raise ValueError("Selection returned fewer than 4 validated news.")
+            console.print(
+                f"[yellow]⚠ Seulement {len(selected_news)} nouvelle(s) trouvée(s) — "
+                "lancement d'un passage de recherche complémentaire…[/]"
+            )
+            extras = self._run_topup_crew(runtime_inputs, selected_news)
+            selected_news = (selected_news + extras)[:6]
+            console.print(f"[green]✔ {len(selected_news)} nouvelle(s) après le passage complémentaire.[/]")
+
+        if len(selected_news) == 0:
+            raise ValueError("Aucune nouvelle validée après deux passages de recherche.")
 
         return selected_news[:6]
 
     def _run_single_news_crew(self, news_item: dict[str, Any], index: int) -> dict[str, Any]:
         news_json = json.dumps(news_item, ensure_ascii=False)
 
-        title_agent = Agent(
-            role="Titreur bilingue Market & Match",
-            goal="Écrire un titre court, percutant, actionnable en FR et EN.",
-            backstory="Tu écris des titres qui capturent un résultat concret.",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        intro_agent = Agent(
-            role="Rédacteur d'accroches",
-            goal="Rédiger une phrase introductrice claire et contextualisée en FR et EN.",
-            backstory="Tu poses le contexte en une phrase, sans jargon inutile.",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        essentials_agent = Agent(
-            role="Analyste L'essentiel",
-            goal="Résumer l'événement en 1-2 phrases en FR et EN.",
-            backstory="Tu extrais l'information indispensable sans digression.",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        practice_agent = Agent(
-            role="Analyste En pratique",
-            goal="Expliquer la mécanique en 3-5 phrases en FR et EN.",
-            backstory="Tu démystifies le fonctionnement technique de manière pédagogique.",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        breakdown_agent = Agent(
-            role="Analyste Décryptage",
-            goal="Donner le contexte de fond en 3-5 phrases en FR et EN.",
-            backstory="Tu relies le fait de la semaine aux tendances structurelles.",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        stake_agent = Agent(
-            role="Analyste L'enjeu",
-            goal="Analyser les gagnants/perdants en 3-5 phrases en FR et EN.",
-            backstory="Tu identifies des impacts concrets et les parties prenantes.",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        verdict_agent = Agent(
-            role="Éditorialiste Verdict",
-            goal="Prendre position en 1-2 phrases en FR et EN.",
-            backstory="Tu es développeur, passionné de sports, de finances et de technologie. Tu assumes un point de vue tranché et argumenté.  Tu es l'auteur de la lettre et tu dois prendre position. ",
-            llm=self.writing_model,
-            verbose=True,
-        )
-        assembler_agent = Agent(
-            role="Assembleur de nouvelle bilingue",
-            goal="Assembler les sections en un JSON strict et ajouter un prompt image spécifique à cette nouvelle.",
-            backstory="Tu garantis conformité de structure, clarté et cohérence éditoriale.",
-            llm=self.writing_model,
-            verbose=True,
-        )
+        def _agent(key: str) -> Agent:
+            return Agent(config=self.agents_config[key], llm=self.writing_model, verbose=True)  # type: ignore[index]
 
-        title_task = Task(
-            description=(
-                "Écris un titre FR et un titre EN pour la nouvelle suivante. "
-                "Le titre doit décrire une action ou un résultat concret.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"title_fr":"...", "title_en":"..."}'
-            ),
-            expected_output="JSON strict avec title_fr et title_en.",
-            agent=title_agent,
-        )
+        def _task(key: str, agent: Agent, **kw: Any) -> Task:
+            cfg = self.tasks_config[key]  # type: ignore[index]
+            return Task(
+                description=format_template(cfg["description"], **kw),
+                expected_output=cfg["expected_output"],
+                agent=agent,
+            )
 
-        intro_task = Task(
-            description=(
-                "Rédige une phrase introductrice FR et EN (une seule phrase par langue), basée sur la nouvelle validée.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"intro_fr":"...", "intro_en":"..."}'
-            ),
-            expected_output="JSON strict avec intro_fr et intro_en.",
-            agent=intro_agent,
-        )
+        title_agent      = _agent("title_writer")
+        intro_agent      = _agent("intro_writer")
+        essentials_agent = _agent("essentials_analyst")
+        practice_agent   = _agent("practice_analyst")
+        breakdown_agent  = _agent("breakdown_analyst")
+        stake_agent      = _agent("stake_analyst")
+        verdict_agent    = _agent("verdict_editorialist")
+        assembler_agent  = _agent("content_assembler")
 
-        essentials_task = Task(
-            description=(
-                "Rédige la section L’essentiel (FR) et The Essentials (EN) en 1 à 2 phrases par langue.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"essentiel_fr":"...", "essentials_en":"..."}'
-            ),
-            expected_output="JSON strict avec essentiel_fr et essentials_en.",
-            agent=essentials_agent,
-        )
+        kw = {"news_json": news_json}
+        title_task      = _task("title_task",      title_agent,      **kw)
+        intro_task      = _task("intro_task",      intro_agent,      **kw)
+        essentials_task = _task("essentials_task", essentials_agent, **kw)
+        practice_task   = _task("practice_task",   practice_agent,   **kw)
+        breakdown_task  = _task("breakdown_task",  breakdown_agent,  **kw)
+        stake_task      = _task("stake_task",      stake_agent,      **kw)
+        verdict_task    = _task("verdict_task",    verdict_agent,    **kw)
 
-        practice_task = Task(
-            description=(
-                "Rédige la section En pratique (FR) et In Practice (EN) en 3 à 5 phrases par langue.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"pratique_fr":"...", "in_practice_en":"..."}'
-            ),
-            expected_output="JSON strict avec pratique_fr et in_practice_en.",
-            agent=practice_agent,
-        )
-
-        breakdown_task = Task(
-            description=(
-                "Rédige la section Décryptage (FR) et Breakdown (EN) en 3 à 5 phrases par langue.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"decryptage_fr":"...", "breakdown_en":"..."}'
-            ),
-            expected_output="JSON strict avec decryptage_fr et breakdown_en.",
-            agent=breakdown_agent,
-        )
-
-        stake_task = Task(
-            description=(
-                "Rédige la section L'enjeu (FR) et What's at Stake (EN) en 3 à 5 phrases par langue, "
-                "avec bénéficiaires et perdants potentiels.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"enjeu_fr":"...", "whats_at_stake_en":"..."}'
-            ),
-            expected_output="JSON strict avec enjeu_fr et whats_at_stake_en.",
-            agent=stake_agent,
-        )
-
-        verdict_task = Task(
-            description=(
-                "Rédige un verdict tranché en 1 à 2 phrases par langue (FR/EN).\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "Réponds uniquement en JSON: "
-                '{"verdict_fr":"...", "verdict_en":"..."}'
-            ),
-            expected_output="JSON strict avec verdict_fr et verdict_en.",
-            agent=verdict_agent,
-        )
-
+        assemble_cfg = self.tasks_config["assemble_task"]  # type: ignore[index]
         assemble_task = Task(
-            description=(
-                "Assemble toutes les sections précédentes dans UN JSON strict avec les clés EXACTES:\n"
-                "title_fr, title_en, intro_fr, intro_en, essentiel_fr, essentials_en, pratique_fr, in_practice_en, "
-                "decryptage_fr, breakdown_en, enjeu_fr, whats_at_stake_en, verdict_fr, verdict_en, image_prompt_en, sources.\n"
-                "image_prompt_en doit être spécifique à CETTE nouvelle (pas générique), format paysage.\n"
-                f"NOUVELLE SOURCE: {news_json}\n"
-                "sources doit être une liste de 2 à 3 objets {\"label\":\"...\",\"url\":\"https://...\"}."
-            ),
-            expected_output="JSON strict final pour une nouvelle.",
+            description=format_template(assemble_cfg["description"], **kw),
+            expected_output=assemble_cfg["expected_output"],
             agent=assembler_agent,
-            context=[
-                title_task,
-                intro_task,
-                essentials_task,
-                practice_task,
-                breakdown_task,
-                stake_task,
-                verdict_task,
-            ],
+            context=[title_task, intro_task, essentials_task, practice_task, breakdown_task, stake_task, verdict_task],
         )
 
         news_crew = Crew(
-            agents=[
-                title_agent,
-                intro_agent,
-                essentials_agent,
-                practice_agent,
-                breakdown_agent,
-                stake_agent,
-                verdict_agent,
-                assembler_agent,
-            ],
-            tasks=[
-                title_task,
-                intro_task,
-                essentials_task,
-                practice_task,
-                breakdown_task,
-                stake_task,
-                verdict_task,
-                assemble_task,
-            ],
+            agents=[title_agent, intro_agent, essentials_agent, practice_agent, breakdown_agent, stake_agent, verdict_agent, assembler_agent],
+            tasks=[title_task, intro_task, essentials_task, practice_task, breakdown_task, stake_task, verdict_task, assemble_task],
             process=Process.sequential,
             verbose=True,
         )
 
         output = news_crew.kickoff()
-        news_payload = self._extract_json(getattr(output, "raw", str(output)))
+        news_payload = extract_json(getattr(output, "raw", str(output)))
         news_payload["sources"] = news_payload.get("sources", news_item.get("sources", []))
 
         fallback_slug = f"news-{index:02d}"
-        news_payload["slug"] = self._safe_slug(str(news_payload.get("title_en", "")), fallback_slug)
+        news_payload["slug"] = safe_slug(str(news_payload.get("title_en", "")), fallback_slug)
         return news_payload
 
     def _run_title_crew(self, news_items: list[dict[str, Any]], edition_number: int) -> dict[str, str]:
-        title_agent = Agent(
-            role="Rédacteur titre de newsletter",
-            goal="Créer un titre accrocheur FR/EN au format Market & Match #N: ...",
-            backstory="Tu condenses les angles forts de l'édition en une promesse éditoriale.",
-            llm=self.writing_model,
-            verbose=True,
-        )
+        title_agent = Agent(config=self.agents_config["newsletter_title_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
+        cfg = self.tasks_config["newsletter_title_task"]  # type: ignore[index]
         task = Task(
-            description=(
-                f"Crée les titres FR/EN pour l'édition #{edition_number}. "
-                "Respecte strictement le format: Market & Match #N: ...\n"
-                f"NOUVELLES: {json.dumps(news_items, ensure_ascii=False)}\n"
-                "Réponds uniquement en JSON: "
-                '{"title_fr":"Market & Match #N: ...", "title_en":"Market & Match #N: ..."}'
-            ),
-            expected_output="JSON strict avec title_fr/title_en.",
+            description=format_template(cfg["description"], edition_number=edition_number, news_items_json=json.dumps(news_items, ensure_ascii=False)),
+            expected_output=cfg["expected_output"],
             agent=title_agent,
         )
         result = Crew(agents=[title_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
-        return self._extract_json(getattr(result, "raw", str(result)))
+        return extract_json(getattr(result, "raw", str(result)))
 
     def _run_intro_crew(self, news_items: list[dict[str, Any]]) -> dict[str, Any]:
-        intro_agent = Agent(
-            role="Rédacteur introduction newsletter",
-            goal="Écrire l'introduction FR/EN et des bullet-points courts et accrocheurs.",
-            backstory="Tu annonces le programme avec l'énergie d'un bon editor : concis, percutant, engageant.",
-            llm=self.writing_model,
-            verbose=True,
-        )
+        intro_agent = Agent(config=self.agents_config["newsletter_intro_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
         mini_news = [{"title_fr": i.get("title_fr", ""), "title_en": i.get("title_en", ""), "essentiel_fr": i.get("essentiel_fr", ""), "essentials_en": i.get("essentials_en", "")} for i in news_items]
+        cfg = self.tasks_config["newsletter_intro_task"]  # type: ignore[index]
         task = Task(
-            description=(
-                "Génère l'introduction FR/EN de la newsletter.\n"
-                "CONTRAINTES intro_sentence_fr:\n"
-                "- Commence EXACTEMENT par : \"Dans l'édition d'aujourd'hui de Market & Match,\"\n"
-                "- Termine en 1 seule phrase, sans liste.\n"
-                "CONTRAINTES intro_bullets_fr / intro_bullets_en:\n"
-                "- 1 bullet par nouvelle (4 à 6 bullets au total).\n"
-                "- Chaque bullet : 1 phrase courte et percutante, max 15 mots.\n"
-                "- Commence par un verbe d'action ou un angle fort, pas par le nom de l'entreprise.\n"
-                "- Pas de répétition entre bullets.\n"
-                f"NOUVELLES: {json.dumps(mini_news, ensure_ascii=False)}\n"
-                "Réponds uniquement en JSON: "
-                '{"intro_sentence_fr":"...", "intro_bullets_fr":["..."], "intro_sentence_en":"...", "intro_bullets_en":["..."]}'
-            ),
-            expected_output="JSON strict avec intro sentence + bullet lists courts et accrocheurs FR/EN.",
+            description=format_template(cfg["description"], news_items_json=json.dumps(mini_news, ensure_ascii=False)),
+            expected_output=cfg["expected_output"],
             agent=intro_agent,
         )
         result = Crew(agents=[intro_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
-        return self._extract_json(getattr(result, "raw", str(result)))
+        return extract_json(getattr(result, "raw", str(result)))
 
     def _run_social_agent(self, platform: str, title_fr: str, news_items: list[dict[str, Any]]) -> str:
-        social_agent = Agent(
-            role=f"Rédacteur {platform} FR",
-            goal=f"Créer un texte {platform} personnel et engageant en français.",
-            backstory="Tu écris comme quelqu'un qui partage une découverte à ses abonnés, pas comme un communiqué de presse.",
-            llm=self.writing_model,
-            verbose=True,
-        )
+        social_agent = Agent(config=self.agents_config["social_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
 
         placeholder_rule = "Inclure le placeholder [LIEN_URL] à la fin." if platform in {"LinkedIn", "Twitter/X"} else "Ne pas inclure de placeholder URL."
         char_limit = "280 caractères max pour Twitter/X." if platform == "Twitter/X" else ""
         mini_news = [{"title_fr": i.get("title_fr", ""), "essentiel_fr": i.get("essentiel_fr", "")} for i in news_items]
+        cfg = self.tasks_config["social_post_task"]  # type: ignore[index]
         task = Task(
-            description=(
-                f"Rédige un texte {platform} en français pour partager la newsletter Market & Match.\n"
-                "RÈGLES DE TON:\n"
-                "- Commence par une phrase personnelle du style : \"Cette semaine dans Market & Match, on décortique…\"\n"
-                "- Ton naturel, direct, comme si tu partageais une découverte à tes abonnés.\n"
-                "- Quelques hashtags pertinents à la fin.\n"
-                f"- {placeholder_rule}\n"
-                f"- {char_limit}\n"
-                f"TITRE: {title_fr}\n"
-                f"NOUVELLES: {json.dumps(mini_news, ensure_ascii=False)}\n"
-                "Réponds uniquement en JSON: {" + '"post":"..."' + "}"
+            description=format_template(
+                cfg["description"],
+                platform=platform,
+                placeholder_rule=placeholder_rule,
+                char_limit=char_limit,
+                title_fr=title_fr,
+                news_items_json=json.dumps(mini_news, ensure_ascii=False),
             ),
-            expected_output="JSON strict avec post.",
+            expected_output=cfg["expected_output"],
             agent=social_agent,
         )
         result = Crew(agents=[social_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
-        payload = self._extract_json(getattr(result, "raw", str(result)))
+        payload = extract_json(getattr(result, "raw", str(result)))
         return str(payload.get("post", "")).strip()
 
     @staticmethod
@@ -487,7 +460,22 @@ class MarketMatch:
     ) -> str:
         html_lang = "fr" if lang == "fr" else "en"
         intro_list = "".join(f"<li>{bullet}</li>" for bullet in intro_bullets)
-        news_html = "".join(self._build_news_html(item, lang, idx) for idx, item in enumerate(news_items, start=1))
+        news_html = "\n".join(self._build_news_html(item, lang, idx) for idx, item in enumerate(news_items, start=1))
+
+        if lang == "fr":
+            signature_html = (
+                '<footer style="border-top: 2px solid #e5e7eb; margin-top: 40px; padding-top: 20px; color: #6b7280;">'
+                '<p style="font-style: italic; margin: 0;">Créez le futur</p>'
+                '<p style="font-weight: bold; margin: 4px 0 0;">Tommy Gagné</p>'
+                "</footer>"
+            )
+        else:
+            signature_html = (
+                '<footer style="border-top: 2px solid #e5e7eb; margin-top: 40px; padding-top: 20px; color: #6b7280;">'
+                '<p style="font-style: italic; margin: 0;">Create the future</p>'
+                '<p style="font-weight: bold; margin: 4px 0 0;">Tommy Gagné</p>'
+                "</footer>"
+            )
 
         return f"""<!doctype html>
 <html lang=\"{html_lang}\">
@@ -510,6 +498,7 @@ class MarketMatch:
     <p>{intro_sentence}</p>
     <ul>{intro_list}</ul>
     {news_html}
+    {signature_html}
   </body>
 </html>"""
 
@@ -615,10 +604,10 @@ class MarketMatch:
         share_dir.mkdir(parents=True, exist_ok=True)
 
         (share_dir / "newsletter_fr.html").write_text(
-            self._extract_body_html(newsletter_html_fr), encoding="utf-8"
+            extract_body_html(newsletter_html_fr), encoding="utf-8"
         )
         (share_dir / "newsletter_en.html").write_text(
-            self._extract_body_html(newsletter_html_en), encoding="utf-8"
+            extract_body_html(newsletter_html_en), encoding="utf-8"
         )
         (share_dir / "title_fr.txt").write_text(title_fr, encoding="utf-8")
         (share_dir / "title_en.txt").write_text(title_en, encoding="utf-8")
@@ -664,6 +653,8 @@ class MarketMatch:
 
         edition_number = int(runtime_inputs["edition_number"])
         edition_date = str(runtime_inputs["edition_date"])
+
+        self._print_startup_banner(runtime_inputs)
 
         selected_news = self._run_selection_crew(runtime_inputs)
 

@@ -1,63 +1,63 @@
 {
   "selected_news": [
     {
-      "event_id": "ai-slop-football-001",
-      "headline": "AI slop: Can players and football clubs do anything about it?",
+      "event_id": "ai-sports-data-business",
+      "headline": "New tech and AI set to take athlete data business to next level",
       "domain": "sport",
-      "why_new_this_week": "This article was published on March 1, 2026, and addresses the recent increase in AI-generated misinformation affecting football.",
+      "why_new_this_week": "Recent advancements in AI technologies and their applications in sports analytics have emerged.",
       "validated_facts": [
-        "AI-generated content is being labeled as 'AI slop', creating challenges for players and clubs in managing misinformation.",
-        "The article details the implications of this phenomenon for professionals in the football industry."
+        "New technologies are revolutionizing athlete performance data.",
+        "AI technologies are now capable of tracking athletes' performance metrics in real-time."
       ],
-      "editorial_angle": "The article emphasizes the urgent need for players and clubs to adapt strategies to counteract the effects of misinformation driven by AI.",
+      "editorial_angle": "The integration of AI is reshaping data analytics in sports, enabling teams to enhance athlete performance.",
       "sources": [
-        {"label": "BBC Sport", "url": "https://www.bbc.com/sport/football/articles/cy8pdr55219o"},
-        {"label": "Yahoo Sports", "url": "https://sports.yahoo.com/articles/players-clubs-ai-slop-074855503.html"}
+        {"label": "Yahoo Sports", "url": "https://sports.yahoo.com/articles/tech-ai-set-athlete-data-030540037.html"},
+        {"label": "Citizen Tribune", "url": "https://www.citizentribune.com/news/national/new-tech-and-ai-set-to-take-athlete-data-business-to-next-level/article_15a86ba2-c969-58ce-acbf-802729094ae3.html"}
       ]
     },
     {
-      "event_id": "odu-athletics-ai-benefit-002",
-      "headline": "ODU Athletics Signs Multi-Year Agreement with FanWord to Power AI-Driven Storytelling",
+      "event_id": "ai-sports-technology-impact",
+      "headline": "From recruiting to refereeing, AI and other tech is changing the game",
       "domain": "sport",
-      "why_new_this_week": "This partnership was officially announced on March 3, 2026.",
+      "why_new_this_week": "This report outlines the widespread impact of AI in various aspects of sports operations.",
       "validated_facts": [
-        "Old Dominion University Athletics has partnered with FanWord to utilize AI-powered storytelling tools.",
-        "The initiative is aimed at enhancing content creation around athletic events and narratives."
+        "AI is utilized in recruiting, officiating, and game analysis.",
+        "Teams are gaining competitive edges through advanced analytical tools."
       ],
-      "editorial_angle": "The move illustrates how educational institutions are increasingly adopting AI technologies to engage fans and improve communication.",
+      "editorial_angle": "The game of sports is being transformed by AI's broad application, influencing both athlete management and game officiating.",
       "sources": [
-        {"label": "ODU Sports", "url": "https://odusports.com/news/2026/03/3/odu-athletics-signs-multi-year-agreement-with-fanword-to-power-ai-driven-storytelling"},
-        {"label": "WAVY News", "url": "https://www.wavy.com/news/local-news/norfolk/odu-professors-raise-concerns-about-ai-initiative/"}
+        {"label": "Mastercard", "url": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/ai-sports-technology.html"},
+        {"label": "Yahoo Finance", "url": "https://finance.yahoo.com/video/dont-underestimate-role-palantir-ai-210713012.html"}
       ]
     },
     {
-      "event_id": "ai-in-womens-football-003",
-      "headline": "AI in sport is inevitable. In women's football, it should be a resource.",
-      "domain": "sport",
-      "why_new_this_week": "This article was published on February 26, 2026, highlighting recent developments in AI applications specifically in women's football.",
+      "event_id": "sports-industry-ai-adoption",
+      "headline": "Sports industry AI adoption rises to 82% amid tangible financial and operational benefits",
+      "domain": "sport+finance",
+      "why_new_this_week": "Recent studies published this week highlight the growing acceptance and success of AI in the sports industry.",
       "validated_facts": [
-        "AI technology is seen as a potential tool for fostering growth in women's football by maximizing the use of limited data.",
-        "Efforts are being made to leverage AI to better support and promote women's sports."
+        "82% of sports organizations adopted AI solutions.",
+        "Many reported significant operational improvements."
       ],
-      "editorial_angle": "The article posits that rather than being a threat, AI can be a fundamental resource for developing women's football.",
+      "editorial_angle": "The swift adoption of AI in sports organizations marks a pivotal shift in operational capabilities and financial strategies.",
       "sources": [
-        {"label": "The New York Times", "url": "https://www.nytimes.com/athletic/7054513/2026/02/26/ai-womens-football-resources/"},
-        {"label": "Yahoo Sports", "url": "https://sports.yahoo.com/articles/wsl-women-clubs-monitoring-x-183106660.html"}
+        {"label": "SportsPro", "url": "https://www.sportspro.com/news/sports-tech-report-ai-sportradar-february-2026/"},
+        {"label": "Business Wire", "url": "https://www.businesswire.com/news/home/20260223005168/en/Sports-Tech-Report"}
       ]
     },
     {
-      "event_id": "ai-disruption-markets-004",
-      "headline": "Wall St Week Ahead: AI disruption looms over markets with US jobs data on tap.",
-      "domain": "finance",
-      "why_new_this_week": "This report was published on March 2, 2026, and outlines upcoming financial indicators affected by AI trends.",
+      "event_id": "ai-in-2026-global-sports-outlook",
+      "headline": "2026 Global Sports Industry Outlook by Deloitte",
+      "domain": "sport+economy",
+      "why_new_this_week": "The report released this week outlines trends and predictions regarding AI's impact on the sports sector in 2026.",
       "validated_facts": [
-        "Market analysts are anticipating significant impacts from AI trends on stock movements, particularly as US jobs data is released.",
-        "Concerns over AI's influence are causing volatility within stock markets."
+        "The report discusses AI's reshaping of the operational landscape for sports organizations.",
+        "Highlights include the convergence of sports, media, and entertainment."
       ],
-      "editorial_angle": "The financial sector is bracing for the outcomes of AI integration, highlighting the importance of adaptability in investment strategies.",
+      "editorial_angle": "Deloitte's outlook provides a comprehensive analysis of how emerging technologies will redefine the future of sports.",
       "sources": [
-        {"label": "Reuters", "url": "https://www.reuters.com/world/asia-pacific/wall-st-week-ahead-ai-disruption-looms-over-markets-with-us-jobs-data-tap-2026-03-02/"},
-        {"label": "Los Angeles Times", "url": "https://www.latimes.com/business/story/2026-02-24/stocks-rise-after-getting-reminder-of-ais-potential-upsides"}
+        {"label": "Deloitte Insights", "url": "https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/sports-industry-outlook.html"},
+        {"label": "PwC", "url": "https://www.pwc.com/us/en/industries/tmt/library/sports-outlook-north-america.html"}
       ]
     }
   ]

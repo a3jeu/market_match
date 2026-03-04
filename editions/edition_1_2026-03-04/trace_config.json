@@ -1,0 +1,5 @@
+{
+  "CREWAI_TRACING_ENABLED": "true",
+  "OTEL_SDK_DISABLED": "false",
+  "OTEL_TRACES_EXPORTER": "otlp"
+}

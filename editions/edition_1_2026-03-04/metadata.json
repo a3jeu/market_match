@@ -1,0 +1,7 @@
+{
+  "edition_number": 1,
+  "edition_date": "2026-03-04",
+  "news_count": 4,
+  "writing_model": "gpt-5-mini",
+  "research_model": "gpt-4o-mini"
+}

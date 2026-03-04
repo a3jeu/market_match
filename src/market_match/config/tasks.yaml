@@ -2,13 +2,13 @@ scout_news_task:
   description: >
     Nous préparons l'édition #{edition_number} de Market & Match pour la date {edition_date}.
     Utilise la recherche web (Serper) pour trouver 10 à 14 nouvelles IA des 7 derniers jours,
-    strictement reliées au sport ou à la finance (ou les deux).
+    strictement reliées au sport, à la finance ou à l'économie (ou les trois).
 
     Contraintes de collecte:
     - Pour chaque nouvelle pressentie, fais au moins 2 recherches web ciblées.
     - Privilégie annonces officielles, médias crédibles, billets techniques, résultats mesurables.
     - Évite rumeurs et contenus trop marketing.
-    - Inclus au minimum 2 sources par nouvelle potentielle.
+    - Inclus de 2 à 3 sources par nouvelle potentielle.
 
     IMPORTANT: Réponds en JSON strict uniquement (pas de markdown, pas de texte autour).
 
@@ -19,7 +19,7 @@ scout_news_task:
           "event_id": "id-court-et-stable",
           "headline": "...",
           "summary": "...",
-          "domain": "sport|finance|sport+finance",
+          "domain": "sport|finance|sport+finance|economy|sport+economy|finance+economy|sport+finance+economy",
           "why_new_this_week": "...",
           "sources": [
             {"label": "...", "url": "https://..."}
@@ -50,7 +50,7 @@ curate_and_validate_task:
         {
           "event_id": "...",
           "headline": "...",
-          "domain": "sport|finance|sport+finance",
+          "domain": "sport|finance|economy|sport+finance|sport+economy|finance+economy|sport+finance+economy",
           "why_new_this_week": "...",
           "validated_facts": ["..."],
           "editorial_angle": "...",
@@ -68,3 +68,195 @@ curate_and_validate_task:
   expected_output: >
     Un JSON strict avec 4 à 6 nouvelles validées dans selected_news.
   agent: fact_checker
+
+# ─── Top-up tasks (used when first selection pass returns fewer than 4 news) ──
+# {found_count}, {needed_count}, {existing_event_ids} are injected at runtime.
+
+topup_scout_task:
+  description: >
+    Le premier passage de recherche n'a retourné que {found_count} nouvelles validées (minimum requis: 4).
+    Tu dois trouver {needed_count} nouvelles supplémentaires pour compléter l'édition.
+
+    IDs déjà collectés à NE PAS répéter: {existing_event_ids}
+
+    Élargis ta recherche:
+    - Inclus des nouvelles IA plus générales (startups, régulation, infrastructure, modèles).
+    - Considère aussi des nouvelles des 14 derniers jours si les 7 derniers jours sont insuffisants.
+    - Diversifie les domaines (sport ET finance ET économie générales si nécessaire).
+    - Inclus au minimum 2 sources par nouvelle.
+
+    IMPORTANT: Réponds en JSON strict uniquement.
+
+    Structure attendue:
+    {
+      "candidates": [
+        {
+          "event_id": "id-court-et-stable",
+          "headline": "...",
+          "summary": "...",
+          "domain": "sport|finance|economy|sport+finance|sport+economy|finance+economy|sport+finance+economy",
+          "why_new_this_week": "...",
+          "sources": [
+            {"label": "...", "url": "https://..."}
+          ]
+        }
+      ]
+    }
+  expected_output: >
+    Un JSON strict avec au moins {needed_count} nouvelles candidates supplémentaires.
+  agent: trend_scout
+
+topup_curate_task:
+  description: >
+    Sur la base des nouvelles candidates supplémentaires trouvées, valide et retiens
+    les meilleures pour compléter l'édition.
+
+    IDs déjà validés à NE PAS répéter: {existing_event_ids}
+
+    Étapes obligatoires:
+    1) Utilise l'outil d'historique pour vérifier les doublons historiques.
+    2) Valide chaque nouvelle candidate avec 2-3 sources (recoupement web si nécessaire).
+    3) Retourne UNIQUEMENT des nouvelles dont l'event_id n'est PAS dans existing_event_ids.
+
+    IMPORTANT: Réponds en JSON strict uniquement.
+
+    Structure attendue:
+    {
+      "selected_news": [
+        {
+          "event_id": "...",
+          "headline": "...",
+          "domain": "...",
+          "why_new_this_week": "...",
+          "validated_facts": ["..."],
+          "editorial_angle": "...",
+          "sources": [
+            {"label": "...", "url": "https://..."}
+          ]
+        }
+      ]
+    }
+
+    Retourne entre 1 et {needed_count} nouvelles supplémentaires.
+  expected_output: >
+    JSON strict avec de nouvelles supplémentaires validées (entre 1 et {needed_count}).
+  agent: fact_checker
+
+
+# ─── Per-news writing tasks ────────────────────────────────────────────────
+# These templates expect {news_json} to be injected at runtime via format_template().
+
+title_task:
+  description: >
+    Écris un titre FR et un titre EN pour la nouvelle suivante.
+    Le titre doit décrire une action ou un résultat concret.
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"title_fr":"...", "title_en":"..."}
+  expected_output: >
+    JSON strict avec title_fr et title_en.
+
+intro_task:
+  description: >
+    Rédige une phrase introductrice FR et EN (une seule phrase par langue),
+    basée sur la nouvelle validée.
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"intro_fr":"...", "intro_en":"..."}
+  expected_output: >
+    JSON strict avec intro_fr et intro_en.
+
+essentials_task:
+  description: >
+    Rédige la section L'essentiel (FR) et The Essentials (EN) en 1 à 2 phrases par langue.
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"essentiel_fr":"...", "essentials_en":"..."}
+  expected_output: >
+    JSON strict avec essentiel_fr et essentials_en.
+
+practice_task:
+  description: >
+    Rédige la section En pratique (FR) et In Practice (EN) en 3 à 5 phrases par langue.
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"pratique_fr":"...", "in_practice_en":"..."}
+  expected_output: >
+    JSON strict avec pratique_fr et in_practice_en.
+
+breakdown_task:
+  description: >
+    Rédige la section Décryptage (FR) et Breakdown (EN) en 3 à 5 phrases par langue.
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"decryptage_fr":"...", "breakdown_en":"..."}
+  expected_output: >
+    JSON strict avec decryptage_fr et breakdown_en.
+
+stake_task:
+  description: >
+    Rédige la section L'enjeu (FR) et What's at Stake (EN) en 3 à 5 phrases par langue,
+    avec bénéficiaires et perdants potentiels.
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"enjeu_fr":"...", "whats_at_stake_en":"..."}
+  expected_output: >
+    JSON strict avec enjeu_fr et whats_at_stake_en.
+
+verdict_task:
+  description: >
+    Rédige un verdict tranché en 1 à 2 phrases par langue (FR/EN).
+    NOUVELLE SOURCE: {news_json}
+    Réponds uniquement en JSON: {"verdict_fr":"...", "verdict_en":"..."}
+  expected_output: >
+    JSON strict avec verdict_fr et verdict_en.
+
+assemble_task:
+  description: >
+    Assemble toutes les sections précédentes dans UN JSON strict avec les clés EXACTES:
+    title_fr, title_en, intro_fr, intro_en, essentiel_fr, essentials_en, pratique_fr,
+    in_practice_en, decryptage_fr, breakdown_en, enjeu_fr, whats_at_stake_en,
+    verdict_fr, verdict_en, image_prompt_en, sources.
+    image_prompt_en doit être spécifique à CETTE nouvelle (pas générique), format paysage.
+    NOUVELLE SOURCE: {news_json}
+    sources doit être une liste de 2 à 3 objets {"label":"...","url":"https://..."}.
+  expected_output: >
+    JSON strict final pour une nouvelle.
+
+# ─── Edition-level writing tasks ──────────────────────────────────────────
+# {edition_number} and {news_items_json} are injected at runtime.
+
+newsletter_title_task:
+  description: >
+    Crée les titres FR/EN pour l'édition #{edition_number}.
+    Respecte strictement le format: Market & Match #N: ...
+    NOUVELLES: {news_items_json}
+    Réponds uniquement en JSON: {"title_fr":"Market & Match #N: ...", "title_en":"Market & Match #N: ..."}
+  expected_output: >
+    JSON strict avec title_fr et title_en.
+
+newsletter_intro_task:
+  description: >
+    Génère l'introduction FR/EN de la newsletter.
+    CONTRAINTES intro_sentence_fr:
+    - Commence EXACTEMENT par : "Dans l'édition d'aujourd'hui de Market & Match,"
+    - Termine en 1 seule phrase, sans liste.
+    CONTRAINTES intro_bullets_fr / intro_bullets_en:
+    - 1 bullet par nouvelle (4 à 6 bullets au total).
+    - Chaque bullet : 1 phrase courte et percutante, max 15 mots.
+    - Commence par un verbe d'action ou un angle fort, pas par le nom de l'entreprise.
+    - Pas de répétition entre bullets.
+    NOUVELLES: {news_items_json}
+    Réponds uniquement en JSON: {"intro_sentence_fr":"...", "intro_bullets_fr":["..."], "intro_sentence_en":"...", "intro_bullets_en":["..."]}
+  expected_output: >
+    JSON strict avec intro sentence + bullet lists courts et accrocheurs FR/EN.
+
+# {platform}, {placeholder_rule}, {char_limit}, {title_fr}, {news_items_json} injected at runtime.
+social_post_task:
+  description: >
+    Rédige un texte {platform} en français pour partager la newsletter Market & Match.
+    RÈGLES DE TON:
+    - Commence par une phrase personnelle du style : "Cette semaine dans Market & Match, …"
+    - Ton naturel, direct, comme si tu partageais une découverte à tes abonnés.
+    - Quelques hashtags pertinents à la fin.
+    - {placeholder_rule}
+    - {char_limit}
+    TITRE: {title_fr}
+    NOUVELLES: {news_items_json}
+    Réponds uniquement en JSON: {"post":"..."}
+  expected_output: >
+    JSON strict avec post.
