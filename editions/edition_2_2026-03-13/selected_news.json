@@ -1,0 +1,124 @@
+{
+  "news": [
+    {
+      "title": "Body scans, ref cams and football AI: Inside the World Cup’s new era",
+      "topic": "sport",
+      "url": "https://www.nytimes.com/athletic/7087240/2026/03/06/ai-world-cup-technology-ref-camera-body-scans/",
+      "article_content": "The New York Times examines how AI is shaping the 2026 World Cup, from body-scanning analytics and AI-assisted refereeing to automated match-tracking systems. The piece discusses pilots underway, potential benefits in decision accuracy and broadcast experience, and the challenges around transparency, bias, and data privacy for players and officials.",
+      "published_at": "2026-03-06",
+      "source": "New York Times",
+      "additional_sources": [
+        {
+          "title": "FIFA and Lenovo unveil multiple AI-powered innovations ahead of World Cup 2026",
+          "url": "https://inside.fifa.com/media-releases/lenovo-tech-world-ai-powered-innovations-world-cup-2026",
+          "published_at": "2026-01-07",
+          "source": "FIFA",
+          "article_content": "Football AI Pro, AI-enabled 3D player avatars and next-generation Referee View revealed at Lenovo Tech World 2026. Group of “Football AI” innovations aim to improve officiating, player-tracking, and broadcast experiences, with emphasis on transparency and data governance."
+        }
+      ],
+      "market_context_source": {
+        "title": "2026 Global Sports Industry Outlook",
+        "source": "Deloitte Insights",
+        "url": "https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/sports-industry-outlook.html",
+        "published_at": "2026-02-17",
+        "article_content": "AI is reshaping operations, capital is scaling ownership, sports are converging with media and entertainment, and venues are evolving into year-round platforms. The outlook emphasizes AI as an internal connectivity layer, back-office efficiency, real-time fan analytics, and the growing integration of sports assets into broader entertainment ecosystems."
+      }
+    },
+    {
+      "title": "SBJ Daily: Adobe, MLB expand AI tools; PGA Tour changes on the horizon",
+      "topic": "sport",
+      "url": "https://www.sportsbusinessjournal.com/Daily/Issues/2026/03/09/",
+      "article_content": "Sports Business Journal reports on the growing adoption of AI across sports, including Adobe's and MLB's expanded AI-powered analytics and fan-engagement tools, and discusses implications for team operations, marketing, and monetization strategies.",
+      "published_at": "2026-03-09",
+      "source": "Sports Business Journal",
+      "additional_sources": [
+        {
+          "title": "Adobe and Major League Baseball Expand Partnership to Power AI-Driven Fan Experiences",
+          "url": "https://news.adobe.com/news/2026/03/adobe-major-league-baseball-expand-partnership",
+          "published_at": "2026-03-09",
+          "source": "Adobe Newsroom",
+          "article_content": "Adobe expands MLB partnership to bring AI-powered creativity and personalized fan experiences across digital channels; includes opening-day sponsorship through 2028 and broader use across marketing and content creation."
+        }
+      ],
+      "market_context_source": {
+        "title": "Sports Industry Outlook 2026 North America - PwC",
+        "source": "PwC",
+        "url": "https://www.pwc.com/us/en/industries/tmt/library/sports-outlook-north-america.html",
+        "published_at": "2026-02-27",
+        "article_content": "The North America Sports Industry Outlook 2026 emphasizes digital fan engagement, membership-driven ticketing, AI-enabled operations, and athlete economics as core levers of growth as venues transform and media ecosystems converge."
+      }
+    },
+    {
+      "title": "AI disruption will challenge lending decisions in coming years - Goldman exec says",
+      "topic": "finance",
+      "url": "https://www.reuters.com/business/finance/ai-disruption-will-challenge-lending-decisions-coming-years-goldman-exec-says-2026-03-04/",
+      "article_content": "A Goldman Sachs executive warned that artificial intelligence-driven models are reshaping risk assessment and lending decision-making, creating uncertainty for banks as they expand AI usage. The piece discusses how lenders must rethink credit-scoring, model governance, and the balance between automation and human oversight amid fast-paced AI deployment.",
+      "published_at": "2026-03-04",
+      "source": "Reuters",
+      "additional_sources": [
+        {
+          "title": "As bond investors fret over an AI bubble, what investors need to know",
+          "url": "https://www.cnbc.com/2026/03/04/as-bond-investors-fret-over-an-ai-bubble-what-investors-need-to-know.html",
+          "published_at": "2026-03-04",
+          "source": "CNBC",
+          "article_content": "Market commentary on AI-driven market risks and potential effects on credit markets; explains potential AI bubble dynamics, implications for risk pricing and lending."
+        }
+      ],
+      "market_context_source": {
+        "title": "IMF sees steady global growth in 2026 as AI boom offsets trade headwinds",
+        "url": "https://www.reuters.com/business/imf-sees-steady-global-growth-2026-ai-boom-offsets-trade-headwinds-2026-01-19/",
+        "published_at": "2026-01-19",
+        "source": "Reuters",
+        "article_content": "The IMF forecasts global GDP growth around 3.3% in 2026, suggesting AI investment and supportive policy measures can offset trade headwinds and support expansion."
+      }
+    },
+    {
+      "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+      "topic": "finance",
+      "url": "https://www.reuters.com/technology/citigroup-raises-ai-capex-revenue-forecasts-amid-rapid-enterprise-adoption-2026-03-10/",
+      "article_content": "Citigroup updated its AI spending and revenue outlook for 2026–2030, lifting global AI capex estimates to about 8.9 trillion and forecasting higher AI-driven revenue as large enterprises accelerate deployment. The bank cites strong momentum across industries and ongoing investments in hyperscalers and AI software.",
+      "published_at": "2026-03-10",
+      "source": "Reuters",
+      "additional_sources": [
+        {
+          "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+          "url": "https://finance.yahoo.com/news/citigroup-raises-ai-capex-revenue-141410341.html",
+          "published_at": "2026-03-10",
+          "source": "Yahoo Finance",
+          "article_content": "Citigroup updated its AI capex and revenue outlook; global AI capex forecast raised to 8.9 trillion for 2026-2030; predicted AI-driven revenue of 3.3 trillion; cites momentum across industries and investments in hyperscalers."
+        }
+      ],
+      "market_context_source": {
+        "title": "Big Tech's $600 billion spending plans exacerbate investors' AI fears",
+        "url": "https://www.reuters.com/technology/big-techs-600-billion-spending-plans-exacerbate-investors-ai-fears-2026-02-06/",
+        "published_at": "2026-02-06",
+        "source": "Reuters",
+        "article_content": "A broad AI capex surge by major tech firms is shaping market expectations and raising concerns about demand realization, valuations, and the timing of AI-driven productivity benefits across economies."
+      }
+    },
+    {
+      "title": "Chinese banks boost loans to tech sector as Beijing ramps up AI push",
+      "topic": "economy",
+      "url": "https://www.reuters.com/business/finance/chinese-banks-boost-loans-tech-sector-beijing-ramps-up-ai-push-2026-03-12/",
+      "article_content": "Beijing’s policy stance to accelerate AI adoption is driving Chinese banks to increase lending to tech firms and AI-related ventures, signaling a credit impulse to support domestic AI development and deployment.",
+      "published_at": "2026-03-12",
+      "source": "Reuters",
+      "additional_sources": [
+        {
+          "title": "Chinese AI stocks to drive market gains in 2026, though pace set to cool, banks say",
+          "url": "https://www.scmp.com/business/banking-finance/article/3339265/chinese-ai-stocks-drive-market-gains-2026-though-pace-set-cool-banks-say",
+          "published_at": "2026-02-20",
+          "source": "South China Morning Post",
+          "article_content": "AI stock gains are buoyed by policy support, even as banks caution about a potential cooling in AI lending; markets anticipate continued tech investment."
+        }
+      ],
+      "market_context_source": {
+        "title": "AI Can Lift Global Growth - IMF",
+        "url": "https://www.imf.org/en/publications/fandd/issues/2026/03/point-of-view-ai-can-lift-global-growth-marcello-estevao",
+        "published_at": "2026-03-01",
+        "source": "IMF",
+        "article_content": "IMF argues that AI adoption can lift potential growth and productivity, but results depend on governance, labor market policies, and global trade dynamics."
+      }
+    }
+  ]
+}

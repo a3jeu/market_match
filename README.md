@@ -52,12 +52,6 @@ Lancer avec les valeurs par défaut (date du jour + prochain numéro d'édition)
 crewai run
 ```
 
-Lancer avec paramètres personnalisés via JSON CLI:
-
-```bash
-python -m market_match.main "{\"edition_number\": 8, \"edition_date\": \"2026-03-03\"}"
-```
-
 ## Sorties générées
 
 Chaque édition est exportée dans:

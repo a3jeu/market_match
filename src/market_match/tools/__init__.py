@@ -1,7 +1,8 @@
-from .custom_tool import ReadPublishedNewsTool, SavePublishedEditionTool, build_signature
+from .news_history_tools import ReadPublishedNewsTool, SavePublishedEditionTool
+from .newsletter_html_tools import AssembleNewsletterHtmlTool
 
 __all__ = [
 	"ReadPublishedNewsTool",
 	"SavePublishedEditionTool",
-	"build_signature",
+	"AssembleNewsletterHtmlTool",
 ]

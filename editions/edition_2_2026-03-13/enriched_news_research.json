@@ -1,0 +1,137 @@
+[
+  {
+    "title": "Body scans, ref cams and football AI: Inside the World Cup's new era",
+    "topic": "AI in football - World Cup 2026",
+    "url": "https://www.nytimes.com/athletic/7087240/2026/03/06/ai-world-cup-technology-ref-camera-body-scans/",
+    "published_at": "2026-03-06",
+    "source": "New York Times",
+    "article_content": "The New York Times examines how AI is shaping the 2026 World Cup, from body-scanning analytics and AI-assisted refereeing to automated match-tracking systems. The piece discusses pilots underway, potential benefits in decision accuracy and broadcast experience, and the challenges around transparency, bias, and data privacy for players and officials.",
+    "additional_source": {
+      "title": "FIFA and Lenovo unveil multiple AI-powered innovations ahead of World Cup 2026",
+      "url": "https://inside.fifa.com/media-releases/lenovo-tech-world-ai-powered-innovations-world-cup-2026",
+      "published_at": "2026-01-07",
+      "source": "FIFA",
+      "article_content": "Football AI Pro, AI-enabled 3D player avatars and next-generation Referee View revealed at Lenovo Tech World 2026. Group of “Football AI” innovations aim to improve officiating, player-tracking, and broadcast experiences, with emphasis on transparency and data governance."
+    }
+  },
+  {
+    "title": "Meet the WorldTour cycling team who want to use AI to drive their recruitment and performance",
+    "topic": "AI in sports - cycling",
+    "url": "https://www.nytimes.com/athletic/7093567/2026/03/10/visma-lease-a-bike-mistral-ai-tour-de-france-vingegaard/",
+    "published_at": "2026-03-10",
+    "source": "New York Times",
+    "article_content": "The Times profiles Visma-Lease a Bike, a WorldTour team exploring a partnership with Mistral AI to harness machine learning for training analytics, race strategy, and talent recruitment ahead of the Tour de France. The piece highlights how real-time and historical data can inform rider selection and performance optimization.",
+    "additional_source": {
+      "title": "Lease a Bike joins forces with Artificial Intelligence pioneer Mistral AI",
+      "url": "https://www.teamvismaleaseabike.com/news/innovation/team-visma-lease-a-bike-joins-forces-with-artificial-intelligence-pioneer-mistral-ai/",
+      "published_at": "2026-02-28",
+      "source": "Team Visma | Lease a Bike",
+      "article_content": "Visma-Lease a Bike announced a collaboration with Mistral AI to apply AI to performance analytics, race strategy, and talent recruitment, with branding on team jerseys and vehicles; no financial terms disclosed."
+    }
+  },
+  {
+    "title": "SBJ Daily: Adobe, MLB expand AI tools; PGA Tour changes on the horizon",
+    "topic": "AI in sports - analytics and fan engagement",
+    "url": "https://www.sportsbusinessjournal.com/Daily/Issues/2026/03/09/",
+    "published_at": "2026-03-09",
+    "source": "Sports Business Journal",
+    "article_content": "Sports Business Journal reports on the growing adoption of AI across sports, including Adobe's and MLB's expanded AI-powered analytics and fan-engagement tools, and discusses implications for team operations, marketing, and monetization strategies.",
+    "additional_source": {
+      "title": "Adobe and Major League Baseball Expand Partnership to Power AI-Driven Fan Experiences",
+      "url": "https://news.adobe.com/news/2026/03/adobe-major-league-baseball-expand-partnership",
+      "published_at": "2026-03-09",
+      "source": "Adobe Newsroom",
+      "article_content": "Adobe expands MLB partnership to bring AI-powered creativity and personalized fan experiences across digital channels; includes opening-day sponsorship through 2028 and broader use across marketing and content creation."
+    }
+  },
+  {
+    "title": "AI disruption will challenge lending decisions in coming years - Goldman exec says",
+    "topic": "AI in finance - lending and risk",
+    "url": "https://www.reuters.com/business/finance/ai-disruption-will-challenge-lending-decisions-coming-years-goldman-exec-says-2026-03-04/",
+    "published_at": "2026-03-04",
+    "source": "Reuters",
+    "article_content": "A Goldman Sachs executive warned that artificial intelligence-driven models are reshaping risk assessment and lending decision-making, creating uncertainty for banks as they expand AI usage. The piece discusses how lenders must rethink credit-scoring, model governance, and the balance between automation and human oversight amid fast-paced AI deployment.",
+    "additional_source": {
+      "title": "As bond investors fret over an AI bubble, what investors need to know",
+      "url": "https://www.cnbc.com/2026/03/04/as-bond-investors-fret-over-an-ai-bubble-what-investors-need-to-know.html",
+      "published_at": "2026-03-04",
+      "source": "CNBC",
+      "article_content": "Market commentary on AI-driven market risks and potential effects on credit markets; explains potential AI bubble dynamics, implications for risk pricing and lending."
+    }
+  },
+  {
+    "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+    "topic": "AI in finance - corporate AI spending",
+    "url": "https://www.reuters.com/technology/citigroup-raises-ai-capex-revenue-forecasts-amid-rapid-enterprise-adoption-2026-03-10/",
+    "published_at": "2026-03-10",
+    "source": "Reuters",
+    "article_content": "Citigroup updated its AI spending and revenue outlook for 2026–2030, lifting global AI capex estimates to about 8.9 trillion and forecasting higher AI-driven revenue as large enterprises accelerate deployment. The bank cites strong momentum across industries and ongoing investments in hyperscalers and AI software.",
+    "additional_source": {
+      "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+      "url": "https://finance.yahoo.com/news/citigroup-raises-ai-capex-revenue-141410341.html",
+      "published_at": "2026-03-10",
+      "source": "Yahoo Finance",
+      "article_content": "Citigroup updated its AI capex and revenue outlook; global AI capex forecast raised to 8.9 trillion for 2026-2030; predicted AI-driven revenue of 3.3 trillion; cites momentum across industries and investments in hyperscalers."
+    }
+  },
+  {
+    "title": "Chinese banks boost loans to tech sector as Beijing ramps up AI push",
+    "topic": "Economy - credit impulse to AI sector in China",
+    "url": "https://www.reuters.com/business/finance/chinese-banks-boost-loans-tech-sector-beijing-ramps-up-ai-push-2026-03-12/",
+    "published_at": "2026-03-12",
+    "source": "Reuters",
+    "article_content": "Beijing’s policy stance to accelerate AI adoption is driving Chinese banks to increase lending to tech firms and AI-related ventures, signaling a credit impulse to support domestic AI development and deployment.",
+    "additional_source": {
+      "title": "Chinese AI stocks to drive market gains in 2026, though pace set to cool, banks say",
+      "url": "https://www.scmp.com/business/banking-finance/article/3339265/chinese-ai-stocks-drive-market-gains-2026-though-pace-set-cool-banks-say",
+      "published_at": "2026-02-20",
+      "source": "South China Morning Post",
+      "article_content": "AI stock gains are buoyed by policy support, even as banks caution about a potential cooling in AI lending; markets anticipate continued tech investment."
+    }
+  },
+  {
+    "title": "World Development Report 2026: Artificial Intelligence for Development",
+    "topic": "Economy - AI development and policy",
+    "url": "https://www.worldbank.org/en/publication/wdr2026",
+    "published_at": "2023",
+    "source": "World Bank",
+    "article_content": "World Development Report 2026 will investigate the development implications of AI as a general-purpose technology (GPT) and assess what might be the best policy choices to leverage the benefits of AI while offsetting potential risks. It will focus on the institutional and governance arrangements needed to ensure inclusive and responsible deployment of AI. The aim of the Report is to provide a developing-country perspective on a topic for which the academic and policy discussion has focused primarily on high-income countries.",
+    "additional_source": {
+      "title": "IMF sees steady global growth in 2026 as AI boom offsets trade headwinds",
+      "url": "https://www.reuters.com/business/imf-sees-steady-global-growth-2026-ai-boom-offsets-trade-headwinds-2026-01-19/",
+      "published_at": "2026-01-19",
+      "source": "Reuters",
+      "article_content": "IMF forecasts global GDP growth around 3.3% in 2026, noting AI investment, tax incentives, and tariff reductions can offset some trade headwinds and support growth."
+    }
+  },
+  {
+    "title": "AI and the global productivity divide | OECD",
+    "topic": "Economy - productivity and AI",
+    "url": "https://www.oecd.org/en/publications/ai-and-the-global-productivity-divide_c315ea90-en.html",
+    "published_at": "2024-01-01",
+    "source": "OECD",
+    "article_content": "This paper examines the potential of AI to foster productivity growth in Low-Income Countries (LICs) and Lower-Middle-Income Countries (LMICs).",
+    "additional_source": {
+      "title": "AI Can Lift Global Growth - IMF",
+      "url": "https://www.imf.org/en/publications/fandd/issues/2026/03/point-of-view-ai-can-lift-global-growth-marcello-estevao",
+      "published_at": "2026-03-01",
+      "source": "IMF",
+      "article_content": "Tariff wars, immigration restrictions, and fiscal imbalances have left the world economy more fragmented and less predictable; AI adoption could boost potential GDP and productivity."
+    }
+  },
+  {
+    "title": "Tracking AI's Contribution to GDP Growth | St. Louis Fed",
+    "topic": "Economy - AI's GDP impact",
+    "url": "https://www.stlouisfed.org/on-the-economy/2026/jan/tracking-ai-contribution-gdp-growth",
+    "published_at": "2026-01",
+    "source": "St. Louis Fed",
+    "article_content": "Our analysis suggests that the recent investments in AI-related categories have contributed significantly to the real GDP growth in 2025. It has...",
+    "additional_source": {
+      "title": "AI Moment? Possibilities, Productivity, and Policy",
+      "url": "https://www.frbsf.org/research-and-insights/publications/economic-letter/2026/02/ai-moment-possibilities-productivity-policy/",
+      "published_at": "2026-02-01",
+      "source": "Federal Reserve Bank of San Francisco",
+      "article_content": "What we know about AI and its impact on productivity growth and the economy remains uncertain. Transformations take time; continued investment in R&D, education, and digital infrastructure is key."
+    }
+  }
+]

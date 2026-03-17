@@ -1,0 +1,527 @@
+##############################################
+# --------- RESEARCH DEPARTMENT --------------
+##############################################
+find_ai_sports_news:
+  description: >
+    Search the web for {news_per_topic} recent news items related to artificial intelligence in the sports industry.
+    The news must be recent (ideally less than 7 days old), concrete (no speculation or vague announcements),
+    and actionable (with clear implications for professionals in the sports industry).
+    Compare multiple sources. Ignore news already covered in previous editions. You may use the
+    read_published_news_history tool to check past editions.
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    The news should include research breakthroughs that advance the state of the art, major regulatory changes,
+    or industrial deployments that demonstrate real economic value.
+    Prioritize official announcements, credible media outlets, technical blog posts, and measurable results.
+    You may use the read_website_content tool to extract information from websites.
+  expected_output: >
+    A list of {news_per_topic} recent news items related to AI in the sports industry.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_sports_news.json
+  agent: ai_sports_news_scout
+  # description: >
+  #   Recherche sur le web {news_per_topic} nouvelles récentes concernant l'intelligence artificielle dans l'industrie du sport.
+  #   Les nouvelles doivent être récentes (idéalement moins de 7 jours), concrètes (pas de spéculations ou d'annonces vagues) 
+  #   et actionnables (avec des implications claires pour les professionnels du sport).
+  #   Compare plusieurs sources. Ignore les nouvelles déjà traitées dans les éditions passées. Tu peux utiliser l'outil read_published_news_history pour vérifier les éditions passées.
+  #   Ignore les annonces marketing, les rumeurs non vérifiées et les sujets déjà traités dans les éditions passées.
+  #   Les nouvelles doivent être des avancées en recherche qui modifient l'état de l'art, des changements réglementaires majeurs 
+  #   ou des déploiements industriels qui provent une valeur économique réelle.
+  #   Privilégie annonces officielles, médias crédibles, billets techniques, résultats mesurables.
+  #   Tu peux utiliser l'outil read_website_content pour extraire des informations de sites web.
+  # expected_output: >
+  #   Une liste de {news_per_topic} nouvelles récentes concernant l'IA dans le sport.
+  # output_file: editions/edition_{edition_number}_{edition_date}/search_sports_news.json
+  # agent: ai_sports_news_scout
+
+find_ai_finance_news:
+  description: >
+    Search the web for {news_per_topic} recent news stories about artificial intelligence in the finance industry.
+    The stories must be recent (ideally less than 7 days old), concrete (no speculation or vague announcements),
+    and actionable (with clear implications for finance professionals).
+    Compare multiple sources. Ignore news already covered in previous editions.
+    You may use the read_published_news_history tool to check past editions.
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    STRICT DOMAIN BOUNDARY:
+    - Keep ONLY stories where the primary angle is financial services, financial institutions, financial markets,
+      risk/compliance in finance, or finance-specific regulation.
+    - Exclude macroeconomy-first stories (inflation, GDP, labor market, productivity at economy-wide scale)
+      unless the main subject is explicitly finance institutions or financial market structure.
+    - Exclude generic "AI and economy" stories that do not have a direct finance-industry core.
+    OUTPUT CONSTRAINT:
+    - For every returned item, set topic to exactly "finance".
+    Look for stories related for example to:
+    - AI deployment in banks, asset managers, insurers, fintechs, exchanges, or payment companies;
+    - regulatory changes affecting the use of AI in finance;
+    - important research advances or technical breakthroughs applied to finance;
+    Prioritize official announcements, credible media sources, technical blog posts, and measurable results.
+    You may use the read_website_content tool to extract information from websites.
+  expected_output: >
+    A list of {news_per_topic} recent news stories related to AI in finance.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_finance_news.json
+  agent: ai_finance_news_scout
+  # description: >
+  #   Recherche sur le web {news_per_topic} nouvelles récentes concernant l'intelligence artificielle dans l'industrie de la finance.
+  #   Les nouvelles doivent être récentes (idéalement moins de 7 jours), concrètes (pas de spéculations ou d'annonces vagues) 
+  #   et actionnables (avec des implications claires pour les professionnels de la finance).
+  #   Compare plusieurs sources. Ignore les nouvelles déjà traitées dans les éditions passées. Tu peux utiliser l'outil read_published_news_history pour vérifier les éditions passées.
+  #   Ignore les annonces marketing, les rumeurs non vérifiées et les sujets déjà traités dans les éditions passées.
+  #   Recherche des nouvelles portant par exemple sur :
+  #   - le déploiement de l'IA dans les banques, les gestionnaires d'actifs, les assureurs, les fintechs, les bourses ou les entreprises de paiement;
+  #   - les changements réglementaires affectant l'utilisation de l'IA dans la finance;
+  #   - des avancées importantes en recherche ou des percées techniques appliquées à la finance;
+  #   Privilégie annonces officielles, médias crédibles, billets techniques, résultats mesurables.
+  #   Tu peux utiliser l'outil read_website_content pour extraire des informations de sites web.
+  # expected_output: >
+  #   Une liste de {news_per_topic} nouvelles récentes concernant l'IA dans la finance.
+  # output_file: editions/edition_{edition_number}_{edition_date}/search_finance_news.json
+  # agent: ai_finance_news_scout
+
+find_ai_economy_news:
+  description: >
+    Search the web for {news_per_topic} recent news stories about artificial intelligence and its impact on the economy.
+    The stories must be recent (ideally less than 7 days old), concrete (no speculation or vague announcements),
+    and actionable (with clear implications for economic actors, businesses, public decision-makers, or markets).
+    Compare multiple sources. Ignore news already covered in previous editions.
+    You may use the read_published_news_history tool to check past editions.
+
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    STRICT DOMAIN BOUNDARY:
+    - Keep ONLY stories where the primary angle is macroeconomy, labor markets, productivity, public policy,
+      industrial transformation at economy scale, or cross-sector economic impact.
+    - Exclude finance-industry-first stories (bank product launches, asset manager tooling, trading stack upgrades,
+      insurer/fintech internal deployments) unless the core story is the wider macroeconomic impact.
+    - Exclude company PR stories without explicit economy-level implications.
+    OUTPUT CONSTRAINT:
+    - For every returned item, set topic to exactly "economics".
+
+    Look for stories related, for example, to:
+    - the impact of AI on productivity, economic growth, or labor markets;
+    - major AI investments by companies, governments, or funds;
+    - public policies or regulations related to AI that have economic implications;
+    - economic transformations caused by automation or the adoption of AI across industries;
+    - credible economic analyses on the macroeconomic effects of AI;
+
+    The stories should ideally demonstrate both the positive and/or negative impacts of AI on the economy,
+    for example:
+    - productivity gains, creation of new industries, or economic opportunities;
+    - job losses, labor market transformations, or economic risks;
+    - regulatory challenges, concentration of economic power, or effects on competition;
+    - risks related to disinformation, cybersecurity, or malicious uses;
+
+    Prioritize official announcements, credible media outlets, technical publications,
+    government reports, and measurable results.
+
+    You may use the read_website_content tool to extract information from websites.
+  expected_output: >
+    A list of {news_per_topic} recent news stories about AI and the economy.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_economy_news.json
+  agent: ai_economy_news_scout
+  # description: >
+  #   Recherche sur le web {news_per_topic} nouvelles récentes concernant l'intelligence artificielle et son impact sur l'économie.
+  #   Les nouvelles doivent être récentes (idéalement moins de 7 jours), concrètes (pas de spéculations ou d'annonces vagues)
+  #   et actionnables (avec des implications claires pour les acteurs économiques, les entreprises, les décideurs publics ou les marchés).
+  #   Compare plusieurs sources. Ignore les nouvelles déjà traitées dans les éditions passées.
+  #   Tu peux utiliser l'outil read_published_news_history pour vérifier les éditions passées.
+
+  #   Ignore les annonces marketing, les rumeurs non vérifiées et les sujets déjà traités dans les éditions passées.
+
+  #   Recherche des nouvelles portant par exemple sur :
+  #   - l'impact de l'IA sur la productivité, la croissance économique ou les marchés du travail;
+  #   - les investissements majeurs en IA par des entreprises, gouvernements ou fonds;
+  #   - les politiques publiques ou régulations liées à l'IA ayant un impact économique;
+  #   - les transformations économiques causées par l'automatisation ou l'adoption de l'IA dans différents secteurs;
+  #   - les analyses économiques crédibles sur les effets macroéconomiques de l'IA;
+
+  #   Les nouvelles doivent idéalement démontrer les impacts positifs et/ou négatifs de l'IA sur l'économie,
+  #   par exemple :
+  #   - gains de productivité, création de nouvelles industries ou opportunités économiques;
+  #   - pertes d'emplois, transformations du marché du travail ou risques économiques;
+  #   - enjeux réglementaires, concentration du pouvoir économique ou effets sur la concurrence;
+  #   - risques liés à la désinformation, à la cybersécurité ou aux usages malveillants;
+
+  #   Privilégie les annonces officielles, les médias crédibles, les publications techniques,
+  #   les rapports gouvernementaux et les résultats mesurables.
+
+  #   Tu peux utiliser l'outil read_website_content pour extraire des informations de sites web.
+  # expected_output: >
+  #   Une liste de {news_per_topic} nouvelles récentes concernant l'IA et l'économie.
+  # output_file: editions/edition_{edition_number}_{edition_date}/search_economy_news.json
+  # agent: ai_economy_news_scout
+
+enrich_ai_news_research:
+  description: >
+    Review all the news items selected in the previous tasks covering sports, finance, and economics,
+    and enrich each of them with additional sources.
+    For each news item, find 1 to 2 additional sources or articles covering the same topic,
+    the same event, or the same primary announcement.
+
+    The additional sources must:
+    - be credible
+    - be different from the original article
+    - cover the same news or the same central event
+    - provide complementary details useful for writing
+    - avoid duplicates, near-identical copies, or simple reposts without added value
+
+    The goal is not to find new news items, but to enrich each already selected story
+    with additional context, for example:
+    - additional figures or data points
+    - quotes
+    - regulatory perspective
+    - market or economic perspective
+    - technical perspective
+    - reactions from industry actors
+    - limitations, risks, or measurable impacts
+
+    You may use the read_website_content tool to read the content of the articles.
+    Do not return an additional source if it is essentially redundant or too weak.
+  expected_output: >
+    A structured list containing, for each original news item, 1 to 2 additional sources
+    useful for writing, including a summary of their content and their added value.
+  output_file: editions/edition_{edition_number}_{edition_date}/enriched_news_research.json
+  agent: ai_news_enricher
+  context:
+    - find_ai_sports_news
+    - find_ai_finance_news
+    - find_ai_economy_news
+  # description:
+  #   Passe en revue toutes les nouvelles sélectionnées dans les tâches précédentes sur le sport, la finance et l'économie. 
+  #   puis enrichis chacune d'elles avec des sources additionnelles
+  #   Pour chaque nouvelle, trouve 1 à 2 sources ou articles supplémentaires sur le même sujet,
+  #   le même événement ou la même annonce principale.
+
+  #   Les sources supplémentaires doivent :
+  #   - être crédibles
+  #   - être différentes de l'article initial
+  #   - traiter de la même nouvelle ou du même événement central
+  #   - apporter des détails complémentaires utiles pour la rédaction
+  #   - éviter les doublons, les copies quasi identiques et les simples reprises sans valeur ajoutée
+
+  #   L'objectif n'est pas de trouver de nouvelles nouvelles, mais bien d'enrichir chaque nouvelle déjà sélectionnée
+  #   avec du contexte supplémentaire, par exemple :
+  #   - chiffres complémentaires
+  #   - citations
+  #   - angle réglementaire
+  #   - angle marché ou économique
+  #   - angle technique
+  #   - réactions d'acteurs du secteur
+  #   - limites, risques ou impacts mesurables
+
+  #   Tu peux utiliser l'outil read_website_content pour lire le contenu des articles.
+  #   Ne retourne pas de source supplémentaire si elle est essentiellement redondante ou trop faible.
+  # expected_output: >
+  #   Une liste structurée contenant, pour chaque nouvelle initiale, 1 à 2 sources supplémentaires
+  #   utiles à la rédaction, avec un résumé de leur contenu et leur valeur ajoutée.
+  # output_file: editions/edition_{edition_number}_{edition_date}/enriched_news_research.json
+  # agent: ai_news_enricher
+  # context:
+  #   - find_ai_sports_news
+  #   - find_ai_finance_news
+  #   - find_ai_economy_news
+
+select_best_ai_news:
+  description: >
+    Review all the proposed news items and select the {news_to_keep}
+    best news for a future newsletter about the impact of AI in the sports industry,
+    the finance industry, and the broader economy.
+
+    The target audience consists of readers passionate about technology,
+    artificial intelligence, sports, finance, and economics.
+
+    The selected news must be:
+    - recent;
+    - credible;
+    - sufficiently deep;
+    - technically interesting when relevant;
+    - useful for a high-quality newsletter;
+    - relevant for understanding the real impact of AI on sports, finance, or the economy;
+
+    Priority selection criteria:
+    - richness of the context provided by the additional sources
+    - editorial interest for a curious and demanding readership
+    - concrete, measurable, or structurally important impact
+    - potential to produce a strong in-depth article afterward
+    - keep exactly {news_to_keep} news if possible
+    - include at least one news about sports
+    - include at least one news about finance
+    - include at least one news about the economy
+    - avoid redundant news or news that are too similar to each other
+    - avoid topics that are too weak, overly promotional, or too general
+
+    You may use the read_website_content tool to consult the content of a news article.
+    Once the selection is complete, you must call the save_published_edition_history tool exactly once
+    to save the selected news in the publication history.
+  expected_output: >
+    A structured list of the {news_to_keep} best news selected for the newsletter.
+  output_file: editions/edition_{edition_number}_{edition_date}/selected_news.json
+  agent: ai_news_selector
+  context:
+    - enrich_ai_news_research
+  # description: >
+  #   Parcours toutes les nouvelles proposées et sélectionne les {news_to_keep}
+  #   meilleures nouvelles pour une future infolettre sur l'impact de l'IA dans l'industrie du sport, de la finance et sur l'économie.
+
+  #   Le lectorat cible est composé de passionnés de technologie, d'intelligence artificielle,
+  #   de sport, de finance et d'économie.
+
+  #   Les nouvelles retenues doivent être :
+  #   - récentes;
+  #   - crédibles;
+  #   - suffisamment profondes;
+  #   - techniquement intéressantes lorsque pertinent;
+  #   - utiles pour une infolettre de qualité;
+  #   - pertinentes pour comprendre l'impact réel de l'IA sur le sport, la finance ou l'économie;
+
+  #   Critères de sélection prioritaires :
+  #   - richesse du contexte fourni par les sources supplémentaires
+  #   - intérêt éditorial pour un lectorat curieux et exigeant
+  #   - caractère concret, mesurable ou structurant de l'impact
+  #   - potentiel à produire un bon article de fond par la suite
+  #   - garder exactement {news_to_keep} nouvelles si possible
+  #   - inclure au minimum une nouvelle sur le sport
+  #   - inclure au minimum une nouvelle sur la finance
+  #   - inclure au minimum une nouvelle sur l'économie
+  #   - éviter les nouvelles redondantes ou trop similaires entre elles
+  #   - éviter les sujets trop faibles, trop promotionnels ou trop généraux
+
+  #   Tu peux utiliser l'outil read_website_content pour consulter le contenu d'une nouvelle.
+  #   Une fois la sélection faite, tu dois appeler l'outil save_published_edition_history une seule fois pour sauvegarder
+  #   les nouvelles retenues dans l'historique de publication.
+  # expected_output: >
+  #   Une liste structurée des {news_to_keep} meilleures nouvelles retenues pour l'infolettre.
+  # output_file: editions/edition_{edition_number}_{edition_date}/selected_news.json
+  # agent: ai_news_selector
+  # context:
+  #   - enrich_ai_news_research
+
+##############################################
+# ---------- WRITING DEPARTMENT --------------
+##############################################
+
+# curate_and_validate_task:
+#   description: >
+#     À partir de la présélection, conserve exactement 4 à 6 nouvelles maximisant pertinence,
+#     diversité et clarté d'impact.
+
+#     Étapes obligatoires:
+#     1) Utilise l'outil d'historique des publications pour vérifier les sujets déjà traités.
+#     2) Écarte les nouvelles déjà couvertes (même événement, même annonce, même résultat).
+#     3) Pour chaque nouvelle retenue, recoupe les faits avec 2 à 3 sources.
+#     4) Corrige toute ambiguïté factuelle.
+
+#     IMPORTANT: Réponds en JSON strict uniquement (pas de markdown, pas de texte autour).
+
+#     Structure attendue:
+#     {
+#       "selected_news": [
+#         {
+#           "event_id": "...",
+#           "headline": "...",
+#           "domain": "sport|finance|economy|sport+finance|sport+economy|finance+economy|sport+finance+economy",
+#           "why_new_this_week": "...",
+#           "validated_facts": ["..."],
+#           "editorial_angle": "...",
+#           "sources": [
+#             {"label": "...", "url": "https://..."}
+#           ]
+#         }
+#       ]
+#     }
+
+#     Contraintes de sortie:
+#     - Entre 4 et 6 nouvelles exactement.
+#     - 2 à 3 sources par nouvelle.
+#     - Aucune nouvelle déjà traitée historiquement.
+#   expected_output: >
+#     Un JSON strict avec 4 à 6 nouvelles validées dans selected_news.
+#   agent: fact_checker
+
+# # ─── Top-up tasks (used when first selection pass returns fewer than 4 news) ──
+# # {found_count}, {needed_count}, {existing_event_ids} are injected at runtime.
+
+# topup_scout_task:
+#   description: >
+#     Le premier passage de recherche n'a retourné que {found_count} nouvelles validées (minimum requis: 4).
+#     Tu dois trouver {needed_count} nouvelles supplémentaires pour compléter l'édition.
+
+#     IDs déjà collectés à NE PAS répéter: {existing_event_ids}
+
+#     Élargis ta recherche:
+#     - Inclus des nouvelles IA plus générales (startups, régulation, infrastructure, modèles).
+#     - Considère aussi des nouvelles des 14 derniers jours si les 7 derniers jours sont insuffisants.
+#     - Diversifie les domaines (sport ET finance ET économie générales si nécessaire).
+#     - Inclus au minimum 2 sources par nouvelle.
+
+#     IMPORTANT: Réponds en JSON strict uniquement.
+
+#     Structure attendue:
+#     {
+#       "candidates": [
+#         {
+#           "event_id": "id-court-et-stable",
+#           "headline": "...",
+#           "summary": "...",
+#           "domain": "sport|finance|economy|sport+finance|sport+economy|finance+economy|sport+finance+economy",
+#           "why_new_this_week": "...",
+#           "sources": [
+#             {"label": "...", "url": "https://..."}
+#           ]
+#         }
+#       ]
+#     }
+#   expected_output: >
+#     Un JSON strict avec au moins {needed_count} nouvelles candidates supplémentaires.
+#   agent: trend_scout
+
+# topup_curate_task:
+#   description: >
+#     Sur la base des nouvelles candidates supplémentaires trouvées, valide et retiens
+#     les meilleures pour compléter l'édition.
+
+#     IDs déjà validés à NE PAS répéter: {existing_event_ids}
+
+#     Étapes obligatoires:
+#     1) Utilise l'outil d'historique pour vérifier les doublons historiques.
+#     2) Valide chaque nouvelle candidate avec 2-3 sources (recoupement web si nécessaire).
+#     3) Retourne UNIQUEMENT des nouvelles dont l'event_id n'est PAS dans existing_event_ids.
+
+#     IMPORTANT: Réponds en JSON strict uniquement.
+
+#     Structure attendue:
+#     {
+#       "selected_news": [
+#         {
+#           "event_id": "...",
+#           "headline": "...",
+#           "domain": "...",
+#           "why_new_this_week": "...",
+#           "validated_facts": ["..."],
+#           "editorial_angle": "...",
+#           "sources": [
+#             {"label": "...", "url": "https://..."}
+#           ]
+#         }
+#       ]
+#     }
+
+#     Retourne entre 1 et {needed_count} nouvelles supplémentaires.
+#   expected_output: >
+#     JSON strict avec de nouvelles supplémentaires validées (entre 1 et {needed_count}).
+#   agent: fact_checker
+
+
+# # ─── Per-news writing tasks ────────────────────────────────────────────────
+# # These templates expect {news_json} to be injected at runtime via format_template().
+
+# title_task:
+#   description: >
+#     Écris un titre FR et un titre EN pour la nouvelle suivante.
+#     Le titre doit décrire une action ou un résultat concret.
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"title_fr":"...", "title_en":"..."}
+#   expected_output: >
+#     JSON strict avec title_fr et title_en.
+
+# intro_task:
+#   description: >
+#     Rédige une phrase introductrice FR et EN (une seule phrase par langue),
+#     basée sur la nouvelle validée.
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"intro_fr":"...", "intro_en":"..."}
+#   expected_output: >
+#     JSON strict avec intro_fr et intro_en.
+
+# essentials_task:
+#   description: >
+#     Rédige la section L'essentiel (FR) et The Essentials (EN) en 1 à 2 phrases par langue.
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"essentiel_fr":"...", "essentials_en":"..."}
+#   expected_output: >
+#     JSON strict avec essentiel_fr et essentials_en.
+
+# practice_task:
+#   description: >
+#     Rédige la section En pratique (FR) et In Practice (EN) en 3 à 5 phrases par langue.
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"pratique_fr":"...", "in_practice_en":"..."}
+#   expected_output: >
+#     JSON strict avec pratique_fr et in_practice_en.
+
+# breakdown_task:
+#   description: >
+#     Rédige la section Décryptage (FR) et Breakdown (EN) en 3 à 5 phrases par langue.
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"decryptage_fr":"...", "breakdown_en":"..."}
+#   expected_output: >
+#     JSON strict avec decryptage_fr et breakdown_en.
+
+# stake_task:
+#   description: >
+#     Rédige la section L'enjeu (FR) et What's at Stake (EN) en 3 à 5 phrases par langue,
+#     avec bénéficiaires et perdants potentiels.
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"enjeu_fr":"...", "whats_at_stake_en":"..."}
+#   expected_output: >
+#     JSON strict avec enjeu_fr et whats_at_stake_en.
+
+# verdict_task:
+#   description: >
+#     Rédige un verdict tranché en 1 à 2 phrases par langue (FR/EN).
+#     NOUVELLE SOURCE: {news_json}
+#     Réponds uniquement en JSON: {"verdict_fr":"...", "verdict_en":"..."}
+#   expected_output: >
+#     JSON strict avec verdict_fr et verdict_en.
+
+# assemble_task:
+#   description: >
+#     Assemble toutes les sections précédentes dans UN JSON strict avec les clés EXACTES:
+#     title_fr, title_en, intro_fr, intro_en, essentiel_fr, essentials_en, pratique_fr,
+#     in_practice_en, decryptage_fr, breakdown_en, enjeu_fr, whats_at_stake_en,
+#     verdict_fr, verdict_en, image_prompt_en, sources.
+#     image_prompt_en doit être spécifique à CETTE nouvelle (pas générique), format paysage.
+#     NOUVELLE SOURCE: {news_json}
+#     sources doit être une liste de 2 à 3 objets {"label":"...","url":"https://..."}.
+#   expected_output: >
+#     JSON strict final pour une nouvelle.
+
+# # ─── Edition-level writing tasks ──────────────────────────────────────────
+# # {edition_number} and {news_items_json} are injected at runtime.
+
+# newsletter_title_task:
+#   description: >
+#     Crée les titres FR/EN pour l'édition #{edition_number}.
+#     Respecte strictement le format: Market & Match #N: ...
+#     NOUVELLES: {news_items_json}
+#     Réponds uniquement en JSON: {"title_fr":"Market & Match #N: ...", "title_en":"Market & Match #N: ..."}
+#   expected_output: >
+#     JSON strict avec title_fr et title_en.
+
+# newsletter_intro_task:
+#   description: >
+#     Génère l'introduction FR/EN de la newsletter.
+#     CONTRAINTES intro_sentence_fr:
+#     - Commence EXACTEMENT par : "Dans l'édition d'aujourd'hui de Market & Match,"
+#     - Termine en 1 seule phrase, sans liste.
+#     CONTRAINTES intro_bullets_fr / intro_bullets_en:
+#     - 1 bullet par nouvelle (4 à 6 bullets au total).
+#     - Chaque bullet : 1 phrase courte et percutante, max 15 mots.
+#     - Commence par un verbe d'action ou un angle fort, pas par le nom de l'entreprise.
+#     - Pas de répétition entre bullets.
+#     NOUVELLES: {news_items_json}
+#     Réponds uniquement en JSON: {"intro_sentence_fr":"...", "intro_bullets_fr":["..."], "intro_sentence_en":"...", "intro_bullets_en":["..."]}
+#   expected_output: >
+#     JSON strict avec intro sentence + bullet lists courts et accrocheurs FR/EN.
+
+# # {platform}, {placeholder_rule}, {char_limit}, {title_fr}, {news_items_json} injected at runtime.
+# social_post_task:
+#   description: >
+#     Rédige un texte {platform} en français pour partager la newsletter Market & Match.
+#     RÈGLES DE TON:
+#     - Commence par une phrase personnelle du style : "Cette semaine dans Market & Match, …"
+#     - Ton naturel, direct, comme si tu partageais une découverte à tes abonnés.
+#     - Quelques hashtags pertinents à la fin.
+#     - {placeholder_rule}
+#     - {char_limit}
+#     TITRE: {title_fr}
+#     NOUVELLES: {news_items_json}
+#     Réponds uniquement en JSON: {"post":"..."}
+#   expected_output: >
+#     JSON strict avec post.

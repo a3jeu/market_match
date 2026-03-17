@@ -1,0 +1,132 @@
+{
+  "editions": [
+    {
+      "edition_number": 1,
+      "edition_date": "2026-03-04",
+      "items": [
+        {
+          "title": "Les équipes utilisent l'IA en temps réel pour booster les performances des athlètes",
+          "source": "https://sports.yahoo.com/articles/tech-ai-set-athlete-data-030540037.html",
+          "signature": "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771"
+        },
+        {
+          "title": "Les équipes prennent l'avantage : l'IA optimise recrutement, arbitrage et analyse",
+          "source": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/ai-sports-technology.html",
+          "signature": "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27"
+        },
+        {
+          "title": "82% des organisations sportives adoptent l'IA pour réduire les coûts et améliorer les opérations",
+          "source": "https://www.sportspro.com/news/sports-tech-report-ai-sportradar-february-2026/",
+          "signature": "07031371f3479de75e39fc195fe01cb4e8db4aef4f0c35aceacde9d4e8efa533"
+        },
+        {
+          "title": "Intégrez l'IA pour automatiser vos opérations et monétiser l'expérience fan",
+          "source": "https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/sports-industry-outlook.html",
+          "signature": "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be"
+        }
+      ]
+    },
+    {
+      "edition_number": 2,
+      "edition_date": "2026-03-11",
+      "items": [
+        {
+          "title": "Ukraine biathlete credits ChatGPT for silver win - Reuters",
+          "summary": "Ukraine's Maksym Murashkovskyi credited artificial intelligence for helping him win a silver medal at the Milano Cortina Winter Paralympics. Reuters notes that AI-assisted insights aided his preparation and performance on race day. The report highlights a practical deployment of AI in elite biathlon competition and shows how AI tools translated into measurable outcomes on the field. Murashkovskyi described training with AI-driven tools as integral to his approach to tactics and motivation.",
+          "source": "https://www.reuters.com/sports/ukraine-biathlete-credits-chatgpt-silver-win-2026-03-10/",
+          "signature": "1724cdb0008f1275e83427cbe461c2a038e92cac02c96a9388a8d0334eba0bc3"
+        },
+        {
+          "title": "Driven by data, Oracle and Red Bull extend F1 title partnership",
+          "summary": "Oracle and Red Bull Racing announced a multi-year extension of their data-driven Formula One title partnership. The teams will advance AI-powered strategy tools, including a strategy agent to optimize decisions and race setup. The collaboration underscores the growing role of AI and data analytics in competitive motorsport. The deal signals a clear path to economic value through performance optimization.",
+          "source": "https://www.reuters.com/sports/formula1/driven-by-data-oracle-red-bull-extend-f1-title-partnership-2026-02-26/",
+          "signature": "78c14236e02e6dfa3a2b101d65251be084c95bdf5390901ae8ad12ef1a7b6013"
+        },
+        {
+          "title": "Figure Skating turns to AI to tackle judging controversies - Reuters",
+          "summary": "The ISU plans to develop an AI-based system to provide objective measurements of rotations, edges and positions, reducing cognitive overload and bias in judging. The rollout will start with singles and expand to pairs and ice dance. Judges could leverage AI-derived data while maintaining human oversight to enhance fairness. Reuters frames this as part of a broader modernization of officiating through technology.",
+          "source": "https://www.reuters.com/sports/figure-skating-turns-ai-tackle-judging-controversies-2026-02-08/",
+          "signature": "e42c8a79041863a0406f936040cad6401443b945548d8238b55c7e2678c1b962"
+        },
+        {
+          "title": "Wall St Week Ahead AI disruption looms over markets with US jobs data tap",
+          "summary": "Investors anticipate AI-driven productivity to influence corporate earnings and sector leadership, while U.S. jobs data will test the durability of the labor-market gains. The piece argues that AI adoption could lift productivity and reshape demand for labor across industries, affecting valuation and risk appetite. Markets may pivot as strong hiring or slack alters expectations for inflation and policy paths.",
+          "source": "https://www.reuters.com/world/asia-pacific/wall-st-week-ahead-ai-disruption-looms-over-markets-with-us-jobs-data-tap-2026-03-02/",
+          "signature": "7f320827fcc6d157c2aa9b36110968d150362aad699f318688fc110549df327f"
+        }
+      ]
+    },
+    {
+      "edition_number": 3,
+      "edition_date": "2026-03-11",
+      "items": [
+        {
+          "title": "Ukraine biathlete credits ChatGPT for silver win - Reuters",
+          "summary": "Ukraine's Maksym Murashkovskyi credited artificial intelligence for helping him win a silver medal at the Milano Cortina Winter Paralympics. Reuters notes that AI-assisted insights aided his preparation and performance on race day. The report highlights a practical deployment of AI in elite biathlon competition and shows how AI tools translated into measurable outcomes on the field. Murashkovskyi described training with AI-driven tools as integral to his approach to tactics and motivation.",
+          "source": "https://www.reuters.com/sports/ukraine-biathlete-credits-chatgpt-silver-win-2026-03-10/",
+          "signature": "1724cdb0008f1275e83427cbe461c2a038e92cac02c96a9388a8d0334eba0bc3"
+        },
+        {
+          "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+          "summary": "Citigroup raised its global AI capital expenditure forecast for 2026-2030 to about $8.9 trillion and lifted the AI-related revenue forecast for 2026-2030 to about $3.3 trillion, citing faster enterprise demand and adoption. The bank noted stronger-than-expected AI tool usage across its client base and ongoing investments in AI infrastructure and analytics. The update reflects a broader push by major banks to embed AI across products, risk management, and operations as a key growth driver. The move signals how AI is reshaping capital allocation and revenue outlooks among large financial institutions.",
+          "source": "https://www.reuters.com/technology/citigroup-raises-ai-capex-revenue-forecasts-amid-rapid-enterprise-adoption-2026-03-10/",
+          "signature": "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c"
+        },
+        {
+          "title": "What AI windfall? Debt will still weigh on big economies | Reuters",
+          "summary": "The Reuters piece argues that an AI productivity windfall, if realized, may help major economies buy time to repair strained public finances rather than serving as a free pass. It notes that the magnitude and distribution of AI-driven productivity gains will influence debt trajectories, inflation, and the pace of economic growth. It emphasizes that without credible macro policies, even sizable AI gains may fail to offset the financing challenges posed by high debt and aging demographics. It suggests investors and policymakers should watch how AI translates into productivity across sectors, since that will shape fiscal space, growth forecasts, and policy choices.",
+          "source": "https://www.reuters.com/world/europe/ai-boom-will-be-no-free-pass-debt-laden-major-economies-2026-02-27/",
+          "signature": "dce2a1f4c65123fa0253b5962e0b822359e71323cec988325edb7f6648335ca2"
+        }
+      ]
+    },
+    {
+      "edition_number": 4,
+      "edition_date": "2026-03-11",
+      "items": [
+        {
+          "title": "Ukraine biathlete credits ChatGPT for silver win - Reuters",
+          "summary": "Ukraine's Maksym Murashkovskyi credited artificial intelligence for helping him win a silver medal at the Milano Cortina Winter Paralympics. Reuters notes that AI-assisted insights aided his preparation and performance on race day. The report highlights a practical deployment of AI in elite biathlon competition and shows how AI tools translated into measurable outcomes on the field. Murashkovskyi described training with AI-driven tools as integral to his approach to tactics and motivation.",
+          "source": "https://www.reuters.com/sports/ukraine-biathlete-credits-chatgpt-silver-win-2026-03-10/",
+          "signature": "1724cdb0008f1275e83427cbe461c2a038e92cac02c96a9388a8d0334eba0bc3"
+        }
+      ]
+    },
+    {
+      "edition_number": 5,
+      "edition_date": "2026-03-11",
+      "items": [
+        {
+          "title": "Ukraine biathlete credits ChatGPT for silver win - Reuters",
+          "summary": "Ukraine's Maksym Murashkovskyi credited artificial intelligence for helping him win a silver medal at the Milano Cortina Winter Paralympics. Reuters notes that AI-assisted insights aided his preparation and performance on race day. The report highlights a practical deployment of AI in elite biathlon competition and shows how AI tools translated into measurable outcomes on the field. Murashkovskyi described training with AI-driven tools as integral to his approach to tactics and motivation.",
+          "source": "https://www.reuters.com/sports/ukraine-biathlete-credits-chatgpt-silver-win-2026-03-10/",
+          "signature": "1724cdb0008f1275e83427cbe461c2a038e92cac02c96a9388a8d0334eba0bc3"
+        },
+        {
+          "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+          "summary": "Citigroup raised its global AI capital expenditure forecast for 2026-2030 to about $8.9 trillion and lifted the AI-related revenue forecast for 2026-2030 to about $3.3 trillion, citing faster enterprise demand and adoption. The bank noted stronger-than-expected AI tool usage across its client base and ongoing investments in AI infrastructure and analytics. The update signals that major banks are embedding AI across products, risk management, and operations as a key growth driver. The move signals how AI is reshaping capital allocation and revenue outlooks among large financial institutions.",
+          "source": "https://www.reuters.com/technology/citigroup-raises-ai-capex-revenue-forecasts-amid-rapid-enterprise-adoption-2026-03-10/",
+          "signature": "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c"
+        },
+        {
+          "title": "Citigroup raises AI capex and revenue forecasts amid rapid enterprise adoption",
+          "summary": "Citigroup raised its global AI capital expenditure forecast for 2026-2030 to about $8.9 trillion and lifted the AI-related revenue forecast for 2026-2030 to about $3.3 trillion, citing faster enterprise demand and adoption. The bank noted stronger-than-expected AI tool usage across its client base and ongoing investments in AI infrastructure and analytics. The update reflects a broader push by major banks to embed AI across products, risk management, and operations as a key growth driver. The move signals how AI is reshaping capital allocation and revenue outlooks among large financial institutions.",
+          "source": "https://www.reuters.com/technology/citigroup-raises-ai-capex-revenue-forecasts-amid-rapid-enterprise-adoption-2026-03-10/",
+          "signature": "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c"
+        }
+      ]
+    }
+  ],
+  "seen_signatures": [
+    "07031371f3479de75e39fc195fe01cb4e8db4aef4f0c35aceacde9d4e8efa533",
+    "1724cdb0008f1275e83427cbe461c2a038e92cac02c96a9388a8d0334eba0bc3",
+    "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c",
+    "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be",
+    "78c14236e02e6dfa3a2b101d65251be084c95bdf5390901ae8ad12ef1a7b6013",
+    "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27",
+    "7f320827fcc6d157c2aa9b36110968d150362aad699f318688fc110549df327f",
+    "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771",
+    "dce2a1f4c65123fa0253b5962e0b822359e71323cec988325edb7f6648335ca2",
+    "e42c8a79041863a0406f936040cad6401443b945548d8238b55c7e2678c1b962"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "editions": [
+    {
+      "edition_number": 1,
+      "edition_date": "2026-03-04",
+      "items": [
+        {
+          "title": "Les équipes utilisent l'IA en temps réel pour booster les performances des athlètes",
+          "source": "https://sports.yahoo.com/articles/tech-ai-set-athlete-data-030540037.html",
+          "signature": "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771"
+        },
+        {
+          "title": "Les équipes prennent l'avantage : l'IA optimise recrutement, arbitrage et analyse",
+          "source": "https://www.mastercard.com/us/en/news-and-trends/stories/2026/ai-sports-technology.html",
+          "signature": "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27"
+        },
+        {
+          "title": "82% des organisations sportives adoptent l'IA pour réduire les coûts et améliorer les opérations",
+          "source": "https://www.sportspro.com/news/sports-tech-report-ai-sportradar-february-2026/",
+          "signature": "07031371f3479de75e39fc195fe01cb4e8db4aef4f0c35aceacde9d4e8efa533"
+        },
+        {
+          "title": "Intégrez l'IA pour automatiser vos opérations et monétiser l'expérience fan",
+          "source": "https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/sports-industry-outlook.html",
+          "signature": "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be"
+        }
+      ]
+    }
+  ],
+  "seen_signatures": [
+    "07031371f3479de75e39fc195fe01cb4e8db4aef4f0c35aceacde9d4e8efa533",
+    "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be",
+    "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27",
+    "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771"
+  ]
+}

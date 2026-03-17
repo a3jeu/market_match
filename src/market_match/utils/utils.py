@@ -23,7 +23,7 @@ def extract_json(raw_output: str) -> dict[str, Any]:
 
 
 def extract_body_html(full_html: str) -> str:
-    """Return only the content inside <body>…</body>, stripping the outer tags."""
+    """Return only the content inside <body>...</body>, stripping the outer tags."""
     match = re.search(r"<body[^>]*>(.*?)</body>", full_html, re.DOTALL | re.IGNORECASE)
     if match:
         return match.group(1).strip()
@@ -38,11 +38,12 @@ def safe_slug(text: str, fallback: str) -> str:
 
 
 def format_template(template: str, **kwargs: Any) -> str:
-    """Replace only known {key} placeholders, leaving any other {…} content untouched.
+    """Replace only known {key} placeholders, leaving any other {...} content untouched.
 
     Uses a regex that matches {identifier} tokens (valid Python identifiers only),
     so JSON examples like {"key":"value"} in task descriptions are never touched.
     """
+
     def _replace(match: re.Match) -> str:
         key = match.group(1)
         return str(kwargs[key]) if key in kwargs else match.group(0)

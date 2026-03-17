@@ -1,262 +1,473 @@
-scout_news_task:
+##############################################
+# --------- RESEARCH DEPARTMENT --------------
+##############################################
+find_ai_sports_news:
   description: >
-    Nous préparons l'édition #{edition_number} de Market & Match pour la date {edition_date}.
-    Utilise la recherche web (Serper) pour trouver 10 à 14 nouvelles IA des 7 derniers jours,
-    strictement reliées au sport, à la finance ou à l'économie (ou les trois).
+    Search the web for {news_per_topic} recent news items related to artificial intelligence in the sports industry.
+    The news must be recent (ideally less than 7 days old).
+    Search for news related to AI applications in sports, such as:
+    - Research papers on AI for sports analytics, performance optimization;
+    - New methods or techniques using AI in sports science, training, or injury prevention;
+    - New models, algorithms or tools for sport prediction that advance the state of the art;
+    - Major regulatory changes affecting the use of AI in sports;
+    - Recent examples of AI adoption in sports industry with measurable impact on teams, athletes, or fans;
+    Compare multiple sources to ensure credibility and depth of the news, since the topic will be covered in-depth in the newsletter article.
+    Prioritize official announcements, credible media outlets, technical blog posts, and measurable results.
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    Ignore news already covered in previous editions. You MUST use the 
+    read_published_news_history tool to check past editions and make sure to not use news that were already covered.
+    Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
+  expected_output: >
+    A list of {news_per_topic} recent news items related to AI in the sports industry.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_sports_news.json
+  agent: ai_sports_news_scout
 
-    Contraintes de collecte:
-    - Pour chaque nouvelle pressentie, fais au moins 2 recherches web ciblées.
-    - Privilégie annonces officielles, médias crédibles, billets techniques, résultats mesurables.
-    - Évite rumeurs et contenus trop marketing.
-    - Inclus de 2 à 3 sources par nouvelle potentielle.
+find_ai_finance_news:
+  description: >
+    Search the web for {news_per_topic} recent news stories about artificial intelligence in the finance industry.
+    The news must be recent (ideally less than 7 days old).
+    Search for news related to AI applications in finance, such as:
+    - Research papers on AI applied to finance, financial markets, or investment analysis;
+    - New methods or techniques using AI in finance, such as risk assessment, fraud detection, or algorithmic trading;
+    - New models, algorithms or tools for financial forecasting or market prediction that advance the state of the art;
+    - Major regulatory changes affecting the use of AI in finance or financial services;
+    - Recent examples of AI adoption in the finance industry with measurable impact on firms, investors, or markets.
+    Compare multiple sources to ensure credibility and depth of the news, since the topic will be covered in-depth in the newsletter article.
+    Prioritize official announcements, credible media outlets, technical blog posts, and measurable results.
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    Ignore news already covered in previous editions. You MUST use the 
+    read_published_news_history tool to check past editions and make sure to not use news that were already covered.
+    Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
+  expected_output: >
+    A list of {news_per_topic} recent news stories related to AI in finance.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_finance_news.json
+  agent: ai_finance_news_scout
 
-    IMPORTANT: Réponds en JSON strict uniquement (pas de markdown, pas de texte autour).
+find_ai_economy_news:
+  description: >
+    Search the web for {news_per_topic} recent news stories about artificial intelligence and its impact on the economy.
+    The news must be recent (ideally less than 7 days old).
+    Search for news related to AI applications in the economy, such as:
+    - Research papers on AI applied to economics, economic modeling, or macroeconomic analysis;
+    - New methods or techniques using AI to study economic behavior, policy impacts, or economic forecasting;
+    - Case studies where AI is used to support economic decision-making by governments, central banks, or international organizations;
+    - Major regulatory changes affecting the use of AI in economic analysis, public policy or public decision-making;
+    - Recent examples of AI adoption in the economy with measurable impact on labor markets, or productivity.
+    Compare multiple sources to ensure credibility and depth of the news, since the topic will be covered in-depth in the newsletter article.
+    Prioritize official announcements, credible media outlets, technical blog posts, and measurable results.
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    Ignore news already covered in previous editions. You MUST use the 
+    read_published_news_history tool to check past editions and make sure to not use news that were already covered.
+    Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
+  expected_output: >
+    A list of {news_per_topic} recent news stories about AI and the economy.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_economy_news.json
+  agent: ai_economy_news_scout
 
-    Structure attendue:
-    {
-      "candidates": [
-        {
-          "event_id": "id-court-et-stable",
-          "headline": "...",
-          "summary": "...",
-          "domain": "sport|finance|sport+finance|economy|sport+economy|finance+economy|sport+finance+economy",
-          "why_new_this_week": "...",
-          "sources": [
-            {"label": "...", "url": "https://..."}
-          ]
+enrich_news_research:
+  description: >
+    You are providing a list of recent news stories about artificial intelligence: 
+    {news_per_topic} about the impact of AI on sport, {news_per_topic} about the impact of AI on finance, {news_per_topic} about the impact of AI on the economy.
+
+    Review all the news items selected in the previous tasks and enrich each of them with additional source.
+    For each news item, find 1 additional source or article covering the same topic, the same event, or the same primary announcement.
+
+    The additional source must be different from the original article. Avoid duplicates, near-identical copies, or simple reposts.
+    Choose an additional source that provides complementary details useful for writing the newsletter article, such as:
+    - additional figures or data points
+    - quotes
+    - regulatory perspective
+    - market or economic perspective
+    - technical perspective
+    - reactions from industry actors
+    - limitations, risks, or measurable impacts
+
+    You may use the read_website_content tool to read the content of the articles.
+    The content of the additional source MUST be different from the original source and provide complementary information.
+    You MUST return all news items that was provided, enriched with an additional source.
+    Return a list of {news_per_topic} recent news, each with the original title, topic, url, published_at, source and article_content,
+    enriched with the additional source (title, url, published_at, source and article_content).
+  expected_output: >
+    A list of {news_preliminary_total} recent news stories with the original information enriched with additional sources.
+  output_file: editions/edition_{edition_number}_{edition_date}/enriched_news_research.json
+  agent: news_enricher
+  context:
+    - find_ai_sports_news
+    - find_ai_finance_news
+    - find_ai_economy_news
+
+enrich_news_market_context:
+  description: >
+    You are providing a list of recent news stories about artificial intelligence: 
+    {news_per_topic} about the impact of AI on sport, {news_per_topic} about the impact of AI on finance, {news_per_topic} about the impact of AI on the economy.
+
+    A previous agent already enriched all news items with an additional source providing complementary details about the same announcement. 
+    Your task is now to add a second additional source for each news item, but this time focused on providing broader market context rather than the exact same announcement.
+
+    Review all the news items selected in the previous tasks and add one extra source per item focused on
+    broader market context rather than the exact same announcement.
+
+    The source must remain connected to the same domain and core theme of the original news,
+    but should provide a wider-angle perspective useful for a dedicated "market context" section
+    in a future newsletter article.
+    For each news item, find exactly 1 additional source that helps explain the external environment,
+    such as:
+    - competitor positioning and rival initiatives
+    - market structure and industry dynamics
+    - strategic context around adoption, differentiation, and timing
+    - ecosystem constraints, dependencies, or power shifts
+
+    You may use the read_website_content tool to read the content of the articles.
+    The content of the additional source MUST be different from the original source and provide complementary information.
+    You MUST return all news items that was provided, with an additional source and the market context source.
+    Return a list of {news_per_topic} recent news, each with the original title, topic, url, published_at, source and article_content,
+    enriched with the additional source (title, url, published_at, source and article_content) 
+    and the market context source (title, url, published_at, source and article_content).
+  expected_output: >
+    A list of {news_preliminary_total} recent news stories with the original information enriched, the additional sources, and the market context source.
+  output_file: editions/edition_{edition_number}_{edition_date}/market_context_news_research.json
+  agent: market_context_researcher
+  context:
+    - enrich_news_research
+
+select_best_news:
+  description: >
+    Review all the proposed news items and select the {news_to_keep}
+    best news for a future newsletter about the impact of AI in the sports industry,
+    the finance industry, and the broader economy.
+
+    The target audience consists of readers passionate about technology,
+    artificial intelligence, sports, finance, and economics.
+
+    The selected news must be:
+    - recent;
+    - credible;
+    - sufficiently deep;
+    - technically interesting when relevant;
+    - useful for a high-quality newsletter;
+    - relevant for understanding the real impact of AI on sports, finance, or the economy;
+
+    Keep exactly {news_to_keep} news, with at least one news about sports, one news about finance, and one news about the economy.
+    Choose the best {news_to_keep} news and reorder them from the best to the least good.
+    Avoid redundant news or news that are too similar to each other.
+    Avoid topics that are too weak, overly promotional, or too general.
+
+    You MUST use the read_website_content tool to consult the content of a news article, the additional_sources, and the market_context_source. 
+    You MUST select exactly {news_to_keep} news.
+    You MUST use the read_published_news_history tool to check past editions and make sure to not use news that were already covered.
+
+    Return a structured list of the {news_to_keep} best news selected for the newsletter, with all their sources and content.
+    The output should have this structure:
+    [
+      {
+        "title": str,
+        "topic": str, # "sport", "finance", or "economy"
+        "url": str,
+        "article_content": str,
+        "published_at": str,
+        "source": str,
+        "additional_sources": [
+          {
+            "title": str,
+            "url": str,
+            "article_content": str,
+            "published_at": str,
+            "source": str,
+          }
+        ],
+        "market_context_source": {
+          "title": str,
+          "url": str,
+          "article_content": str,
+          "published_at": str,
+          "source": str,
         }
-      ]
-    }
+      },
+      ...
+    ]
   expected_output: >
-    Un JSON strict avec 10 à 14 candidates sourcées.
-  agent: trend_scout
+    A structured list of the {news_to_keep} best news selected for the newsletter.
+  output_file: editions/edition_{edition_number}_{edition_date}/selected_news.json
+  agent: news_selector
+  context:
+    - enrich_news_market_context
 
-curate_and_validate_task:
+##############################################
+# ---------- WRITING DEPARTMENT --------------
+##############################################
+
+extract_news_item:
   description: >
-    À partir de la présélection, conserve exactement 4 à 6 nouvelles maximisant pertinence,
-    diversité et clarté d'impact.
-
-    Étapes obligatoires:
-    1) Utilise l'outil d'historique des publications pour vérifier les sujets déjà traités.
-    2) Écarte les nouvelles déjà couvertes (même événement, même annonce, même résultat).
-    3) Pour chaque nouvelle retenue, recoupe les faits avec 2 à 3 sources.
-    4) Corrige toute ambiguïté factuelle.
-
-    IMPORTANT: Réponds en JSON strict uniquement (pas de markdown, pas de texte autour).
-
-    Structure attendue:
-    {
-      "selected_news": [
-        {
-          "event_id": "...",
-          "headline": "...",
-          "domain": "sport|finance|economy|sport+finance|sport+economy|finance+economy|sport+finance+economy",
-          "why_new_this_week": "...",
-          "validated_facts": ["..."],
-          "editorial_angle": "...",
-          "sources": [
-            {"label": "...", "url": "https://..."}
-          ]
-        }
-      ]
-    }
-
-    Contraintes de sortie:
-    - Entre 4 et 6 nouvelles exactement.
-    - 2 à 3 sources par nouvelle.
-    - Aucune nouvelle déjà traitée historiquement.
+    From the selected news list, extract ONLY news item number {news_no} (1-based index)
+    and return it as a complete object.
+    Do not summarize, truncate, or modify the item in any way.
+    Return the full EnrichedNewsItem object as-is.
   expected_output: >
-    Un JSON strict avec 4 à 6 nouvelles validées dans selected_news.
-  agent: fact_checker
+    The complete object for news item number {news_no} from the selected news list.
+  agent: news_item_extractor
+  output_file: editions/edition_{edition_number}_{edition_date}/news_{news_no}_selected.json
 
-# ─── Top-up tasks (used when first selection pass returns fewer than 4 news) ──
-# {found_count}, {needed_count}, {existing_event_ids} are injected at runtime.
-
-topup_scout_task:
+write_news_article_content:
   description: >
-    Le premier passage de recherche n'a retourné que {found_count} nouvelles validées (minimum requis: 4).
-    Tu dois trouver {needed_count} nouvelles supplémentaires pour compléter l'édition.
+    Write a comprehensive newsletter article for the provided news item.
 
-    IDs déjà collectés à NE PAS répéter: {existing_event_ids}
+    Use the selected main news item, its additional_sources, and its market_context_source
+    to produce a detailed, well-researched article with structured sections.
 
-    Élargis ta recherche:
-    - Inclus des nouvelles IA plus générales (startups, régulation, infrastructure, modèles).
-    - Considère aussi des nouvelles des 14 derniers jours si les 7 derniers jours sont insuffisants.
-    - Diversifie les domaines (sport ET finance ET économie générales si nécessaire).
-    - Inclus au minimum 2 sources par nouvelle.
+    Use ScrapeWebsiteTool to read the actual content from the URLs in the original news item
+    and all additional_sources (including the market_context_source) to get full context.
 
-    IMPORTANT: Réponds en JSON strict uniquement.
+    The article must have four clear sections:
+    1. **essentials**: A 1-2 sentence summary of the news.
+    2. **in_practice**: A short paragraph (3-4 sentences) explaining what the news means in practice.
+    3. **breakdown**: A short paragraph (3-4 sentences) providing broader market context.
+       Use market_context_source to explain how the news fits in the larger market,
+       competitive landscape, and external environment.
+    4. **whats_at_stake**: A short paragraph (3-4 sentences) analyzing concrete impacts.
+       Identify potential winners and losers. Include bullet points if helpful.
 
-    Structure attendue:
-    {
-      "candidates": [
-        {
-          "event_id": "id-court-et-stable",
-          "headline": "...",
-          "summary": "...",
-          "domain": "sport|finance|economy|sport+finance|sport+economy|finance+economy|sport+finance+economy",
-          "why_new_this_week": "...",
-          "sources": [
-            {"label": "...", "url": "https://..."}
-          ]
-        }
-      ]
-    }
+    Requirements:
+    - Output as a JSON object with the four sections
+    - All text in French
+    - No invented facts; use only provided sources
+    - Consult all available sources via ScrapeWebsiteTool for depth
+
+    The article should be substantive but concise, richer than a summary,
+    and grounded in the provided research.
   expected_output: >
-    Un JSON strict avec au moins {needed_count} nouvelles candidates supplémentaires.
-  agent: trend_scout
+    A object with four sections (essentials, in_practice, breakdown, whats_at_stake)
+    for the provided news item.
+  agent: article_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/news_{news_no}_article_fr.json
 
-topup_curate_task:
+write_news_title:
   description: >
-    Sur la base des nouvelles candidates supplémentaires trouvées, valide et retiens
-    les meilleures pour compléter l'édition.
+    Write a concise title for news item
+    based on the article content just written.
 
-    IDs déjà validés à NE PAS répéter: {existing_event_ids}
+    Your title should:
+    - Capture the central angle of the article
+    - Be concrete, clear, and engaging
+    - Avoid clichés, hype, and generic marketing language
+    - Stay grounded in the article content
+    - Be in French
+    - Be 5-10 words in length
 
-    Étapes obligatoires:
-    1) Utilise l'outil d'historique pour vérifier les doublons historiques.
-    2) Valide chaque nouvelle candidate avec 2-3 sources (recoupement web si nécessaire).
-    3) Retourne UNIQUEMENT des nouvelles dont l'event_id n'est PAS dans existing_event_ids.
-
-    IMPORTANT: Réponds en JSON strict uniquement.
-
-    Structure attendue:
-    {
-      "selected_news": [
-        {
-          "event_id": "...",
-          "headline": "...",
-          "domain": "...",
-          "why_new_this_week": "...",
-          "validated_facts": ["..."],
-          "editorial_angle": "...",
-          "sources": [
-            {"label": "...", "url": "https://..."}
-          ]
-        }
-      ]
-    }
-
-    Retourne entre 1 et {needed_count} nouvelles supplémentaires.
+    Output only the title text, no JSON, no markdown.
   expected_output: >
-    JSON strict avec de nouvelles supplémentaires validées (entre 1 et {needed_count}).
-  agent: fact_checker
-
-
-# ─── Per-news writing tasks ────────────────────────────────────────────────
-# These templates expect {news_json} to be injected at runtime via format_template().
-
-title_task:
+    A plain text concise 5-10 word French title for the news item.
+  agent: title_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/news_{news_no}_title_fr.txt
+  
+write_news_intro:
   description: >
-    Écris un titre FR et un titre EN pour la nouvelle suivante.
-    Le titre doit décrire une action ou un résultat concret.
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"title_fr":"...", "title_en":"..."}
-  expected_output: >
-    JSON strict avec title_fr et title_en.
+    Write a single-sentence introduction for news item
+    based on the article content just written.
 
-intro_task:
+    Your introduction should:
+    - Capture the essence of the article in one compelling sentence
+    - Be engaging and draw readers in
+    - Avoid clichés and marketing speak
+    - Be grounded in the article content
+    - Do not repeat text from the article
+
+    Output only the text of the introduction, no JSON, no markdown.
+  expected_output: >
+    A plain text single sentence introduction in french for news item.
+  agent: intro_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/news_{news_no}_intro_fr.txt
+
+write_news_verdict:
   description: >
-    Rédige une phrase introductrice FR et EN (une seule phrase par langue),
-    basée sur la nouvelle validée.
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"intro_fr":"...", "intro_en":"..."}
-  expected_output: >
-    JSON strict avec intro_fr et intro_en.
+    Write an editorial opinion / verdict for the news story based on the content of the article.
 
-essentials_task:
+    Your verdict must take a clear position and present a strong, well-argued point of view.
+    You must provide a clear editorial perspective on why this news matters and acknowledge
+    the opportunities and risks when relevant.
+
+    Return only the verdict text, without JSON or markdown.
+  expected_output: >
+    A plain text editorial opinion / verdict (1 to 2 sentences).
+  agent: verdict_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/news_{news_no}_verdict_fr.txt
+
+write_newsletter_intro:
   description: >
-    Rédige la section L'essentiel (FR) et The Essentials (EN) en 1 à 2 phrases par langue.
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"essentiel_fr":"...", "essentials_en":"..."}
-  expected_output: >
-    JSON strict avec essentiel_fr et essentials_en.
+    Based on all written article contents, write the newsletter introduction
+    as a structured object with keys intro_sentence and intro_bullets.
 
-practice_task:
+    intro_sentence rules:
+    - Start EXACTLY with: "Dans l'edition d'aujourd'hui de Market & Match,"...
+    - Must be a single sentence (no list, no line break)
+
+    intro_bullets rules:
+    - Exactly one bullet per written article
+    - Each bullet must be one short, punchy sentence fragment (5 to 10 words)
+    - No repetition between bullets
+
+    Output constraints:
+    - Return a valid structured object with:
+      - intro_sentence (str)
+      - intro_bullets (list[str])
+    - All text in French
+    - Use only provided article contents
+  expected_output: >
+    A structured French newsletter introduction object with intro_sentence and intro_bullets.
+  agent: newsletter_intro_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/newsletter_intro_fr.json
+
+##############################################
+# ---------- MARKETING DEPARTMENT ------------
+##############################################
+
+write_image_prompt:
   description: >
-    Rédige la section En pratique (FR) et In Practice (EN) en 3 à 5 phrases par langue.
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"pratique_fr":"...", "in_practice_en":"..."}
-  expected_output: >
-    JSON strict avec pratique_fr et in_practice_en.
+    Create an English image prompt for the current article to generate a thumbnail image
+    with Gemini Nano Banana 2.
 
-breakdown_task:
+    Requirements:
+    - Landscape orientation
+    - Reflect the core story and mood of the article
+    - Include concrete visual composition cues (scene, subject, camera framing, lighting)
+
+    Return only the image prompt text in plain English, without JSON or markdown.
+  expected_output: >
+    A plain text English image prompt for one article thumbnail.
+  agent: image_prompt_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/image_prompt_news_{news_no}.txt
+
+write_newsletter_title:
   description: >
-    Rédige la section Décryptage (FR) et Breakdown (EN) en 3 à 5 phrases par langue.
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"decryptage_fr":"...", "breakdown_en":"..."}
-  expected_output: >
-    JSON strict avec decryptage_fr et breakdown_en.
+    Based on all {news_to_keep} selected and written news articles,
+    create a catchy, memorable title for the newsletter edition.
 
-stake_task:
+    Your title should:
+    - Be 5-10 words in length
+    - Reflect the main themes and spirit of the edition
+    - Be engaging and appealing to readers interested in AI, technology, sports, finance, and economics
+    - Avoid generic or overused phrases
+    - Capture what makes this edition unique
+
+    The title should be in plain text, without formatting or markdown, in French.    
+  expected_output: >
+    A plain text title (5-10 words) for the newsletter edition.
+  agent: newsletter_title_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/newsletter_title_fr.txt
+
+validate_newsletter_html:
   description: >
-    Rédige la section L'enjeu (FR) et What's at Stake (EN) en 3 à 5 phrases par langue,
-    avec bénéficiaires et perdants potentiels.
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"enjeu_fr":"...", "whats_at_stake_en":"..."}
-  expected_output: >
-    JSON strict avec enjeu_fr et whats_at_stake_en.
+    Validate the French newsletter HTML and fix formatting issues if needed.
 
-verdict_task:
+    IMPORTANT:
+    - First, call the tool `assemble_newsletter_html` to build deterministic HTML from edition artifacts.
+    - Then validate and, if needed, correct the resulting HTML.
+    - The final output must come from this task and represent the validated HTML.
+
+    Validation requirements:
+    - Ensure valid and coherent HTML structure
+    - Fix malformed list content into proper <ul>/<li> markup when needed
+    - Preserve all original content and ordering
+    - Keep article blocks and sources readable
+
+    Return only the validated HTML content, without JSON wrapping or markdown.
+  expected_output: >
+    A validated and corrected French newsletter HTML document.
+  agent: newsletter_html_validator
+  output_file: editions/edition_{edition_number}_{edition_date}/newsletter_fr.html
+
+translate_newsletter_title:
   description: >
-    Rédige un verdict tranché en 1 à 2 phrases par langue (FR/EN).
-    NOUVELLE SOURCE: {news_json}
-    Réponds uniquement en JSON: {"verdict_fr":"...", "verdict_en":"..."}
-  expected_output: >
-    JSON strict avec verdict_fr et verdict_en.
+    Translate the French newsletter title (newsletter_title_fr) to English.
 
-assemble_task:
+    Translation requirements:
+    - Keep meaning, tone, and clarity
+    - Maintain the catchy and engaging spirit
+    - 5-10 words in length
+
+    Return only the translated title text in plain English, without JSON or markdown.
+  expected_output: >
+    Translated newsletter title in English.
+  agent: newsletter_translator
+  output_file: editions/edition_{edition_number}_{edition_date}/newsletter_title_en.txt
+
+translate_newsletter_html:
   description: >
-    Assemble toutes les sections précédentes dans UN JSON strict avec les clés EXACTES:
-    title_fr, title_en, intro_fr, intro_en, essentiel_fr, essentials_en, pratique_fr,
-    in_practice_en, decryptage_fr, breakdown_en, enjeu_fr, whats_at_stake_en,
-    verdict_fr, verdict_en, image_prompt_en, sources.
-    image_prompt_en doit être spécifique à CETTE nouvelle (pas générique), format paysage.
-    NOUVELLE SOURCE: {news_json}
-    sources doit être une liste de 2 à 3 objets {"label":"...","url":"https://..."}.
+    Translate the validated French newsletter HTML to English.
+
+    Translation requirements:
+    - Preserve HTML structure and tags exactly
+    - Keep meaning, tone, and clarity
+    - Do not remove sections or links
+    - Translate all French text content to fluent English
+
+    Return only the translated HTML content, without JSON wrapping or markdown.
   expected_output: >
-    JSON strict final pour une nouvelle.
+    Translated newsletter HTML in English.
+  agent: newsletter_translator
+  output_file: editions/edition_{edition_number}_{edition_date}/newsletter_en.html
 
-# ─── Edition-level writing tasks ──────────────────────────────────────────
-# {edition_number} and {news_items_json} are injected at runtime.
-
-newsletter_title_task:
+write_facebook_post:
   description: >
-    Crée les titres FR/EN pour l'édition #{edition_number}.
-    Respecte strictement le format: Market & Match #N: ...
-    NOUVELLES: {news_items_json}
-    Réponds uniquement en JSON: {"title_fr":"Market & Match #N: ...", "title_en":"Market & Match #N: ..."}
-  expected_output: >
-    JSON strict avec title_fr et title_en.
+    Write a French Facebook post to share Market & Match newsletter edition #{edition_number}.
 
-newsletter_intro_task:
-  description: >
-    Génère l'introduction FR/EN de la newsletter.
-    CONTRAINTES intro_sentence_fr:
-    - Commence EXACTEMENT par : "Dans l'édition d'aujourd'hui de Market & Match,"
-    - Termine en 1 seule phrase, sans liste.
-    CONTRAINTES intro_bullets_fr / intro_bullets_en:
-    - 1 bullet par nouvelle (4 à 6 bullets au total).
-    - Chaque bullet : 1 phrase courte et percutante, max 15 mots.
-    - Commence par un verbe d'action ou un angle fort, pas par le nom de l'entreprise.
-    - Pas de répétition entre bullets.
-    NOUVELLES: {news_items_json}
-    Réponds uniquement en JSON: {"intro_sentence_fr":"...", "intro_bullets_fr":["..."], "intro_sentence_en":"...", "intro_bullets_en":["..."]}
-  expected_output: >
-    JSON strict avec intro sentence + bullet lists courts et accrocheurs FR/EN.
+    STYLE REQUIREMENTS (ALL PLATFORMS):
+    - Write as someone sharing a discovery with followers, not as a press release
+    - Start with a personal phrase like: "Cette semaine dans Market & Match #{edition_number},"
+    - Natural, direct tone, as if sharing a discovery with your followers
+    - Include a few relevant hashtags at the end
 
-# {platform}, {placeholder_rule}, {char_limit}, {title_fr}, {news_items_json} injected at runtime.
-social_post_task:
-  description: >
-    Rédige un texte {platform} en français pour partager la newsletter Market & Match.
-    RÈGLES DE TON:
-    - Commence par une phrase personnelle du style : "Cette semaine dans Market & Match, …"
-    - Ton naturel, direct, comme si tu partageais une découverte à tes abonnés.
-    - Quelques hashtags pertinents à la fin.
-    - {placeholder_rule}
-    - {char_limit}
-    TITRE: {title_fr}
-    NOUVELLES: {news_items_json}
-    Réponds uniquement en JSON: {"post":"..."}
+    FACEBOOK-SPECIFIC:
+    - Mention "Lien en commentaires 👇"
+    - Include a few emojis throughout
+    - 2 to 5 sentences max
+    - Summarize news items as bullet points (5-10 words per news item)
+
+    Return only the Facebook post text in plain French, without JSON or markdown.
   expected_output: >
-    JSON strict avec post.
+    A French Facebook post in plain text.
+  agent: facebook_post_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/social_facebook.txt
+
+write_linkedin_post:
+  description: >
+    Write a French LinkedIn post to share Market & Match newsletter edition #{edition_number}.
+
+    STYLE REQUIREMENTS (ALL PLATFORMS):
+    - Write as someone sharing a discovery with followers, not as a press release
+    - Start with a personal phrase like: "Cette semaine dans Market & Match #{edition_number},"
+    - Natural, direct tone, as if sharing a discovery with your followers
+    - Include a few relevant hashtags at the end
+
+    LINKEDIN-SPECIFIC:
+    - Include the placeholder [LIEN_URL] at the end
+    - Include a few emojis throughout
+    - 2 to 5 sentences max
+    - Summarize news items as bullet points (5-10 words per news item)
+    - Professional and insightful tone
+
+    Return only the LinkedIn post text in plain French, without JSON or markdown.
+  expected_output: >
+    A French LinkedIn post in plain text.
+  agent: linkedin_post_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/social_linkedin.txt
+
+write_twitter_post:
+  description: >
+    Write a French Twitter/X post to share Market & Match newsletter edition #{edition_number}.
+
+    STYLE REQUIREMENTS (ALL PLATFORMS):
+    - Write as someone sharing a discovery with followers, not as a press release
+    - Start with a personal phrase like: "Cette semaine dans Market & Match #{edition_number},"
+    - Natural, direct tone, as if sharing a discovery with your followers
+    - Include a few relevant hashtags at the end
+
+    TWITTER/X-SPECIFIC:
+    - 270 characters maximum
+    - Include the placeholder [LIEN_URL] at the end
+    - Concise and punchy
+
+    Return only the Twitter/X post text in plain French, without JSON or markdown.
+  expected_output: >
+    A French Twitter/X post in plain text (270 chars max).
+  agent: twitter_post_writer
+  output_file: editions/edition_{edition_number}_{edition_date}/social_twitter.txt

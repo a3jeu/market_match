@@ -1,0 +1,438 @@
+from __future__ import annotations
+
+import json
+import os
+from datetime import datetime
+from pathlib import Path
+from typing import Any, List
+
+from rich.console import Console
+from rich.panel import Panel
+
+from crewai import Agent, Crew, Process, Task
+from crewai.agents.agent_builder.base_agent import BaseAgent
+from crewai.project import CrewBase, agent, crew, task
+from crewai_tools import SerperDevTool, ScrapeWebsiteTool
+
+from market_match.models import EconomyRecentNewsList, EnrichedNewsList, FinanceRecentNewsList, SportsRecentNewsList
+from market_match.tools import ReadPublishedNewsTool, SavePublishedEditionTool
+from market_match.utils.utils import extract_json, format_template, safe_slug
+from market_match.utils.editions import export_edition, next_edition_number, render_newsletter_html
+
+@CrewBase
+class MarketMatch:
+    """MarketMatch crew"""
+
+    agents: List[BaseAgent]
+    tasks: List[Task]
+
+    ##############################################
+    # --------- RESEARCH DEPARTMENT --------------
+    ##############################################
+    @agent
+    def ai_sports_news_scout(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_sports_news_scout"], 
+            tools=[SerperDevTool(), ScrapeWebsiteTool(), ReadPublishedNewsTool()],
+            verbose=True,
+        )
+        
+    @agent
+    def ai_finance_news_scout(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_finance_news_scout"], 
+            tools=[SerperDevTool(), ScrapeWebsiteTool(), ReadPublishedNewsTool()],
+            verbose=True,
+        )
+        
+    @agent
+    def ai_economy_news_scout(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_economy_news_scout"], 
+            tools=[SerperDevTool(), ScrapeWebsiteTool(), ReadPublishedNewsTool()],
+            verbose=True,
+        )
+
+    @agent
+    def ai_news_enricher(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_news_enricher"],
+            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            verbose=True,
+        )
+        
+    @agent
+    def ai_news_selector(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_news_selector"],
+            tools=[ScrapeWebsiteTool(), SavePublishedEditionTool()],
+            verbose=True,
+        )
+
+    @task
+    def find_ai_sports_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["find_ai_sports_news"],
+            output_pydantic=SportsRecentNewsList,
+            async_execution=True,
+        )
+        
+    @task
+    def find_ai_finance_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["find_ai_finance_news"],
+            output_pydantic=FinanceRecentNewsList,
+            async_execution=True,
+        )
+        
+    @task
+    def find_ai_economy_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["find_ai_economy_news"],
+            output_pydantic=EconomyRecentNewsList,
+            async_execution=True,
+        )
+
+    @task
+    def enrich_ai_news_research(self) -> Task:
+        return Task(
+            config=self.tasks_config["enrich_ai_news_research"],
+            output_pydantic=EnrichedNewsList,
+            async_execution=False,
+        )
+        
+    @task
+    def select_best_ai_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["select_best_ai_news"],
+            output_pydantic=EnrichedNewsList,
+            async_execution=False,
+        )
+        
+    ##############################################
+    # ---------- WRITING DEPARTMENT --------------
+    ##############################################
+
+    @crew
+    def crew(self) -> Crew:
+        return Crew(
+            agents=self.agents,
+            tasks=self.tasks,
+            process=Process.sequential,
+            verbose=True,
+            tracing=True
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # @staticmethod
+    # def _first_non_empty(*values: str | None) -> str:
+    #     for value in values:
+    #         if value and str(value).strip():
+    #             return str(value).strip()
+    #     return ""
+
+    # def _trace_info_from_inputs(self, inputs: dict[str, Any] | None) -> tuple[str, str, str]:
+    #     if not isinstance(inputs, dict):
+    #         return "", "", ""
+
+    #     trigger_payload = inputs.get("crewai_trigger_payload")
+    #     if not isinstance(trigger_payload, dict):
+    #         return "", "", ""
+
+    #     session_id = self._first_non_empty(
+    #         trigger_payload.get("session_id"),
+    #         trigger_payload.get("trace_session_id"),
+    #         trigger_payload.get("trace_batch_id"),
+    #     )
+    #     access_code = self._first_non_empty(
+    #         trigger_payload.get("access_code"),
+    #         trigger_payload.get("trace_access_code"),
+    #     )
+    #     url = self._first_non_empty(
+    #         trigger_payload.get("url"),
+    #         trigger_payload.get("trace_url"),
+    #     )
+    #     return session_id, access_code, url
+
+    # def _run_topup_crew(self, runtime_inputs: dict[str, Any], existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    #     """Run a supplementary research+curation pass to complete a short selection."""
+    #     needed = 4 - len(existing)
+    #     existing_ids = json.dumps([item.get("event_id", "") for item in existing], ensure_ascii=False)
+
+    #     topup_inputs = {
+    #         **runtime_inputs,
+    #         "found_count": len(existing),
+    #         "needed_count": needed,
+    #         "existing_event_ids": existing_ids,
+    #     }
+
+    #     scout_agent = Agent(
+    #         config=self.agents_config["trend_scout"],  # type: ignore[index]
+    #         tools=[self.serper_tool, self.read_history_tool],
+    #         llm=self.research_model,
+    #         verbose=True,
+    #     )
+    #     curator_agent = Agent(
+    #         config=self.agents_config["fact_checker"],  # type: ignore[index]
+    #         tools=[self.serper_tool, self.read_history_tool],
+    #         llm=self.research_model,
+    #         verbose=True,
+    #     )
+
+    #     scout_cfg = self.tasks_config["topup_scout_task"]  # type: ignore[index]
+    #     scout_task = Task(
+    #         description=format_template(scout_cfg["description"], **topup_inputs),
+    #         expected_output=format_template(scout_cfg["expected_output"], **topup_inputs),
+    #         agent=scout_agent,
+    #     )
+    #     curate_cfg = self.tasks_config["topup_curate_task"]  # type: ignore[index]
+    #     curate_task = Task(
+    #         description=format_template(curate_cfg["description"], **topup_inputs),
+    #         expected_output=format_template(curate_cfg["expected_output"], **topup_inputs),
+    #         agent=curator_agent,
+    #         context=[scout_task],
+    #     )
+
+    #     result = Crew(
+    #         agents=[scout_agent, curator_agent],
+    #         tasks=[scout_task, curate_task],
+    #         process=Process.sequential,
+    #         verbose=True,
+    #     ).kickoff(inputs=topup_inputs)
+
+    #     payload = extract_json(getattr(result, "raw", str(result)))
+    #     extras = payload.get("selected_news", [])
+    #     if not isinstance(extras, list):
+    #         return []
+    #     existing_ids_set = {item.get("event_id", "") for item in existing}
+    #     return [item for item in extras if isinstance(item, dict) and item.get("event_id", "") not in existing_ids_set]
+
+    # def _run_selection_crew(self, runtime_inputs: dict[str, Any]) -> list[dict[str, Any]]:
+    #     console = Console()
+    #     selection_result = self.crew().kickoff(inputs=runtime_inputs)
+    #     payload = extract_json(getattr(selection_result, "raw", str(selection_result)))
+
+    #     selected_news = payload.get("selected_news", [])
+    #     if not isinstance(selected_news, list):
+    #         selected_news = []
+
+    #     selected_news = [item for item in selected_news if isinstance(item, dict)]
+
+    #     if len(selected_news) < 4:
+    #         console.print(
+    #             f"[yellow]⚠ Seulement {len(selected_news)} nouvelle(s) trouvée(s) — "
+    #             "lancement d'un passage de recherche complémentaire…[/]"
+    #         )
+    #         extras = self._run_topup_crew(runtime_inputs, selected_news)
+    #         selected_news = (selected_news + extras)[:6]
+    #         console.print(f"[green]✔ {len(selected_news)} nouvelle(s) après le passage complémentaire.[/]")
+
+    #     if len(selected_news) == 0:
+    #         raise ValueError("Aucune nouvelle validée après deux passages de recherche.")
+
+    #     return selected_news[:6]
+
+    # def _run_single_news_crew(self, news_item: dict[str, Any], index: int) -> dict[str, Any]:
+    #     news_json = json.dumps(news_item, ensure_ascii=False)
+
+    #     def _agent(key: str) -> Agent:
+    #         return Agent(config=self.agents_config[key], llm=self.writing_model, verbose=True)  # type: ignore[index]
+
+    #     def _task(key: str, agent: Agent, **kw: Any) -> Task:
+    #         cfg = self.tasks_config[key]  # type: ignore[index]
+    #         return Task(
+    #             description=format_template(cfg["description"], **kw),
+    #             expected_output=cfg["expected_output"],
+    #             agent=agent,
+    #         )
+
+    #     title_agent      = _agent("title_writer")
+    #     intro_agent      = _agent("intro_writer")
+    #     essentials_agent = _agent("essentials_analyst")
+    #     practice_agent   = _agent("practice_analyst")
+    #     breakdown_agent  = _agent("breakdown_analyst")
+    #     stake_agent      = _agent("stake_analyst")
+    #     verdict_agent    = _agent("verdict_editorialist")
+    #     assembler_agent  = _agent("content_assembler")
+
+    #     kw = {"news_json": news_json}
+    #     title_task      = _task("title_task",      title_agent,      **kw)
+    #     intro_task      = _task("intro_task",      intro_agent,      **kw)
+    #     essentials_task = _task("essentials_task", essentials_agent, **kw)
+    #     practice_task   = _task("practice_task",   practice_agent,   **kw)
+    #     breakdown_task  = _task("breakdown_task",  breakdown_agent,  **kw)
+    #     stake_task      = _task("stake_task",      stake_agent,      **kw)
+    #     verdict_task    = _task("verdict_task",    verdict_agent,    **kw)
+
+    #     assemble_cfg = self.tasks_config["assemble_task"]  # type: ignore[index]
+    #     assemble_task = Task(
+    #         description=format_template(assemble_cfg["description"], **kw),
+    #         expected_output=assemble_cfg["expected_output"],
+    #         agent=assembler_agent,
+    #         context=[title_task, intro_task, essentials_task, practice_task, breakdown_task, stake_task, verdict_task],
+    #     )
+
+    #     news_crew = Crew(
+    #         agents=[title_agent, intro_agent, essentials_agent, practice_agent, breakdown_agent, stake_agent, verdict_agent, assembler_agent],
+    #         tasks=[title_task, intro_task, essentials_task, practice_task, breakdown_task, stake_task, verdict_task, assemble_task],
+    #         process=Process.sequential,
+    #         verbose=True,
+    #     )
+
+    #     output = news_crew.kickoff()
+    #     news_payload = extract_json(getattr(output, "raw", str(output)))
+    #     news_payload["sources"] = news_payload.get("sources", news_item.get("sources", []))
+
+    #     fallback_slug = f"news-{index:02d}"
+    #     news_payload["slug"] = safe_slug(str(news_payload.get("title_en", "")), fallback_slug)
+    #     return news_payload
+
+    # def _run_title_crew(self, news_items: list[dict[str, Any]], edition_number: int) -> dict[str, str]:
+    #     title_agent = Agent(config=self.agents_config["newsletter_title_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
+    #     cfg = self.tasks_config["newsletter_title_task"]  # type: ignore[index]
+    #     task = Task(
+    #         description=format_template(cfg["description"], edition_number=edition_number, news_items_json=json.dumps(news_items, ensure_ascii=False)),
+    #         expected_output=cfg["expected_output"],
+    #         agent=title_agent,
+    #     )
+    #     result = Crew(agents=[title_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
+    #     return extract_json(getattr(result, "raw", str(result)))
+
+    # def _run_intro_crew(self, news_items: list[dict[str, Any]]) -> dict[str, Any]:
+    #     intro_agent = Agent(config=self.agents_config["newsletter_intro_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
+    #     mini_news = [{"title_fr": i.get("title_fr", ""), "title_en": i.get("title_en", ""), "essentiel_fr": i.get("essentiel_fr", ""), "essentials_en": i.get("essentials_en", "")} for i in news_items]
+    #     cfg = self.tasks_config["newsletter_intro_task"]  # type: ignore[index]
+    #     task = Task(
+    #         description=format_template(cfg["description"], news_items_json=json.dumps(mini_news, ensure_ascii=False)),
+    #         expected_output=cfg["expected_output"],
+    #         agent=intro_agent,
+    #     )
+    #     result = Crew(agents=[intro_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
+    #     return extract_json(getattr(result, "raw", str(result)))
+
+    # def _run_social_agent(self, platform: str, title_fr: str, news_items: list[dict[str, Any]]) -> str:
+    #     social_agent = Agent(config=self.agents_config["social_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
+
+    #     placeholder_rule = "Inclure le placeholder [LIEN_URL] à la fin." if platform in {"LinkedIn", "Twitter/X"} else "Ne pas inclure de placeholder URL."
+    #     char_limit = "280 caractères max pour Twitter/X." if platform == "Twitter/X" else ""
+    #     mini_news = [{"title_fr": i.get("title_fr", ""), "essentiel_fr": i.get("essentiel_fr", "")} for i in news_items]
+    #     cfg = self.tasks_config["social_post_task"]  # type: ignore[index]
+    #     task = Task(
+    #         description=format_template(
+    #             cfg["description"],
+    #             platform=platform,
+    #             placeholder_rule=placeholder_rule,
+    #             char_limit=char_limit,
+    #             title_fr=title_fr,
+    #             news_items_json=json.dumps(mini_news, ensure_ascii=False),
+    #         ),
+    #         expected_output=cfg["expected_output"],
+    #         agent=social_agent,
+    #     )
+    #     result = Crew(agents=[social_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
+    #     payload = extract_json(getattr(result, "raw", str(result)))
+    #     return str(payload.get("post", "")).strip()
+
+
+    # def run_newsletter(self, inputs: dict[str, Any] | None = None) -> dict[str, Any]:
+
+    #     edition_number = int(inputs["edition_number"])
+    #     edition_date = str(inputs["edition_date"])
+
+    #     selected_news = self._run_selection_crew(inputs)
+
+    #     news_items: list[dict[str, Any]] = []
+    #     for index, selected in enumerate(selected_news, start=1):
+    #         news_payload = self._run_single_news_crew(selected, index)
+    #         news_items.append(news_payload)
+
+    #     title_payload = self._run_title_crew(news_items, edition_number)
+    #     intro_payload = self._run_intro_crew(news_items)
+
+    #     title_fr = str(title_payload.get("title_fr", f"Market & Match #{edition_number}: IA sport & finance"))
+    #     title_en = str(title_payload.get("title_en", f"Market & Match #{edition_number}: AI in sports & finance"))
+
+    #     intro_sentence_fr = str(intro_payload.get("intro_sentence_fr", "Dans l'édition d'aujourd'hui de Market & Match, nous couvrons les actualités IA clés de la semaine."))
+    #     intro_sentence_en = str(intro_payload.get("intro_sentence_en", "In today's edition of Market & Match, we cover the key AI stories of the week."))
+
+    #     intro_bullets_fr = intro_payload.get("intro_bullets_fr", [])
+    #     intro_bullets_en = intro_payload.get("intro_bullets_en", [])
+    #     if not isinstance(intro_bullets_fr, list):
+    #         intro_bullets_fr = []
+    #     if not isinstance(intro_bullets_en, list):
+    #         intro_bullets_en = []
+
+    #     newsletter_html_fr = render_newsletter_html(
+    #         lang="fr",
+    #         title=title_fr,
+    #         intro_sentence=intro_sentence_fr,
+    #         intro_bullets=intro_bullets_fr,
+    #         news_items=news_items,
+    #     )
+    #     newsletter_html_en = render_newsletter_html(
+    #         lang="en",
+    #         title=title_en,
+    #         intro_sentence=intro_sentence_en,
+    #         intro_bullets=intro_bullets_en,
+    #         news_items=news_items,
+    #     )
+
+    #     facebook_fr = self._run_social_agent("Facebook", title_fr, news_items)
+    #     linkedin_fr = self._run_social_agent("LinkedIn", title_fr, news_items)
+    #     twitter_fr = self._run_social_agent("Twitter/X", title_fr, news_items)
+
+    #     edition_dir = export_edition(
+    #         project_root=self.project_root,
+    #         writing_model=self.writing_model,
+    #         research_model=self.research_model,
+    #         edition_number=edition_number,
+    #         edition_date=edition_date,
+    #         title_fr=title_fr,
+    #         title_en=title_en,
+    #         intro_payload=intro_payload,
+    #         news_items=news_items,
+    #         newsletter_html_fr=newsletter_html_fr,
+    #         newsletter_html_en=newsletter_html_en,
+    #         facebook_fr=facebook_fr,
+    #         linkedin_fr=linkedin_fr,
+    #         twitter_fr=twitter_fr,
+    #     )
+
+    #     history_result = save_publication_history(
+    #         save_history_tool=self.save_history_tool,
+    #         edition_number=edition_number,
+    #         edition_date=edition_date,
+    #         news_items=news_items,
+    #     )
+
+    #     return {
+    #         "edition_number": edition_number,
+    #         "edition_date": edition_date,
+    #         "news_count": len(news_items),
+    #         "title_fr": title_fr,
+    #         "title_en": title_en,
+    #         "edition_dir": str(edition_dir),
+    #         "history_update": history_result,
+    #     }

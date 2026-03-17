@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Type
+from typing import Any, List, Type
 
 from crewai.tools import BaseTool
 from pydantic import BaseModel, Field
@@ -44,7 +44,7 @@ def _history_payload() -> dict[str, Any]:
         return payload
 
 
-def build_signature(title: str, url: str = "") -> str:
+def _build_signature(title: str, url: str = "") -> str:
     normalized = f"{title.strip().lower()}|{url.strip().lower()}"
     return sha256(normalized.encode("utf-8")).hexdigest()
 
@@ -76,6 +76,7 @@ class ReadPublishedNewsTool(BaseTool):
                         "edition": edition.get("edition_number"),
                         "date": edition.get("edition_date"),
                         "title": item.get("title", ""),
+                        "summary": item.get("summary", ""),
                         "source": item.get("source", ""),
                         "signature": item.get("signature", ""),
                     }
@@ -89,15 +90,18 @@ class ReadPublishedNewsTool(BaseTool):
         return json.dumps(result, ensure_ascii=False, indent=2)
 
 
+class NewsHistoryEntry(BaseModel):
+    title: str = Field(..., description="The headline of the article.")
+    summary: str = Field(default="", description="A 1-3 sentence summary of the article.")
+    source: str = Field(default="", description="The URL of the source article.")
+
+
 class SavePublishedEditionInput(BaseModel):
     edition_number: int = Field(..., description="Edition number, e.g. 12")
     edition_date: str = Field(..., description="Edition date in YYYY-MM-DD format")
-    items_json: str = Field(
+    items: List[NewsHistoryEntry] = Field(
         ...,
-        description=(
-            "A JSON array of objects. Each object should contain at least a title and optionally one source URL. "
-            "Example: [{\"title\":\"...\",\"source\":\"https://...\"}]"
-        ),
+        description="List of news items to persist. Each item must have a title, and optionally a summary and a source URL.",
     )
 
 
@@ -108,31 +112,29 @@ class SavePublishedEditionTool(BaseTool):
     )
     args_schema: Type[BaseModel] = SavePublishedEditionInput
 
-    def _run(self, edition_number: int, edition_date: str, items_json: str) -> str:
+    def _run(self, edition_number: int, edition_date: str, items: List[NewsHistoryEntry]) -> str:
         payload = _history_payload()
 
-        try:
-            items = json.loads(items_json)
-        except json.JSONDecodeError as exc:
-            return f"Invalid items_json payload: {exc}"
-
-        if not isinstance(items, list):
-            return "Invalid items_json payload: expected a JSON list."
+        # Accept plain dicts when called from Python code (not via an LLM)
+        validated: list[NewsHistoryEntry] = [
+            item if isinstance(item, NewsHistoryEntry) else NewsHistoryEntry.model_validate(item)
+            for item in items
+        ]
 
         normalized_items: list[dict[str, str]] = []
         signatures_to_add: set[str] = set()
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-            title = str(item.get("title", "")).strip()
-            source = str(item.get("source", "")).strip()
+        for item in validated:
+            title = item.title.strip()
+            summary = item.summary.strip()
+            source = item.source.strip()
             if not title:
                 continue
-            signature = build_signature(title=title, url=source)
+            signature = _build_signature(title=title, url=source)
             signatures_to_add.add(signature)
             normalized_items.append(
                 {
                     "title": title,
+                    "summary": summary,
                     "source": source,
                     "signature": signature,
                 }

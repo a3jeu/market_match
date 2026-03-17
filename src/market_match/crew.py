@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import json
 import os
+import re
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, List
+from typing import Any, List, Tuple
 
 from rich.console import Console
 from rich.panel import Panel
@@ -12,11 +14,208 @@ from rich.panel import Panel
 from crewai import Agent, Crew, Process, Task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import SerperDevTool
+from crewai.tasks.task_output import TaskOutput
+from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 
-from market_match.tools import ReadPublishedNewsTool, SavePublishedEditionTool
-from market_match.utils import extract_body_html, extract_json, format_template, safe_slug
+from market_match.models import (
+    EnrichedNewsItem,
+    EnrichedNewsList,
+    EnrichedNewsListResearch,
+    NewsletterIntroduction,
+    NewsArticleIntro,
+    NewsArticleTitle,
+    NewsArticleVerdict,
+    RecentNewsList,
+    WrittenNewsArticle,
+)
+from market_match.tools import AssembleNewsletterHtmlTool, ReadPublishedNewsTool, SavePublishedEditionTool
+from market_match.utils.utils import extract_json, format_template, safe_slug
+from market_match.utils.editions import (
+    create_share_bundle_callback,
+    export_edition,
+    next_edition_number,
+    save_selected_news,
+)
 
+
+def _single_json_object_guardrail(task_output: TaskOutput):
+    """Normalize task output to exactly one JSON object string.
+
+    CrewAI can receive model outputs with extra trailing text around JSON.
+    This guardrail extracts the JSON object and returns it as canonical JSON.
+    """
+    try:
+        parsed = extract_json(task_output.raw)
+    except Exception as exc:
+        return False, f"Invalid JSON output: {exc}"
+
+    return True, json.dumps(parsed, ensure_ascii=False)
+
+
+def _compact_text(value: Any, max_len: int) -> str:
+    """Normalize and cap text fields to avoid context blowups in downstream tasks."""
+    text = str(value or "")
+
+    # Drop control chars and collapse whitespace while preserving readability.
+    text = re.sub(r"[\x00-\x08\x0B\x0C\x0E-\x1F]", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+
+    if not text:
+        return ""
+
+    # If the payload looks binary/garbled, keep only a short safe prefix.
+    sample = text[:2000]
+    non_word = sum(1 for ch in sample if not (ch.isalnum() or ch.isspace() or ch in ",.;:!?()[]{}'\"/-_@#%&*+="))
+    if sample and (non_word / len(sample)) > 0.35:
+        text = "[content omitted: non-text payload detected]"
+
+    if len(text) > max_len:
+        text = text[:max_len].rstrip() + "..."
+
+    return text
+
+
+def _compact_enriched_news_item_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    news_item = dict(payload)
+
+    news_item["title"] = _compact_text(news_item.get("title", ""), 220)
+    news_item["topic"] = _compact_text(news_item.get("topic", ""), 40)
+    news_item["url"] = _compact_text(news_item.get("url", ""), 500)
+    news_item["article_content"] = _compact_text(news_item.get("article_content", ""), 1800)
+
+    compact_sources: list[dict[str, Any]] = []
+    for src in news_item.get("additional_sources", []) or []:
+        if not isinstance(src, dict):
+            continue
+        compact_sources.append(
+            {
+                "title": _compact_text(src.get("title", ""), 220),
+                "source": _compact_text(src.get("source", ""), 120),
+                "url": _compact_text(src.get("url", ""), 500),
+                "published_at": _compact_text(src.get("published_at", ""), 32),
+                "article_content": _compact_text(src.get("article_content", ""), 900),
+                "added_value_for_writer": _compact_text(src.get("added_value_for_writer", ""), 500),
+            }
+        )
+    news_item["additional_sources"] = compact_sources
+
+    market_context = news_item.get("market_context_source")
+    if isinstance(market_context, dict):
+        news_item["market_context_source"] = {
+            "title": _compact_text(market_context.get("title", ""), 220),
+            "source": _compact_text(market_context.get("source", ""), 120),
+            "url": _compact_text(market_context.get("url", ""), 500),
+            "published_at": _compact_text(market_context.get("published_at", ""), 32),
+            "article_content": _compact_text(market_context.get("article_content", ""), 900),
+            "added_value_for_writer": _compact_text(market_context.get("added_value_for_writer", ""), 500),
+        }
+
+    return news_item
+
+
+def _compact_enriched_news_item_guardrail(task_output: TaskOutput):
+    """Compact the extracted EnrichedNewsItem to keep writing-task context bounded."""
+    try:
+        parsed = extract_json(task_output.raw)
+    except Exception as exc:
+        return False, f"Invalid JSON output: {exc}"
+
+    compact = _compact_enriched_news_item_payload(parsed)
+    return True, json.dumps(compact, ensure_ascii=False)
+
+
+@dataclass
+class WritingArticleTasks:
+    extractor: Task | None = None
+    article: Task | None = None
+    title: Task | None = None
+    intro: Task | None = None
+    verdict: Task | None = None
+
+    def all_tasks(self) -> List[Task]:
+        return [
+            task
+            for task in [self.extractor, self.article, self.title, self.intro, self.verdict]
+            if task is not None
+        ]
+
+
+@dataclass
+class WritingTaskGroups:
+    extractors: List[Task] = field(default_factory=list)
+    articles: List[Task] = field(default_factory=list)
+    titles: List[Task] = field(default_factory=list)
+    intros: List[Task] = field(default_factory=list)
+    verdicts: List[Task] = field(default_factory=list)
+    newsletter_intro: Task | None = None
+
+    def all_tasks(self) -> List[Task]:
+        tasks = [
+            *self.extractors,
+            *self.articles,
+            *self.titles,
+            *self.intros,
+            *self.verdicts,
+        ]
+        if self.newsletter_intro is not None:
+            tasks.append(self.newsletter_intro)
+        return tasks
+
+    def marketing_context(self) -> List[Task]:
+        context = [*self.articles, *self.titles, *self.intros, *self.verdicts]
+        if self.newsletter_intro is not None:
+            context.append(self.newsletter_intro)
+        return context
+
+    def article_count(self) -> int:
+        return max(
+            len(self.extractors),
+            len(self.articles),
+            len(self.titles),
+            len(self.intros),
+            len(self.verdicts),
+        )
+
+    def for_article(self, article_no: int) -> WritingArticleTasks:
+        if article_no < 1:
+            raise ValueError("article_no must be >= 1")
+
+        index = article_no - 1
+        return WritingArticleTasks(
+            extractor=self.extractors[index] if index < len(self.extractors) else None,
+            article=self.articles[index] if index < len(self.articles) else None,
+            title=self.titles[index] if index < len(self.titles) else None,
+            intro=self.intros[index] if index < len(self.intros) else None,
+            verdict=self.verdicts[index] if index < len(self.verdicts) else None,
+        )
+
+
+@dataclass
+class MarketingTaskGroups:
+    image_prompts: List[Task] = field(default_factory=list)
+    newsletter_title: Task | None = None
+    validated_html: Task | None = None
+    translated_title: Task | None = None
+    translated_html: Task | None = None
+    facebook_post: Task | None = None
+    linkedin_post: Task | None = None
+    twitter_post: Task | None = None
+
+    def all_tasks(self) -> List[Task]:
+        return [
+            task
+            for task in [
+                *self.image_prompts,
+                self.newsletter_title,
+                self.validated_html,
+                self.translated_title,
+                self.translated_html,
+                self.facebook_post,
+                self.linkedin_post,
+                self.twitter_post,
+            ]
+            if task is not None
+        ]
 
 @CrewBase
 class MarketMatch:
@@ -25,707 +224,451 @@ class MarketMatch:
     agents: List[BaseAgent]
     tasks: List[Task]
 
-    def __init__(self) -> None:
-        self.serper_tool = SerperDevTool()
-        self.read_history_tool = ReadPublishedNewsTool()
-        self.save_history_tool = SavePublishedEditionTool()
-        self.project_root = Path(__file__).resolve().parents[2]
-
-        self.research_model = os.getenv("MARKET_MATCH_RESEARCH_MODEL", os.getenv("OPENAI_MODEL_NAME", "gpt-4o-mini"))
-        self.writing_model = os.getenv("MARKET_MATCH_WRITING_MODEL", "gpt-5-mini")
-
+    ##############################################
+    # --------- RESEARCH DEPARTMENT --------------
+    ##############################################
     @agent
-    def trend_scout(self) -> Agent:
+    def ai_sports_news_scout(self) -> Agent:
         return Agent(
-            config=self.agents_config["trend_scout"],  # type: ignore[index]
-            tools=[self.serper_tool, self.read_history_tool],
-            llm=self.research_model,
+            config=self.agents_config["ai_sports_news_scout"], 
+            tools=[SerperDevTool(), ReadPublishedNewsTool()],
+            verbose=True,
+        )
+        
+    @agent
+    def ai_finance_news_scout(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_finance_news_scout"], 
+            tools=[SerperDevTool(), ReadPublishedNewsTool()],
+            verbose=True,
+        )
+        
+    @agent
+    def ai_economy_news_scout(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_economy_news_scout"], 
+            tools=[SerperDevTool(), ReadPublishedNewsTool()],
             verbose=True,
         )
 
     @agent
-    def fact_checker(self) -> Agent:
+    def news_enricher(self) -> Agent:
         return Agent(
-            config=self.agents_config["fact_checker"],  # type: ignore[index]
-            tools=[self.serper_tool, self.read_history_tool],
-            llm=self.research_model,
+            config=self.agents_config["news_enricher"],
+            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            verbose=True,
+        )
+
+    @agent
+    def market_context_researcher(self) -> Agent:
+        return Agent(
+            config=self.agents_config["market_context_researcher"],
+            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            verbose=True,
+        )
+        
+    @agent
+    def news_selector(self) -> Agent:
+        return Agent(
+            config=self.agents_config["news_selector"],
+            tools=[ScrapeWebsiteTool(), SavePublishedEditionTool(), ReadPublishedNewsTool()],
             verbose=True,
         )
 
     @task
-    def scout_news_task(self) -> Task:
+    def find_ai_sports_news(self) -> Task:
         return Task(
-            config=self.tasks_config["scout_news_task"],  # type: ignore[index]
+            config=self.tasks_config["find_ai_sports_news"],
+            # output_pydantic=RecentNewsList,
+            async_execution=False,
+        )
+        
+    @task
+    def find_ai_finance_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["find_ai_finance_news"],
+            # output_pydantic=RecentNewsList,
+            async_execution=False,
+        )
+        
+    @task
+    def find_ai_economy_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["find_ai_economy_news"],
+            # output_pydantic=RecentNewsList,
+            async_execution=False,
         )
 
     @task
-    def curate_and_validate_task(self) -> Task:
+    def enrich_news_research(self) -> Task:
         return Task(
-            config=self.tasks_config["curate_and_validate_task"],  # type: ignore[index]
-            context=[self.scout_news_task()],
-            output_file="report.md",
+            config=self.tasks_config["enrich_news_research"],
+            # output_pydantic=EnrichedNewsListResearch,
+            # guardrail=_single_json_object_guardrail,
+            async_execution=False,
         )
+
+    @task
+    def enrich_news_market_context(self) -> Task:
+        return Task(
+            config=self.tasks_config["enrich_news_market_context"],
+            # output_pydantic=EnrichedNewsList,
+            # guardrail=_single_json_object_guardrail,
+            async_execution=False,
+        )
+        
+    @task
+    def select_best_news(self) -> Task:
+        return Task(
+            config=self.tasks_config["select_best_news"],
+            output_pydantic=EnrichedNewsList,
+            guardrail=_single_json_object_guardrail,
+            async_execution=False,
+            callback=save_selected_news,
+        )
+        
+    ##############################################
+    # ---------- WRITING DEPARTMENT --------------
+    ##############################################
+    
+    @agent
+    def news_item_extractor(self) -> Agent:
+        return Agent(
+            config=self.agents_config["news_item_extractor"],
+            verbose=True,
+        )
+
+    @agent
+    def article_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["article_writer"],
+            tools=[ScrapeWebsiteTool()],
+            verbose=True,
+        )
+
+    @agent
+    def intro_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["intro_writer"],
+            verbose=True,
+        )
+
+    @agent
+    def title_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["title_writer"],
+            verbose=True,
+        )
+
+    @agent
+    def verdict_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["verdict_writer"],
+            verbose=True,
+        )
+        
+    @agent
+    def newsletter_intro_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["newsletter_intro_writer"],
+            verbose=True,
+        )
+
+
+    def _build_writing_tasks(self) -> WritingTaskGroups:
+        """Build writing tasks for each news article.
+        
+        For each article, create three tasks:
+        0. extract_news_item: Extract the single news item to work on
+        1. write_news_article_content: Write the article with structured sections
+        2.1. write_news_title: Write a concise article title
+        2.2. write_news_intro: Write a single-sentence introduction
+        2.3. write_news_verdict: Write editorial opinion
+        """
+
+        # Get the actual number of news articles from environment
+        news_count = int(
+            os.environ.get("MARKET_MATCH_ACTUAL_NEWS_COUNT", # src\market_match\utils\editions.py
+            os.environ.get("MARKET_MATCH_NEWS_TO_KEEP", "3"))     # main.py
+        )
+
+        task_groups = WritingTaskGroups()
+
+        for news_no in range(1, news_count + 1):
+            # Task 0: Extract only this item from the selected list
+            extract_news_item = Task(
+                config=self.tasks_config["extract_news_item"],
+                agent=self.news_item_extractor(),
+                async_execution=False,
+                description=self.tasks_config["extract_news_item"]["description"].format(
+                    news_no=news_no
+                ),
+                expected_output=self.tasks_config["extract_news_item"]["expected_output"].format(
+                    news_no=news_no
+                ),
+                output_file=self.tasks_config["extract_news_item"]["output_file"].replace(
+                    "{news_no}", str(news_no)
+                ),
+                # output_pydantic=EnrichedNewsItem,
+                # guardrail=_compact_enriched_news_item_guardrail,
+                context=[self.select_best_news()],
+            )
+            task_groups.extractors.append(extract_news_item)
+
+            # Task 1: Write article content — receives only the single extracted item
+            write_news_article_content = Task(
+                config=self.tasks_config["write_news_article_content"],
+                agent=self.article_writer(),
+                async_execution=False,
+                expected_output=self.tasks_config["write_news_article_content"]["expected_output"].format(
+                    news_no=news_no
+                ),
+                output_file=self.tasks_config["write_news_article_content"]["output_file"].replace(
+                    "{news_no}", str(news_no)
+                ),
+                output_pydantic=WrittenNewsArticle,
+                context=[extract_news_item],
+            )
+            task_groups.articles.append(write_news_article_content)
+
+            # Task 2.1: Write title
+            write_news_title = Task(
+                config=self.tasks_config["write_news_title"],
+                agent=self.title_writer(),
+                async_execution=False,
+                expected_output=self.tasks_config["write_news_title"]["expected_output"].format(
+                    news_no=news_no
+                ),
+                output_file=self.tasks_config["write_news_title"]["output_file"].replace(
+                    "{news_no}", str(news_no)
+                ),
+                # output_pydantic=NewsArticleTitle,
+                context=[write_news_article_content],
+            )
+            task_groups.titles.append(write_news_title)
+
+            # Task 2.2: Write introduction
+            write_news_intro = Task(
+                config=self.tasks_config["write_news_intro"],
+                agent=self.intro_writer(),
+                async_execution=False,
+                expected_output=self.tasks_config["write_news_intro"]["expected_output"].format(
+                    news_no=news_no
+                ),
+                output_file=self.tasks_config["write_news_intro"]["output_file"].replace(
+                    "{news_no}", str(news_no)
+                ),
+                # output_pydantic=NewsArticleIntro,
+                context=[write_news_article_content],
+            )
+            task_groups.intros.append(write_news_intro)
+
+            # Task 2.3: Write verdict
+            write_news_verdict = Task(
+                config=self.tasks_config["write_news_verdict"],
+                agent=self.verdict_writer(),
+                async_execution=False,
+                expected_output=self.tasks_config["write_news_verdict"]["expected_output"].format(
+                    news_no=news_no
+                ),
+                output_file=self.tasks_config["write_news_verdict"]["output_file"].replace(
+                    "{news_no}", str(news_no)
+                ),
+                # output_pydantic=NewsArticleVerdict,
+                context=[write_news_article_content],
+            )
+            task_groups.verdicts.append(write_news_verdict)
+
+        # Newsletter intro from all written article contents
+        write_newsletter_intro = Task(
+            config=self.tasks_config["write_newsletter_intro"],
+            agent=self.newsletter_intro_writer(),
+            async_execution=False,
+            output_pydantic=NewsletterIntroduction,
+            context=task_groups.articles,
+        )
+        task_groups.newsletter_intro = write_newsletter_intro
+
+        return task_groups
+    
+    ##############################################
+    # ---------- MARKETING DEPARTMENT ------------
+    ##############################################
+    
+    @agent
+    def newsletter_title_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["newsletter_title_writer"],
+            verbose=True,
+        )
+        
+    @agent
+    def image_prompt_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["image_prompt_writer"],
+            verbose=True,
+        )
+
+    @agent
+    def facebook_post_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["facebook_post_writer"],
+            verbose=True,
+        )
+
+    @agent
+    def linkedin_post_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["linkedin_post_writer"],
+            verbose=True,
+        )
+
+    @agent
+    def twitter_post_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config["twitter_post_writer"],
+            verbose=True,
+        )
+
+    @agent
+    def newsletter_html_validator(self) -> Agent:
+        return Agent(
+            config=self.agents_config["newsletter_html_validator"],
+            tools=[AssembleNewsletterHtmlTool()],
+            verbose=True,
+        )
+
+    @agent
+    def newsletter_translator(self) -> Agent:
+        return Agent(
+            config=self.agents_config["newsletter_translator"],
+            verbose=True,
+        )
+
+    def _build_marketing_tasks(self, writing_tasks: WritingTaskGroups) -> MarketingTaskGroups:
+        """Build marketing tasks from all written article outputs.
+        
+        For each article, create three tasks:
+        1. write_image_prompt: Write an image prompt for the article thumbnail
+        
+        Then create tasks for the overall newsletter:
+        2. write_newsletter_title: Write a concise newsletter title
+        3. validate_newsletter_html: Validate the assembled newsletter HTML
+        4. translate_newsletter_title: Translate the newsletter title to English
+        5. translate_newsletter_html: Translate the newsletter HTML to English
+        6. write_facebook_post: Write a Facebook post for the edition
+        7. write_linkedin_post: Write a LinkedIn post for the edition
+        8. write_twitter_post: Write a Twitter/X post for the edition
+        """
+        task_groups = MarketingTaskGroups()
+
+        for news_no in range(1, writing_tasks.article_count() + 1):
+            article_tasks = writing_tasks.for_article(news_no)
+            if article_tasks.article is None:
+                print(f"❌ Skipping marketing tasks for article {news_no} because the article content task is missing.")
+                continue
+
+            # Task 1: Write image prompt for article thumbnail
+            write_image_prompt = Task(
+                config=self.tasks_config["write_image_prompt"],
+                agent=self.image_prompt_writer(),
+                async_execution=False,
+                expected_output=self.tasks_config["write_image_prompt"]["expected_output"].format(
+                    news_no=news_no
+                ),
+                output_file=self.tasks_config["write_image_prompt"]["output_file"].replace(
+                    "{news_no}", str(news_no)
+                ),
+                context=[article_tasks.article],
+            )
+            task_groups.image_prompts.append(write_image_prompt)
+
+        # Task 2: Write newsletter title from all article titles and intros
+        write_newsletter_title = Task(
+            config=self.tasks_config["write_newsletter_title"],
+            agent=self.newsletter_title_writer(),
+            async_execution=False,
+            context=writing_tasks.marketing_context(),
+        )
+        task_groups.newsletter_title = write_newsletter_title
+
+        # Task 3: Validate newsletter HTML
+        validate_newsletter_html = Task(
+            config=self.tasks_config["validate_newsletter_html"],
+            agent=self.newsletter_html_validator(),
+            async_execution=False,
+            context=[write_newsletter_title, *writing_tasks.marketing_context()],
+        )
+        task_groups.validated_html = validate_newsletter_html
+
+        # Task 4: Translate newsletter title to English
+        translate_newsletter_title = Task(
+            config=self.tasks_config["translate_newsletter_title"],
+            agent=self.newsletter_translator(),
+            async_execution=False,
+            context=[write_newsletter_title],
+        )
+        task_groups.translated_title = translate_newsletter_title
+
+        # Task 5: Translate newsletter HTML to English
+        translate_newsletter_html = Task(
+            config=self.tasks_config["translate_newsletter_html"],
+            agent=self.newsletter_translator(),
+            async_execution=False,
+            context=[validate_newsletter_html],
+        )
+        task_groups.translated_html = translate_newsletter_html
+
+        # Task 6: Write social media posts for each platform (Facebook)
+        write_facebook_post = Task(
+            config=self.tasks_config["write_facebook_post"],
+            agent=self.facebook_post_writer(),
+            async_execution=False,
+            context=[write_newsletter_title, validate_newsletter_html],
+        )
+        task_groups.facebook_post = write_facebook_post
+
+        # Task 7: Write social media posts for each platform (LinkedIn)
+        write_linkedin_post = Task(
+            config=self.tasks_config["write_linkedin_post"],
+            agent=self.linkedin_post_writer(),
+            async_execution=False,
+            context=[write_newsletter_title, validate_newsletter_html],
+        )
+        task_groups.linkedin_post = write_linkedin_post
+
+        # Task 8: Write social media posts for each platform (Twitter/X)
+        write_twitter_post = Task(
+            config=self.tasks_config["write_twitter_post"],
+            agent=self.twitter_post_writer(),
+            async_execution=False,
+            context=[write_newsletter_title, validate_newsletter_html],
+            callback=create_share_bundle_callback,
+        )
+        task_groups.twitter_post = write_twitter_post
+
+        return task_groups
+        
+        
+    # ---------- CREW ------------
 
     @crew
     def crew(self) -> Crew:
+        # RESEARCH DEPARTMENT
+        tasks = list(self.tasks)
+
+        # WRITING DEPARTMENT
+        writing_tasks = self._build_writing_tasks()
+        tasks.extend(writing_tasks.all_tasks())
+        
+        # MARKETING DEPARTMENT
+        marketing_tasks = self._build_marketing_tasks(writing_tasks)
+        tasks.extend(marketing_tasks.all_tasks())
+        
         return Crew(
-            agents=[self.trend_scout(), self.fact_checker()],
-            tasks=[self.scout_news_task(), self.curate_and_validate_task()],
+            agents=self.agents,
+            tasks=tasks,
             process=Process.sequential,
             verbose=True,
+            tracing=True
         )
-
-    def _enable_tracing(self) -> dict[str, str]:
-        self._load_dotenv_file()
-
-        os.environ.setdefault("CREWAI_TRACING_ENABLED", "true")
-        os.environ.setdefault("OTEL_SDK_DISABLED", "false")
-
-        current_exporter = (os.environ.get("OTEL_TRACES_EXPORTER") or "").strip().lower()
-        if not current_exporter or current_exporter == "console":
-            os.environ["OTEL_TRACES_EXPORTER"] = "otlp"
-
-        return {
-            "CREWAI_TRACING_ENABLED": os.environ.get("CREWAI_TRACING_ENABLED", ""),
-            "OTEL_SDK_DISABLED": os.environ.get("OTEL_SDK_DISABLED", ""),
-            "OTEL_TRACES_EXPORTER": os.environ.get("OTEL_TRACES_EXPORTER", ""),
-        }
-
-    def _load_dotenv_file(self) -> None:
-        env_path = self.project_root / ".env"
-        if not env_path.exists():
-            return
-
-        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-            line = raw_line.strip()
-            if not line or line.startswith("#") or "=" not in line:
-                continue
-
-            key, value = line.split("=", 1)
-            key = key.strip()
-            value = value.strip().strip('"').strip("'")
-            if key:
-                os.environ.setdefault(key, value)
-
-    def _published_history_file(self) -> Path:
-        return self.project_root / "data" / "published_news.json"
-
-    def next_edition_number(self) -> int:
-        history_file = self._published_history_file()
-        if not history_file.exists():
-            return 1
-
-        try:
-            payload = json.loads(history_file.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            return 1
-
-        editions = payload.get("editions", [])
-        if not editions:
-            return 1
-
-        latest = max((int(item.get("edition_number", 0)) for item in editions), default=0)
-        return latest + 1
-
-    # _extract_json, _extract_body_html, and _safe_slug have been moved to market_match.utils
-    # as extract_json, extract_body_html, and safe_slug.
-
-    @staticmethod
-    def _first_non_empty(*values: str | None) -> str:
-        for value in values:
-            if value and str(value).strip():
-                return str(value).strip()
-        return ""
-
-    def _trace_info_from_inputs(self, inputs: dict[str, Any] | None) -> tuple[str, str, str]:
-        if not isinstance(inputs, dict):
-            return "", "", ""
-
-        trigger_payload = inputs.get("crewai_trigger_payload")
-        if not isinstance(trigger_payload, dict):
-            return "", "", ""
-
-        session_id = self._first_non_empty(
-            trigger_payload.get("session_id"),
-            trigger_payload.get("trace_session_id"),
-            trigger_payload.get("trace_batch_id"),
-        )
-        access_code = self._first_non_empty(
-            trigger_payload.get("access_code"),
-            trigger_payload.get("trace_access_code"),
-        )
-        url = self._first_non_empty(
-            trigger_payload.get("url"),
-            trigger_payload.get("trace_url"),
-        )
-        return session_id, access_code, url
-
-    def _resolve_trace_info(self, runtime_inputs: dict[str, Any]) -> tuple[str, str, str]:
-        env_session_id = self._first_non_empty(
-            os.environ.get("CREWAI_TRACE_SESSION_ID"),
-            os.environ.get("CREWAI_TRACE_BATCH_ID"),
-            os.environ.get("TRACE_SESSION_ID"),
-            os.environ.get("TRACE_BATCH_ID"),
-        )
-        env_access_code = self._first_non_empty(
-            os.environ.get("CREWAI_TRACE_ACCESS_CODE"),
-            os.environ.get("TRACE_ACCESS_CODE"),
-        )
-        env_url = self._first_non_empty(
-            os.environ.get("CREWAI_TRACE_URL"),
-            os.environ.get("TRACE_URL"),
-        )
-
-        input_session_id, input_access_code, input_url = self._trace_info_from_inputs(runtime_inputs)
-
-        session_id = self._first_non_empty(env_session_id, input_session_id)
-        access_code = self._first_non_empty(env_access_code, input_access_code)
-        url = self._first_non_empty(env_url, input_url)
-
-        if not url and session_id:
-            if access_code:
-                url = f"https://app.crewai.com/crewai_plus/ephemeral_trace_batches/{session_id}?access_code={access_code}"
-            else:
-                url = f"https://app.crewai.com/crewai_plus/ephemeral_trace_batches/{session_id}"
-
-        return session_id, access_code, url
-
-    def _print_startup_banner(self, runtime_inputs: dict[str, Any]) -> None:
-        console = Console()
-        session_id, access_code, url = self._resolve_trace_info(runtime_inputs)
-        exporter = (os.environ.get("OTEL_TRACES_EXPORTER") or "").strip().lower()
-        tracing_enabled = (os.environ.get("CREWAI_TRACING_ENABLED") or "").strip().lower() == "true"
-        has_trace_link = bool(session_id and access_code and url)
-        live_web = tracing_enabled and exporter != "console" and exporter != "" and has_trace_link
-        status = "[bold green]READY[/]" if live_web else "[bold yellow]PENDING[/]"
-        hint = (
-            "[dim]Le lien web apparaît généralement après la finalisation du batch,\n"
-            "ou immédiatement si crewai_trigger_payload contient session/access/url.[/]"
-        )
-        content = (
-            f"🌐 Live Web Trace: {status}\n"
-            f"✅ Trace batch session ID: {session_id or '[dim]N/A[/]'}\n\n"
-            f"🔗 View here: {url or '[dim]N/A[/]'}\n"
-            f"🔑 Access Code: {access_code or '[dim]N/A[/]'}\n\n"
-            f"{hint}"
-        )
-        console.print(
-            Panel(
-                content,
-                title="[bold green]Trace Batch[/]",
-                border_style="green",
-                padding=(1, 4),
-            )
-        )
-
-    def _run_topup_crew(self, runtime_inputs: dict[str, Any], existing: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        """Run a supplementary research+curation pass to complete a short selection."""
-        needed = 4 - len(existing)
-        existing_ids = json.dumps([item.get("event_id", "") for item in existing], ensure_ascii=False)
-
-        topup_inputs = {
-            **runtime_inputs,
-            "found_count": len(existing),
-            "needed_count": needed,
-            "existing_event_ids": existing_ids,
-        }
-
-        scout_agent = Agent(
-            config=self.agents_config["trend_scout"],  # type: ignore[index]
-            tools=[self.serper_tool, self.read_history_tool],
-            llm=self.research_model,
-            verbose=True,
-        )
-        curator_agent = Agent(
-            config=self.agents_config["fact_checker"],  # type: ignore[index]
-            tools=[self.serper_tool, self.read_history_tool],
-            llm=self.research_model,
-            verbose=True,
-        )
-
-        scout_cfg = self.tasks_config["topup_scout_task"]  # type: ignore[index]
-        scout_task = Task(
-            description=format_template(scout_cfg["description"], **topup_inputs),
-            expected_output=format_template(scout_cfg["expected_output"], **topup_inputs),
-            agent=scout_agent,
-        )
-        curate_cfg = self.tasks_config["topup_curate_task"]  # type: ignore[index]
-        curate_task = Task(
-            description=format_template(curate_cfg["description"], **topup_inputs),
-            expected_output=format_template(curate_cfg["expected_output"], **topup_inputs),
-            agent=curator_agent,
-            context=[scout_task],
-        )
-
-        result = Crew(
-            agents=[scout_agent, curator_agent],
-            tasks=[scout_task, curate_task],
-            process=Process.sequential,
-            verbose=True,
-        ).kickoff(inputs=topup_inputs)
-
-        payload = extract_json(getattr(result, "raw", str(result)))
-        extras = payload.get("selected_news", [])
-        if not isinstance(extras, list):
-            return []
-        existing_ids_set = {item.get("event_id", "") for item in existing}
-        return [item for item in extras if isinstance(item, dict) and item.get("event_id", "") not in existing_ids_set]
-
-    def _run_selection_crew(self, runtime_inputs: dict[str, Any]) -> list[dict[str, Any]]:
-        console = Console()
-        selection_result = self.crew().kickoff(inputs=runtime_inputs)
-        payload = extract_json(getattr(selection_result, "raw", str(selection_result)))
-
-        selected_news = payload.get("selected_news", [])
-        if not isinstance(selected_news, list):
-            selected_news = []
-
-        selected_news = [item for item in selected_news if isinstance(item, dict)]
-
-        if len(selected_news) < 4:
-            console.print(
-                f"[yellow]⚠ Seulement {len(selected_news)} nouvelle(s) trouvée(s) — "
-                "lancement d'un passage de recherche complémentaire…[/]"
-            )
-            extras = self._run_topup_crew(runtime_inputs, selected_news)
-            selected_news = (selected_news + extras)[:6]
-            console.print(f"[green]✔ {len(selected_news)} nouvelle(s) après le passage complémentaire.[/]")
-
-        if len(selected_news) == 0:
-            raise ValueError("Aucune nouvelle validée après deux passages de recherche.")
-
-        return selected_news[:6]
-
-    def _run_single_news_crew(self, news_item: dict[str, Any], index: int) -> dict[str, Any]:
-        news_json = json.dumps(news_item, ensure_ascii=False)
-
-        def _agent(key: str) -> Agent:
-            return Agent(config=self.agents_config[key], llm=self.writing_model, verbose=True)  # type: ignore[index]
-
-        def _task(key: str, agent: Agent, **kw: Any) -> Task:
-            cfg = self.tasks_config[key]  # type: ignore[index]
-            return Task(
-                description=format_template(cfg["description"], **kw),
-                expected_output=cfg["expected_output"],
-                agent=agent,
-            )
-
-        title_agent      = _agent("title_writer")
-        intro_agent      = _agent("intro_writer")
-        essentials_agent = _agent("essentials_analyst")
-        practice_agent   = _agent("practice_analyst")
-        breakdown_agent  = _agent("breakdown_analyst")
-        stake_agent      = _agent("stake_analyst")
-        verdict_agent    = _agent("verdict_editorialist")
-        assembler_agent  = _agent("content_assembler")
-
-        kw = {"news_json": news_json}
-        title_task      = _task("title_task",      title_agent,      **kw)
-        intro_task      = _task("intro_task",      intro_agent,      **kw)
-        essentials_task = _task("essentials_task", essentials_agent, **kw)
-        practice_task   = _task("practice_task",   practice_agent,   **kw)
-        breakdown_task  = _task("breakdown_task",  breakdown_agent,  **kw)
-        stake_task      = _task("stake_task",      stake_agent,      **kw)
-        verdict_task    = _task("verdict_task",    verdict_agent,    **kw)
-
-        assemble_cfg = self.tasks_config["assemble_task"]  # type: ignore[index]
-        assemble_task = Task(
-            description=format_template(assemble_cfg["description"], **kw),
-            expected_output=assemble_cfg["expected_output"],
-            agent=assembler_agent,
-            context=[title_task, intro_task, essentials_task, practice_task, breakdown_task, stake_task, verdict_task],
-        )
-
-        news_crew = Crew(
-            agents=[title_agent, intro_agent, essentials_agent, practice_agent, breakdown_agent, stake_agent, verdict_agent, assembler_agent],
-            tasks=[title_task, intro_task, essentials_task, practice_task, breakdown_task, stake_task, verdict_task, assemble_task],
-            process=Process.sequential,
-            verbose=True,
-        )
-
-        output = news_crew.kickoff()
-        news_payload = extract_json(getattr(output, "raw", str(output)))
-        news_payload["sources"] = news_payload.get("sources", news_item.get("sources", []))
-
-        fallback_slug = f"news-{index:02d}"
-        news_payload["slug"] = safe_slug(str(news_payload.get("title_en", "")), fallback_slug)
-        return news_payload
-
-    def _run_title_crew(self, news_items: list[dict[str, Any]], edition_number: int) -> dict[str, str]:
-        title_agent = Agent(config=self.agents_config["newsletter_title_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
-        cfg = self.tasks_config["newsletter_title_task"]  # type: ignore[index]
-        task = Task(
-            description=format_template(cfg["description"], edition_number=edition_number, news_items_json=json.dumps(news_items, ensure_ascii=False)),
-            expected_output=cfg["expected_output"],
-            agent=title_agent,
-        )
-        result = Crew(agents=[title_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
-        return extract_json(getattr(result, "raw", str(result)))
-
-    def _run_intro_crew(self, news_items: list[dict[str, Any]]) -> dict[str, Any]:
-        intro_agent = Agent(config=self.agents_config["newsletter_intro_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
-        mini_news = [{"title_fr": i.get("title_fr", ""), "title_en": i.get("title_en", ""), "essentiel_fr": i.get("essentiel_fr", ""), "essentials_en": i.get("essentials_en", "")} for i in news_items]
-        cfg = self.tasks_config["newsletter_intro_task"]  # type: ignore[index]
-        task = Task(
-            description=format_template(cfg["description"], news_items_json=json.dumps(mini_news, ensure_ascii=False)),
-            expected_output=cfg["expected_output"],
-            agent=intro_agent,
-        )
-        result = Crew(agents=[intro_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
-        return extract_json(getattr(result, "raw", str(result)))
-
-    def _run_social_agent(self, platform: str, title_fr: str, news_items: list[dict[str, Any]]) -> str:
-        social_agent = Agent(config=self.agents_config["social_writer"], llm=self.writing_model, verbose=True)  # type: ignore[index]
-
-        placeholder_rule = "Inclure le placeholder [LIEN_URL] à la fin." if platform in {"LinkedIn", "Twitter/X"} else "Ne pas inclure de placeholder URL."
-        char_limit = "280 caractères max pour Twitter/X." if platform == "Twitter/X" else ""
-        mini_news = [{"title_fr": i.get("title_fr", ""), "essentiel_fr": i.get("essentiel_fr", "")} for i in news_items]
-        cfg = self.tasks_config["social_post_task"]  # type: ignore[index]
-        task = Task(
-            description=format_template(
-                cfg["description"],
-                platform=platform,
-                placeholder_rule=placeholder_rule,
-                char_limit=char_limit,
-                title_fr=title_fr,
-                news_items_json=json.dumps(mini_news, ensure_ascii=False),
-            ),
-            expected_output=cfg["expected_output"],
-            agent=social_agent,
-        )
-        result = Crew(agents=[social_agent], tasks=[task], process=Process.sequential, verbose=True).kickoff()
-        payload = extract_json(getattr(result, "raw", str(result)))
-        return str(payload.get("post", "")).strip()
-
-    @staticmethod
-    def _build_news_html(item: dict[str, Any], lang: str, index: int) -> str:
-        if lang == "fr":
-            title = item.get("title_fr", "")
-            intro = item.get("intro_fr", "")
-            essentials = item.get("essentiel_fr", "")
-            practice = item.get("pratique_fr", "")
-            breakdown = item.get("decryptage_fr", "")
-            stake = item.get("enjeu_fr", "")
-            verdict = item.get("verdict_fr", "")
-            labels = {
-                "essentials": "L’essentiel",
-                "practice": "En pratique",
-                "breakdown": "Décryptage",
-                "stake": "L'enjeu",
-                "verdict": "Verdict",
-                "sources": "Sources",
-            }
-        else:
-            title = item.get("title_en", "")
-            intro = item.get("intro_en", "")
-            essentials = item.get("essentials_en", "")
-            practice = item.get("in_practice_en", "")
-            breakdown = item.get("breakdown_en", "")
-            stake = item.get("whats_at_stake_en", "")
-            verdict = item.get("verdict_en", "")
-            labels = {
-                "essentials": "The Essentials",
-                "practice": "In Practice",
-                "breakdown": "Breakdown",
-                "stake": "What's at Stake",
-                "verdict": "Verdict",
-                "sources": "Sources",
-            }
-
-        source_links = "".join(
-            f'<li><a href="{s.get("url", "")}" target="_blank" rel="noopener">{s.get("label", "Source")}</a></li>'
-            for s in item.get("sources", [])
-        )
-
-        return (
-            f"<article><h2>{index}. {title}</h2>"
-            f"<p>{intro}</p>"
-            f"<p><strong>{labels['essentials']} :</strong> {essentials}</p>"
-            f"<p><strong>{labels['practice']} :</strong> {practice}</p>"
-            f"<p><strong>{labels['breakdown']} :</strong> {breakdown}</p>"
-            f"<p><strong>{labels['stake']} :</strong> {stake}</p>"
-            f"<p><strong>{labels['verdict']} :</strong> {verdict}</p>"
-            f"<p><strong>{labels['sources']} :</strong></p><ul>{source_links}</ul>"
-            "</article>"
-        )
-
-    def _render_newsletter_html(
-        self,
-        *,
-        lang: str,
-        title: str,
-        intro_sentence: str,
-        intro_bullets: list[str],
-        news_items: list[dict[str, Any]],
-    ) -> str:
-        html_lang = "fr" if lang == "fr" else "en"
-        intro_list = "".join(f"<li>{bullet}</li>" for bullet in intro_bullets)
-        news_html = "\n".join(self._build_news_html(item, lang, idx) for idx, item in enumerate(news_items, start=1))
-
-        if lang == "fr":
-            signature_html = (
-                '<footer style="border-top: 2px solid #e5e7eb; margin-top: 40px; padding-top: 20px; color: #6b7280;">'
-                '<p style="font-style: italic; margin: 0;">Créez le futur</p>'
-                '<p style="font-weight: bold; margin: 4px 0 0;">Tommy Gagné</p>'
-                "</footer>"
-            )
-        else:
-            signature_html = (
-                '<footer style="border-top: 2px solid #e5e7eb; margin-top: 40px; padding-top: 20px; color: #6b7280;">'
-                '<p style="font-style: italic; margin: 0;">Create the future</p>'
-                '<p style="font-weight: bold; margin: 4px 0 0;">Tommy Gagné</p>'
-                "</footer>"
-            )
-
-        return f"""<!doctype html>
-<html lang=\"{html_lang}\">
-  <head>
-    <meta charset=\"utf-8\" />
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
-    <title>{title}</title>
-    <style>
-      body {{ font-family: Arial, Helvetica, sans-serif; max-width: 900px; margin: 0 auto; padding: 24px; line-height: 1.6; color: #1f2937; }}
-      h1 {{ margin-bottom: 8px; }}
-      h2 {{ margin-top: 28px; }}
-      article {{ border-top: 1px solid #e5e7eb; padding-top: 16px; margin-top: 16px; }}
-      ul {{ padding-left: 20px; }}
-      a {{ color: #1d4ed8; text-decoration: none; }}
-      a:hover {{ text-decoration: underline; }}
-    </style>
-  </head>
-  <body>
-    <h1>{title}</h1>
-    <p>{intro_sentence}</p>
-    <ul>{intro_list}</ul>
-    {news_html}
-    {signature_html}
-  </body>
-</html>"""
-
-    def _export_edition(
-        self,
-        *,
-        edition_number: int,
-        edition_date: str,
-        title_fr: str,
-        title_en: str,
-        intro_payload: dict[str, Any],
-        news_items: list[dict[str, Any]],
-        newsletter_html_fr: str,
-        newsletter_html_en: str,
-        facebook_fr: str,
-        linkedin_fr: str,
-        twitter_fr: str,
-        tracing_env: dict[str, str],
-    ) -> Path:
-        edition_dir = self.project_root / "editions" / f"edition_{edition_number}_{edition_date}"
-        edition_dir.mkdir(parents=True, exist_ok=True)
-
-        (edition_dir / "metadata.json").write_text(
-            json.dumps(
-                {
-                    "edition_number": edition_number,
-                    "edition_date": edition_date,
-                    "news_count": len(news_items),
-                    "writing_model": self.writing_model,
-                    "research_model": self.research_model,
-                },
-                ensure_ascii=False,
-                indent=2,
-            ),
-            encoding="utf-8",
-        )
-
-        (edition_dir / "trace_config.json").write_text(
-            json.dumps(tracing_env, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-
-        (edition_dir / "title_fr.json").write_text(json.dumps({"title_fr": title_fr}, ensure_ascii=False, indent=2), encoding="utf-8")
-        (edition_dir / "title_en.json").write_text(json.dumps({"title_en": title_en}, ensure_ascii=False, indent=2), encoding="utf-8")
-
-        (edition_dir / "introduction_fr.json").write_text(
-            json.dumps(
-                {
-                    "intro_sentence_fr": intro_payload.get("intro_sentence_fr", ""),
-                    "intro_bullets_fr": intro_payload.get("intro_bullets_fr", []),
-                },
-                ensure_ascii=False,
-                indent=2,
-            ),
-            encoding="utf-8",
-        )
-        (edition_dir / "introduction_en.json").write_text(
-            json.dumps(
-                {
-                    "intro_sentence_en": intro_payload.get("intro_sentence_en", ""),
-                    "intro_bullets_en": intro_payload.get("intro_bullets_en", []),
-                },
-                ensure_ascii=False,
-                indent=2,
-            ),
-            encoding="utf-8",
-        )
-
-        for idx, item in enumerate(news_items, start=1):
-            (edition_dir / f"news_{idx:02d}.json").write_text(
-                json.dumps(item, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
-            (edition_dir / f"image_prompt_news_{idx:02d}.json").write_text(
-                json.dumps({"image_prompt_en": item.get("image_prompt_en", "")}, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
-
-        if news_items:
-            (edition_dir / "thumbnail_prompt_news_01.json").write_text(
-                json.dumps({"image_prompt_en": news_items[0].get("image_prompt_en", "")}, ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
-
-        (edition_dir / "facebook_fr.json").write_text(
-            json.dumps({"facebook_fr": facebook_fr}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        (edition_dir / "linkedin_fr.json").write_text(
-            json.dumps({"linkedin_fr": linkedin_fr}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        (edition_dir / "twitter_fr.json").write_text(
-            json.dumps({"twitter_fr": twitter_fr}, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-
-        (edition_dir / "newsletter_fr.html").write_text(newsletter_html_fr, encoding="utf-8")
-        (edition_dir / "newsletter_en.html").write_text(newsletter_html_en, encoding="utf-8")
-
-        # --- share/ subfolder: flat text files ready to paste/publish ---
-        share_dir = edition_dir / "share"
-        share_dir.mkdir(parents=True, exist_ok=True)
-
-        (share_dir / "newsletter_fr.html").write_text(
-            extract_body_html(newsletter_html_fr), encoding="utf-8"
-        )
-        (share_dir / "newsletter_en.html").write_text(
-            extract_body_html(newsletter_html_en), encoding="utf-8"
-        )
-        (share_dir / "title_fr.txt").write_text(title_fr, encoding="utf-8")
-        (share_dir / "title_en.txt").write_text(title_en, encoding="utf-8")
-        (share_dir / "facebook_fr.txt").write_text(facebook_fr, encoding="utf-8")
-        (share_dir / "linkedin_fr.txt").write_text(linkedin_fr, encoding="utf-8")
-        (share_dir / "twitter_fr.txt").write_text(twitter_fr, encoding="utf-8")
-        thumbnail_prompt = news_items[0].get("image_prompt_en", "") if news_items else ""
-        (share_dir / "thumbnail_prompt_news.txt").write_text(thumbnail_prompt, encoding="utf-8")
-
-        return edition_dir
-
-    def _save_publication_history(self, edition_number: int, edition_date: str, news_items: list[dict[str, Any]]) -> str:
-        items = []
-        for item in news_items:
-            sources = item.get("sources", [])
-            source = ""
-            if isinstance(sources, list) and sources:
-                source = str(sources[0].get("url", ""))
-            items.append(
-                {
-                    "title": item.get("title_fr", item.get("title_en", "")),
-                    "source": source,
-                }
-            )
-
-        return self.save_history_tool._run(
-            edition_number=edition_number,
-            edition_date=edition_date,
-            items_json=json.dumps(items, ensure_ascii=False),
-        )
-
-    def run_newsletter(self, inputs: dict[str, Any] | None = None) -> dict[str, Any]:
-        tracing_env = self._enable_tracing()
-
-        today = datetime.now().date().isoformat()
-        default_inputs = {
-            "topic": "AI news in sport and finance",
-            "current_year": str(datetime.now().year),
-            "edition_date": today,
-            "edition_number": self.next_edition_number(),
-        }
-        runtime_inputs = default_inputs if inputs is None else {**default_inputs, **inputs}
-
-        edition_number = int(runtime_inputs["edition_number"])
-        edition_date = str(runtime_inputs["edition_date"])
-
-        self._print_startup_banner(runtime_inputs)
-
-        selected_news = self._run_selection_crew(runtime_inputs)
-
-        news_items: list[dict[str, Any]] = []
-        for index, selected in enumerate(selected_news, start=1):
-            news_payload = self._run_single_news_crew(selected, index)
-            news_items.append(news_payload)
-
-        title_payload = self._run_title_crew(news_items, edition_number)
-        intro_payload = self._run_intro_crew(news_items)
-
-        title_fr = str(title_payload.get("title_fr", f"Market & Match #{edition_number}: IA sport & finance"))
-        title_en = str(title_payload.get("title_en", f"Market & Match #{edition_number}: AI in sports & finance"))
-
-        intro_sentence_fr = str(intro_payload.get("intro_sentence_fr", "Dans l'édition d'aujourd'hui de Market & Match, nous couvrons les actualités IA clés de la semaine."))
-        intro_sentence_en = str(intro_payload.get("intro_sentence_en", "In today's edition of Market & Match, we cover the key AI stories of the week."))
-
-        intro_bullets_fr = intro_payload.get("intro_bullets_fr", [])
-        intro_bullets_en = intro_payload.get("intro_bullets_en", [])
-        if not isinstance(intro_bullets_fr, list):
-            intro_bullets_fr = []
-        if not isinstance(intro_bullets_en, list):
-            intro_bullets_en = []
-
-        newsletter_html_fr = self._render_newsletter_html(
-            lang="fr",
-            title=title_fr,
-            intro_sentence=intro_sentence_fr,
-            intro_bullets=intro_bullets_fr,
-            news_items=news_items,
-        )
-        newsletter_html_en = self._render_newsletter_html(
-            lang="en",
-            title=title_en,
-            intro_sentence=intro_sentence_en,
-            intro_bullets=intro_bullets_en,
-            news_items=news_items,
-        )
-
-        facebook_fr = self._run_social_agent("Facebook", title_fr, news_items)
-        linkedin_fr = self._run_social_agent("LinkedIn", title_fr, news_items)
-        twitter_fr = self._run_social_agent("Twitter/X", title_fr, news_items)
-
-        edition_dir = self._export_edition(
-            edition_number=edition_number,
-            edition_date=edition_date,
-            title_fr=title_fr,
-            title_en=title_en,
-            intro_payload=intro_payload,
-            news_items=news_items,
-            newsletter_html_fr=newsletter_html_fr,
-            newsletter_html_en=newsletter_html_en,
-            facebook_fr=facebook_fr,
-            linkedin_fr=linkedin_fr,
-            twitter_fr=twitter_fr,
-            tracing_env=tracing_env,
-        )
-
-        history_result = self._save_publication_history(
-            edition_number=edition_number,
-            edition_date=edition_date,
-            news_items=news_items,
-        )
-
-        return {
-            "edition_number": edition_number,
-            "edition_date": edition_date,
-            "news_count": len(news_items),
-            "title_fr": title_fr,
-            "title_en": title_en,
-            "edition_dir": str(edition_dir),
-            "history_update": history_result,
-            "trace_enabled": tracing_env,
-        }
