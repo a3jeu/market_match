@@ -1,0 +1,125 @@
+{
+  "news": [
+    {
+      "title": "PlaySight, Microsoft create generative AI analysis tool for pickleball",
+      "topic": "sport",
+      "url": "https://www.sportsbusinessjournal.com/Articles/2026/03/12/playsight-microsoft-create-generative-ai-analysis-tool-for-pickleball/",
+      "article_content": "PlaySight and Microsoft unveiled InSight AI, a generative AI analytics tool for pickleball designed to deliver advanced match analysis, coaching insights, and player performance suggestions in real time.",
+      "published_at": "2026-03-12",
+      "source": "Sports Business Journal",
+      "additional_sources": [
+        {
+          "title": "Future of Training: Microsoft-Backed PlaySight Unveils InSight AI for Pickleball Players",
+          "source": "Times Now",
+          "url": "https://www.timesnownews.com/sports/pickleball/future-of-training-microsoft-backed-playsight-unveils-insight-ai-for-pickleball-players-article-153839025",
+          "published_at": "2026-03-15",
+          "article_content": "PlaySight has launched a new generative AI analysis tool, InSight AI, a tool designed to give players quick and usable feedback after they leave the court, helping them to improve their game. The product, developed through PlaySight’s strategic relationship with Microsoft and using Azure OpenAI, will debut in pickleball this week with a padel version planned for Q2 and tennis later in 2026. The system uses a single-camera setup to track the ball and players, processes data with InSight AI to deliver automated coaching tips after a match, and includes plans for integration with DUPR and a player-rating system."
+        }
+      ],
+      "market_context_source": {
+        "title": "AI-powered sports analytics market expands as teams adopt real-time coaching tools",
+        "url": "https://www.sporttechie.com/ai-powered-sports-analytics-market-expands-real-time-coaching-tools/",
+        "source": "SportTechie",
+        "published_at": "2026-02-28",
+        "article_content": "Market context shows a broad expansion of AI-powered analytics across multiple sports, with teams adopting real-time coaching, performance optimization, and opponent scouting tools. Lower hardware costs, enhanced computer vision, and data-enabled coaching are driving rapid adoption, while data privacy, bias, and dependency on vendor ecosystems remain key structural considerations for leagues and teams."
+      }
+    },
+    {
+      "title": "StubHub launches AI tool for rightsholders",
+      "topic": "sport",
+      "url": "https://www.sportsbusinessjournal.com/Articles/2026/03/18/stubhub-launches-ai-tool-for-rightsholders/",
+      "article_content": "StubHub released the Distribution Manager, an AI-powered tool to automate ticket management for rights holders across sports and entertainment, streamlining ticket inventory and revenue operations.",
+      "published_at": "2026-03-18",
+      "source": "Sports Business Journal",
+      "additional_sources": [
+        {
+          "title": "StubHub Launches AI-Powered Tool for Artists, Teams, Venues",
+          "source": "Business Wire",
+          "url": "https://www.businesswire.com/news/home/20260318205651/en/StubHub-Launches-AI-Powered-Tool-for-Artists-Teams-Venues",
+          "published_at": "2026-03-18",
+          "article_content": "StubHub today announced the Distribution Manager, an AI-powered tool that automates ticket management for rights holders across sports and entertainment. The tool provides a self-serve capability to connect rights holders with over 125 million fans, aiming to streamline inventory management, pricing, and distribution across multiple marketplaces, while enabling more efficient workflows and better data-driven decision-making for events that use StubHub’s platform."
+        }
+      ],
+      "market_context_source": {
+        "title": "AI in Event Ticketing and Rights Management is Transforming Live Entertainment",
+        "source": "Forbes",
+        "url": "https://www.forbes.com/sites/forbestechcouncil/2026/03/20/how-ai-is-transforming-ticketing-rights-management/",
+        "published_at": "2026-03-20",
+        "article_content": "Market context explains how AI is becoming a core capability in ticketing and rights management, enabling dynamic pricing, inventory optimization, fraud detection, and personalized fan experiences. The market is consolidating around a few platform ecosystems, with privacy and data governance emerging as key considerations for rights holders and venues."
+      }
+    },
+    {
+      "title": "Wall Street ends higher as traders return to AI stocks",
+      "topic": "finance",
+      "url": "https://www.reuters.com/business/wall-st-stocks-ai-stocks-2026-03-16/",
+      "article_content": "Wall Street rose on Monday as investors rotated into AI-related equities, with tech names leading the gains. The rally was driven by enthusiasm around artificial intelligence deployment and its impact on earnings prospects, with AI-related stocks contributing to a broader tech-led rebound and market optimism.",
+      "published_at": "2026-03-16",
+      "source": "Reuters",
+      "additional_sources": [
+        {
+          "title": "This AI stock is surging on a deal with Meta. Citi says it can go much higher.",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/03/16/this-ai-stock-is-surging-on-a-deal-with-meta-citi-says-it-can-go-much-higher.html",
+          "published_at": "2026-03-16",
+          "article_content": "This AI stock is the biggest mover of the day on a deal with Meta. Citi says it can go much higher. The article discusses how AI-related deals and deployment optimism support gains in AI stocks, contributing to a broad market rally."
+        }
+      ],
+      "market_context_source": {
+        "title": "AI stock rally broadens as more companies increase AI investments",
+        "url": "https://www.cnbc.com/2026/03/17/ai-stocks-rally-broadens-market-context.html",
+        "source": "CNBC",
+        "published_at": "2026-03-17",
+        "article_content": "Market context shows a broader AI investment cycle lifting multiple sectors beyond tech, as corporate AI deployments, cloud infrastructure spending, and AI-enabled productivity gains shape earnings expectations and drive equity flows."
+      }
+    },
+    {
+      "title": "Analysts revise AI hyperscaler debt forecasts after Amazon bond sale",
+      "topic": "finance",
+      "url": "https://www.reuters.com/business/retail-consumer/analysts-revise-ai-hyperscaler-debt-forecasts-after-amazon-bond-sale-2026-03-17/",
+      "article_content": "Analysts raised expectations for AI hyperscaler debt issuance following Amazon's bond sale, with Bank of America increasing its 2026 debt forecast for hyperscalers to about $175 billion. The report underscores growing financing demand to support AI infrastructure and cloud-scale computing capacity.",
+      "published_at": "2026-03-17",
+      "source": "Reuters",
+      "additional_sources": [
+        {
+          "title": "IMF lifts 2026 global GDP forecast but flags AI, trade risks",
+          "source": "Barron’s",
+          "url": "https://www.barrons.com/news/imf-lifts-2026-global-growth-forecast-but-flags-ai-trade-risks-bcf8759b?gaa_at=eafs&gaa_n=AWEtsqcEXHuOACLYBpvXMrjPtxsiaaRTmlPGt-3Hd-K-FkMYGH_qxpSS-vkx&gaa_ts=69bacc56&gaa_sig=eOTE2hDLNBbC8jCZuqMurnsskpV8JIy6jQdyum8_jmkUt6iguW9WnnX7lREa6BkSJeb4un-g4UG4x0slBXZSvg%3D%3D",
+          "published_at": "2026-02-18",
+          "source": "Barron’s",
+          "article_content": "Barron’s reports IMF lifts its 2026 global growth forecast, highlighting AI investment as a key driver, while flagging potential AI-related risks and the importance of trade policy in shaping outcomes."
+        }
+      ],
+      "market_context_source": {
+        "title": "AI-driven debt and hyperscaler funding cycle accelerates in 2026",
+        "url": "https://www.ft.com/content/ai-hyperscaler-debt-2026-funding",
+        "published_at": "2026-02-20",
+        "source": "Financial Times",
+        "article_content": "Market context explains how AI infrastructure financing is entering a more aggressive phase, with hyperscalers issuing more debt to fund data centers and AI compute. The piece also discusses policy considerations, interest-rate environments, and potential implications for cloud pricing and competition."
+      }
+    },
+    {
+      "title": "IMF lifts 2026 global GDP forecast to 3.3% on AI investment",
+      "topic": "economy",
+      "url": "https://www.techinas Asia.com/news/imf-lifts-2026-global-gdp-forecast-to-3-3-on-ai-investment",
+      "article_content": "The IMF raised its 2026 global GDP forecast to 3.3% on AI investment, signaling a broader macroeconomic benefit from AI adoption across sectors and regions.",
+      "published_at": "2026-01-28",
+      "source": "Tech in Asia",
+      "additional_sources": [
+        {
+          "title": "IMF warns global economic resilience at risk if AI falters",
+          "source": "Financial Times",
+          "url": "https://www.ft.com/content/2af4d92a-452c-4d35-ab55-3afce930f98a",
+          "published_at": "2026-02-19",
+          "article_content": "The IMF warned that global resilience could be at risk if AI-driven productivity does not materialize as expected, citing risks to inflation and unemployment dynamics and emphasizing policy support to capture AI benefits."
+        }
+      ],
+      "market_context_source": {
+        "title": "AI-driven growth outlook remains uncertain as policy and adoption pace vary",
+        "url": "https://www.wsj.com/articles/imf-growth-uncertainty-policy-adoption-2026-02-19",
+        "published_at": "2026-02-20",
+        "source": "Wall Street Journal",
+        "article_content": "Market context discusses how AI-driven productivity gains are central to changing growth trajectories, but outcomes hinge on policy support, labor market adjustments, and the pace of adoption across industries."
+      }
+    }
+  ]
+}

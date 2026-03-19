@@ -85,7 +85,7 @@ enrich_news_research:
     You may use the read_website_content tool to read the content of the articles.
     The content of the additional source MUST be different from the original source and provide complementary information.
     You MUST return all news items that was provided, enriched with an additional source.
-    Return a list of {news_per_topic} recent news, each with the original title, topic, url, published_at, source and article_content,
+    Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy), url, published_at, source and article_content,
     enriched with the additional source (title, url, published_at, source and article_content).
   expected_output: >
     A list of {news_preliminary_total} recent news stories with the original information enriched with additional sources.
@@ -120,7 +120,7 @@ enrich_news_market_context:
     You may use the read_website_content tool to read the content of the articles.
     The content of the additional source MUST be different from the original source and provide complementary information.
     You MUST return all news items that was provided, with an additional source and the market context source.
-    Return a list of {news_per_topic} recent news, each with the original title, topic, url, published_at, source and article_content,
+    Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy), url, published_at, source and article_content,
     enriched with the additional source (title, url, published_at, source and article_content) 
     and the market context source (title, url, published_at, source and article_content).
   expected_output: >
@@ -220,10 +220,10 @@ write_news_article_content:
     The article must have four clear sections:
     1. **essentials**: A 1-2 sentence summary of the news.
     2. **in_practice**: A short paragraph (3-4 sentences) explaining what the news means in practice.
-    3. **breakdown**: A short paragraph (3-4 sentences) providing broader market context.
+    3. **breakdown**: A short paragraph (4-5 sentences) providing broader market context.
        Use market_context_source to explain how the news fits in the larger market,
        competitive landscape, and external environment.
-    4. **whats_at_stake**: A short paragraph (3-4 sentences) analyzing concrete impacts.
+    4. **whats_at_stake**: A short paragraph (4-5 sentences) analyzing concrete impacts.
        Identify potential winners and losers. Include bullet points if helpful.
 
     Requirements:
@@ -330,6 +330,8 @@ write_image_prompt:
     - Reflect the core story and mood of the article
     - Include concrete visual composition cues (scene, subject, camera framing, lighting)
 
+    The image could be a literal representation of the news, a graph, a comic, a table, as long as it is visually engaging and relevant.
+
     Return only the image prompt text in plain English, without JSON or markdown.
   expected_output: >
     A plain text English image prompt for one article thumbnail.
@@ -342,15 +344,20 @@ write_newsletter_title:
     create a catchy, memorable title for the newsletter edition.
 
     Your title should:
-    - Be 5-10 words in length
+    - Be 10-20 words in length
     - Reflect the main themes and spirit of the edition
     - Be engaging and appealing to readers interested in AI, technology, sports, finance, and economics
     - Avoid generic or overused phrases
     - Capture what makes this edition unique
 
+    Here some examples of good newsletter titles:
+    - "Anthropic contre le gouvernement américain, la transformation de Nano Banana, Frontier Agent Management, les solutions mathématiques de Google"
+    - "Modèles de raisonnement autonome, ChatGPT ajoute des publicités, accord d'Apple avec Google, génération 3D Pronto"
+    - "LLM vont à la confession, recherche scientifique automatisée, ce que veulent les utilisateurs de Copilot, raisonnement pour moins"
+
     The title should be in plain text, without formatting or markdown, in French.    
   expected_output: >
-    A plain text title (5-10 words) for the newsletter edition.
+    A plain text title (10-20 words) for the newsletter edition.
   agent: newsletter_title_writer
   output_file: editions/edition_{edition_number}_{edition_date}/newsletter_title_fr.txt
 
@@ -364,7 +371,7 @@ validate_newsletter_html:
     - The final output must come from this task and represent the validated HTML.
 
     Validation requirements:
-    - Ensure valid and coherent HTML structure
+    - Ensure valid and coherent HTML structure. The output will be inserted into a <body><main></main></body> block of a webpage, so it must be a valid fragment that can be directly rendered.
     - Fix malformed list content into proper <ul>/<li> markup when needed
     - Preserve all original content and ordering
     - Keep article blocks and sources readable
@@ -420,7 +427,22 @@ write_facebook_post:
     - Mention "Lien en commentaires 👇"
     - Include a few emojis throughout
     - 2 to 5 sentences max
-    - Summarize news items as bullet points (5-10 words per news item)
+    - Summarize news items as bullet points (10-20 words per news item)
+
+    Here is an example of a good Facebook post:
+    ```
+    Cette semaine dans Market & Match #2, nous explorons comment l'IA transforme l'arbitrage du Mondial, l'engagement des fans de baseball et les modèles de crédit de Goldman Sachs à Pékin.
+
+    - ⚽ L'arbitrage du futur : Pour la Coupe du Monde 2026, la FIFA mise sur l'IA afin d'optimiser les décisions arbitrales et garantir une plus grande précision sur le terrain.
+    - ⚾ L'expérience fan 2.0 : La MLB, en partenariat avec Adobe, industrialise l'engagement de ses supporters grâce à des outils de personnalisation de pointe.
+    - 🏦 Prudence dans le secteur bancaire : Goldman Sachs tire la sonnette d'alarme sur la manière dont l'IA bouscule les modèles traditionnels d'évaluation du risque de crédit.
+    - 📈 Une croissance exponentielle : La banque Citi a revu ses prévisions à la hausse, estimant désormais que les investissements mondiaux dans l'IA atteindront 8,9 billions de dollars.
+    - 🇨🇳  L'impulsion chinoise : À Pékin, les autorités poussent activement le secteur bancaire à orienter davantage de crédits vers le développement et l'intégration des technologies d'IA.
+
+    Lien en commentaires 👇
+
+    #IA #Sport #Data #FanExperience #SportsAnalytics #Innovation 
+    ```
 
     Return only the Facebook post text in plain French, without JSON or markdown.
   expected_output: >
@@ -442,8 +464,23 @@ write_linkedin_post:
     - Include the placeholder [LIEN_URL] at the end
     - Include a few emojis throughout
     - 2 to 5 sentences max
-    - Summarize news items as bullet points (5-10 words per news item)
+    - Summarize news items as bullet points (10-20 words per news item)
     - Professional and insightful tone
+
+    Here is an example of a good LinkedIn post:
+    ```
+    Cette semaine dans Market & Match #2, nous explorons comment l'IA transforme l'arbitrage du Mondial, l'engagement des fans de baseball et les modèles de crédit de Goldman Sachs à Pékin.
+
+    ⚽ FIFA : L'organisation intègre l'IA pour optimiser la VAR, réaliser des scans 3D ultra-précis et garantir une plus grande transparence dans les décisions de jeu.
+    🎥 MLB et Adobe : Ce partenariat vise à industrialiser la création de contenu pour transformer radicalement l'engagement des fans de baseball.
+    🏦 Goldman Sachs : La banque souligne que l'IA bouscule désormais les méthodes de scoring de crédit et impose de nouveaux défis en matière de gouvernance.
+    📈 Citi : Les analystes de Citi prévoient un volume massif de 8,9 billions de dollars d'investissements liés à l'IA d'ici 2030.
+    🇨🇳 Pékin : Le gouvernement chinois mobilise des crédits bancaires massifs pour soutenir stratégiquement l'essor de l'IA sur son territoire.
+
+    🔗 Lire l'édition complète : [LIEN_URL]
+
+    #IA #Sport #Data #FanExperience #SportsAnalytics #Innovation 
+    ```
 
     Return only the LinkedIn post text in plain French, without JSON or markdown.
   expected_output: >

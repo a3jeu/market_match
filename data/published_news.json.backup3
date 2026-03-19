@@ -61,57 +61,16 @@
           "signature": "974f45e4cb183670e6314317bb7668b53128d63f3c57f91a48e189c6f39b0e93"
         }
       ]
-    },
-    {
-      "edition_number": 3,
-      "edition_date": "2026-03-18",
-      "items": [
-        {
-          "title": "PlaySight, Microsoft create generative AI analysis tool for pickleball",
-          "summary": "PlaySight and Microsoft unveiled InSight AI, a generative AI analytics tool for pickleball designed to deliver advanced match analysis, coaching insights, and player performance suggestions in real time.",
-          "source": "https://www.sportsbusinessjournal.com/Articles/2026/03/12/playsight-microsoft-create-generative-ai-analysis-tool-for-pickleball/",
-          "signature": "c7f55aa94ce1de769bff4f0f19ac55d1b01c241c07c6c0ae0e700f56378635b7"
-        },
-        {
-          "title": "StubHub launches AI tool for rightsholders",
-          "summary": "StubHub released the Distribution Manager, an AI-powered tool to automate ticket management for rights holders across sports and entertainment, streamlining ticket inventory and revenue operations.",
-          "source": "https://www.sportsbusinessjournal.com/Articles/2026/03/18/stubhub-launches-ai-tool-for-rightsholders/",
-          "signature": "2ef05da85adf5c5de5e7dd7a4bd60104b3b818f5264b3b18414ace2a07f2f29b"
-        },
-        {
-          "title": "Wall Street ends higher as traders return to AI stocks",
-          "summary": "Wall Street rose on Monday as investors rotated into AI-related equities, with tech names leading the gains. The rally was driven by enthusiasm around artificial intelligence deployment and its impact on earnings prospects, with AI-related stocks contributing to a broader tech-led rebound and market optimism.",
-          "source": "https://www.reuters.com/business/wall-st-stocks-ai-stocks-2026-03-16/",
-          "signature": "c1adcfd9134304bd089f814da53bf2af5975ac275349ce160f6cd0dbe61420d6"
-        },
-        {
-          "title": "Analysts revise AI hyperscaler debt forecasts after Amazon bond sale",
-          "summary": "Analysts raised expectations for AI hyperscaler debt issuance following Amazon's bond sale, with Bank of America increasing its 2026 debt forecast for hyperscalers to about $175 billion. The report underscores growing financing demand to support AI infrastructure and cloud-scale computing capacity.",
-          "source": "https://www.reuters.com/business/retail-consumer/analysts-revise-ai-hyperscaler-debt-forecasts-after-amazon-bond-sale-2026-03-17/",
-          "signature": "ce53bf87ba88ee68e2123c646ed0266ff88373c5b0243eba3a8068b4d0531e55"
-        },
-        {
-          "title": "IMF lifts 2026 global GDP forecast to 3.3% on AI investment",
-          "summary": "The IMF raised its 2026 global GDP forecast to 3.3% on AI investment, signaling a broader macroeconomic benefit from AI adoption across sectors and regions.",
-          "source": "https://www.techinas Asia.com/news/imf-lifts-2026-global-gdp-forecast-to-3-3-on-ai-investment",
-          "signature": "c1bc7f27c31c2fd1cf607026762051594eefac943e01c59f3e3f25d2b5675933"
-        }
-      ]
     }
   ],
   "seen_signatures": [
     "07031371f3479de75e39fc195fe01cb4e8db4aef4f0c35aceacde9d4e8efa533",
-    "2ef05da85adf5c5de5e7dd7a4bd60104b3b818f5264b3b18414ace2a07f2f29b",
     "3edc78057135e5770e60347bdf486a09b34dc2d03a98c538d24212a3034da6ff",
     "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c",
     "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be",
     "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27",
     "974f45e4cb183670e6314317bb7668b53128d63f3c57f91a48e189c6f39b0e93",
-    "c1adcfd9134304bd089f814da53bf2af5975ac275349ce160f6cd0dbe61420d6",
-    "c1bc7f27c31c2fd1cf607026762051594eefac943e01c59f3e3f25d2b5675933",
     "c42b1ada83ef18efd1bf621ed8d7f34a2d21257fe6870789696139006ea84e36",
-    "c7f55aa94ce1de769bff4f0f19ac55d1b01c241c07c6c0ae0e700f56378635b7",
-    "ce53bf87ba88ee68e2123c646ed0266ff88373c5b0243eba3a8068b4d0531e55",
     "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771",
     "dafdac8bfa0a5ef8e92d7278d8913b0b6f5ce77cbb80795a33621477dc46dc1e"
   ]

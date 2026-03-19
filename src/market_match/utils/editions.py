@@ -90,7 +90,7 @@ def render_newsletter_html(
     intro_bullets: list[str],
     news_items: list[dict[str, Any]],
 ) -> str:
-    html_lang = "fr" if lang == "fr" else "en"
+    # html_lang = "fr" if lang == "fr" else "en"
     intro_list = "".join(f"<li>{bullet}</li>" for bullet in intro_bullets)
     news_html = "\n".join(_build_news_html(item, lang, idx) for idx, item in enumerate(news_items, start=1))
 
@@ -109,31 +109,11 @@ def render_newsletter_html(
             "</footer>"
         )
 
-    return f"""
-<!doctype html>
-<html lang=\"{html_lang}\">
-  <head>
-    <meta charset=\"utf-8\" />
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
-    <title>{title}</title>
-    <style>
-      body {{ font-family: Arial, Helvetica, sans-serif; max-width: 900px; margin: 0 auto; padding: 24px; line-height: 1.6; color: #1f2937; }}
-      h1 {{ margin-bottom: 8px; }}
-      h2 {{ margin-top: 28px; }}
-      article {{ border-top: 1px solid #e5e7eb; padding-top: 16px; margin-top: 16px; }}
-      ul {{ padding-left: 20px; }}
-      a {{ color: #1d4ed8; text-decoration: none; }}
-      a:hover {{ text-decoration: underline; }}
-    </style>
-  </head>
-  <body>
-    <h1>{title}</h1>
-    <p>{intro_sentence}</p>
+    return f"""<p>{intro_sentence}</p>
     <ul>{intro_list}</ul>
     {news_html}
     {signature_html}
-  </body>
-</html>"""
+"""
 
 
 def export_edition(

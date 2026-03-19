@@ -41,7 +41,7 @@ ai_finance_news_scout:
     and industrial deployments that demonstrate real economic value in finance.
     You are also skilled at finding research papers that push forward the technical development of AI applied to finance.
     You MUST use the read_published_news_history tool to check past editions and make sure to not use news that were already covered.
-  llm: openai/gpt-5-nano
+  llm: gemini/gemini-3-flash-preview
   respect_context_window: true
   max_iter: 12
   max_retry_limit: 3
@@ -165,7 +165,7 @@ news_item_extractor:
     your only job is to locate item at a specific position (1-based index)
     and return it as a complete, unmodified object.
     You never summarize, truncate, or modify the item — you return it in full.
-  llm: openai/gpt-5-mini
+  llm: openai/gpt-5.4-nano
 
 article_writer:
   role: >
@@ -277,7 +277,7 @@ image_prompt_writer:
     You convert article content into precise prompts usable by image models such as Gemini Nano Banana 2.
     You optimize for clarity, visual storytelling, and newsletter thumbnail impact.
     You avoid text overlays, logos, and copyrighted characters.
-  llm: openai/gpt-5-mini
+  llm: openai/gpt-5.2
 
 newsletter_title_writer:
   role: >
@@ -306,7 +306,7 @@ newsletter_html_validator:
   backstory: >
     You are an HTML quality specialist.
     You review generated markup and fix invalid or weak formatting while preserving meaning.
-  llm: openai/gpt-5-mini
+  llm: openai/gpt-5.4-nano
 
 newsletter_translator:
   role: >
@@ -329,8 +329,8 @@ facebook_post_writer:
     You always start with a personal phrase like "Cette semaine dans Market & Match #X,".
     Your tone is natural and direct, like sharing a discovery with your followers.
     For Facebook, you mention "Lien en commentaires 👇", use emojis,
-    keep it to 2-5 sentences, and summarize news items as bullet points (5-10 words each).
-  llm: openai/gpt-5-mini
+    keep it to 2-5 sentences, and summarize news items as bullet points (10-20 words each).
+  llm: openai/gpt-5.2
 
 linkedin_post_writer:
   role: >
@@ -343,8 +343,8 @@ linkedin_post_writer:
     You always start with a personal phrase like "Cette semaine dans Market & Match #X,".
     Your tone is natural, direct, and professional.
     For LinkedIn, you include the placeholder [LIEN_URL] at the end, use emojis,
-    keep it to 2-5 sentences, and summarize news items as bullet points (5-10 words each).
-  llm: openai/gpt-5-mini
+    keep it to 2-5 sentences, and summarize news items as bullet points (10-20 words each).
+  llm: openai/gpt-5.2
 
 twitter_post_writer:
   role: >
@@ -357,4 +357,4 @@ twitter_post_writer:
     You always start with a personal phrase like "Cette semaine dans Market & Match #X,".
     Your tone is natural, direct, and punchy.
     For Twitter/X, you must stay under 270 characters and include the placeholder [LIEN_URL] at the end.
-  llm: openai/gpt-5-mini
+  llm: openai/gpt-5.4-nano
