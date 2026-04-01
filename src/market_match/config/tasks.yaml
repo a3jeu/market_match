@@ -4,7 +4,7 @@
 find_ai_sports_news:
   description: >
     Search the web for {news_per_topic} recent news items related to artificial intelligence in the sports industry.
-    The news must be recent (ideally less than 7 days old).
+    The news must be recent (ideally less than 7 days old). The current date is {edition_date}.
     Search for news related to AI applications in sports, such as:
     - Research papers on AI for sports analytics, performance optimization;
     - New methods or techniques using AI in sports science, training, or injury prevention;
@@ -25,7 +25,7 @@ find_ai_sports_news:
 find_ai_finance_news:
   description: >
     Search the web for {news_per_topic} recent news stories about artificial intelligence in the finance industry.
-    The news must be recent (ideally less than 7 days old).
+    The news must be recent (ideally less than 7 days old). The current date is {edition_date}.
     Search for news related to AI applications in finance, such as:
     - Research papers on AI applied to finance, financial markets, or investment analysis;
     - New methods or techniques using AI in finance, such as risk assessment, fraud detection, or algorithmic trading;
@@ -46,7 +46,7 @@ find_ai_finance_news:
 find_ai_economy_news:
   description: >
     Search the web for {news_per_topic} recent news stories about artificial intelligence and its impact on the economy.
-    The news must be recent (ideally less than 7 days old).
+    The news must be recent (ideally less than 7 days old). The current date is {edition_date}.
     Search for news related to AI applications in the economy, such as:
     - Research papers on AI applied to economics, economic modeling, or macroeconomic analysis;
     - New methods or techniques using AI to study economic behavior, policy impacts, or economic forecasting;
@@ -83,6 +83,7 @@ enrich_news_research:
     - limitations, risks, or measurable impacts
 
     You may use the read_website_content tool to read the content of the articles.
+    Make sure the choosen sources are valid sources.
     The content of the additional source MUST be different from the original source and provide complementary information.
     You MUST return all news items that was provided, enriched with an additional source.
     Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy), url, published_at, source and article_content,
@@ -118,6 +119,7 @@ enrich_news_market_context:
     - ecosystem constraints, dependencies, or power shifts
 
     You may use the read_website_content tool to read the content of the articles.
+    Make sure the choosen sources are valid sources.
     The content of the additional source MUST be different from the original source and provide complementary information.
     You MUST return all news items that was provided, with an additional source and the market context source.
     Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy), url, published_at, source and article_content,

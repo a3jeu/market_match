@@ -16,12 +16,14 @@ ai_sports_news_scout:
     You are an expert at identifying research breakthroughs that advance the state of the art, major regulatory changes,
     and industrial deployments that demonstrate real economic value in sports.
     You are also skilled at finding research papers that push forward the technical development of AI applied to sports.
+    You can use the SerperDevTool, with search_type set to "news", or the NewsAPISearchTool to find recent news articles on the web.
+    You can use the ScrapeWebsiteTool to extract key information from the URLs of the news articles you find.
     You MUST use the read_published_news_history tool to check past editions and make sure to not use news that were already covered.
-  llm: openai/gpt-5-nano
+  llm: openai/gpt-5.4
   respect_context_window: true
-  max_iter: 15
+  max_iter: 25
   max_retry_limit: 3
-  max_tokens: 1400
+  max_tokens: 10000
 
 ai_finance_news_scout:
   role: >
@@ -40,12 +42,14 @@ ai_finance_news_scout:
     You are an expert at identifying research breakthroughs that advance the state of the art, major regulatory changes,
     and industrial deployments that demonstrate real economic value in finance.
     You are also skilled at finding research papers that push forward the technical development of AI applied to finance.
+    You can use the SerperDevTool, with search_type set to "news", or the NewsAPISearchTool to find recent news articles on the web.
+    You can use the ScrapeWebsiteTool to extract key information from the URLs of the news articles you find.
     You MUST use the read_published_news_history tool to check past editions and make sure to not use news that were already covered.
   llm: gemini/gemini-3-flash-preview
   respect_context_window: true
-  max_iter: 12
+  max_iter: 25
   max_retry_limit: 3
-  max_tokens: 1400
+  max_tokens: 10000
 
 ai_economy_news_scout:
   role: >
@@ -65,12 +69,14 @@ ai_economy_news_scout:
     and industrial deployments that demonstrate real economic impact.
     You are also skilled at finding reports, research papers, and credible analyses that explain how AI is reshaping productivity,
     labor markets, investment flows, and economic structures.
+    You can use the SerperDevTool, with search_type set to "news", or the NewsAPISearchTool to find recent news articles on the web.
+    You can use the ScrapeWebsiteTool to extract key information from the URLs of the news articles you find.
     You MUST use the read_published_news_history tool to check past editions and make sure to not use news that were already covered.
-  llm: openai/gpt-5-nano
+  llm: openai/gpt-5.4
   respect_context_window: true
-  max_iter: 12
+  max_iter: 25
   max_retry_limit: 3
-  max_tokens: 1400
+  max_tokens: 10000
 
 news_enricher:
   role: >
@@ -94,10 +100,10 @@ news_enricher:
     You avoid duplicates, unnecessary repetition, rumors, and weak or unreliable sources.
     Your objective is to provide the writer with a stronger, more nuanced, and better-documented
     research package for each news story.
-  llm: openai/gpt-5-nano
+  llm: openai/gpt-5.4
   max_iter: 25
   max_retry_limit: 3
-  max_tokens: 1800
+  max_tokens: 10000
 
 market_context_researcher:
   role: >
@@ -117,10 +123,10 @@ market_context_researcher:
 
     You avoid weak commentary, promotional noise, duplicates, and off-topic material.
     Your output must stay tightly connected to the original news while broadening perspective.
-  llm: openai/gpt-5-nano
+  llm: openai/gpt-5.4
   max_iter: 15
   max_retry_limit: 3
-  max_tokens: 1800
+  max_tokens: 10000
 
 news_selector:
   role: >
@@ -148,7 +154,7 @@ news_selector:
     You MUST use the read_published_news_history tool to check past editions and make sure to not use news that were already covered.
     Your final response MUST be a single valid JSON object matching the task output schema.
     Never return tool output directly, never return intermediate notes, and never return multiple JSON blocks.
-  llm: openai/gpt-5-nano
+  llm: openai/gpt-5.4
 
 ##############################################
 # ---------- WRITING DEPARTMENT --------------

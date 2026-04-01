@@ -15,7 +15,6 @@ from crewai import Agent, Crew, Process, Task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
 from crewai.tasks.task_output import TaskOutput
-from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 
 from market_match.models import (
     EnrichedNewsItem,
@@ -28,7 +27,14 @@ from market_match.models import (
     RecentNewsList,
     WrittenNewsArticle,
 )
-from market_match.tools import AssembleNewsletterHtmlTool, ReadPublishedNewsTool, SavePublishedEditionTool
+from market_match.tools import (
+    AssembleNewsletterHtmlTool,
+    LimitedScrapeWebsiteTool,
+    NewsAPISearchTool,
+    NewsOnlySerperDevTool,
+    ReadPublishedNewsTool,
+    SavePublishedEditionTool,
+)
 from market_match.utils.utils import extract_json, format_template, safe_slug
 from market_match.utils.editions import (
     create_share_bundle_callback,
@@ -231,7 +237,7 @@ class MarketMatch:
     def ai_sports_news_scout(self) -> Agent:
         return Agent(
             config=self.agents_config["ai_sports_news_scout"], 
-            tools=[SerperDevTool(), ReadPublishedNewsTool()],
+            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -239,7 +245,7 @@ class MarketMatch:
     def ai_finance_news_scout(self) -> Agent:
         return Agent(
             config=self.agents_config["ai_finance_news_scout"], 
-            tools=[SerperDevTool(), ReadPublishedNewsTool()],
+            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -247,7 +253,7 @@ class MarketMatch:
     def ai_economy_news_scout(self) -> Agent:
         return Agent(
             config=self.agents_config["ai_economy_news_scout"], 
-            tools=[SerperDevTool(), ReadPublishedNewsTool()],
+            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
@@ -255,7 +261,7 @@ class MarketMatch:
     def news_enricher(self) -> Agent:
         return Agent(
             config=self.agents_config["news_enricher"],
-            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
@@ -263,7 +269,7 @@ class MarketMatch:
     def market_context_researcher(self) -> Agent:
         return Agent(
             config=self.agents_config["market_context_researcher"],
-            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -271,7 +277,7 @@ class MarketMatch:
     def news_selector(self) -> Agent:
         return Agent(
             config=self.agents_config["news_selector"],
-            tools=[ScrapeWebsiteTool(), SavePublishedEditionTool(), ReadPublishedNewsTool()],
+            tools=[LimitedScrapeWebsiteTool(), SavePublishedEditionTool(), ReadPublishedNewsTool()],
             verbose=True,
         )
 
@@ -342,7 +348,7 @@ class MarketMatch:
     def article_writer(self) -> Agent:
         return Agent(
             config=self.agents_config["article_writer"],
-            tools=[ScrapeWebsiteTool()],
+            tools=[LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
