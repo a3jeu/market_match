@@ -251,7 +251,7 @@ write_news_article_content:
 
     The article must have four clear sections:
     1. **essentials**: A 1-2 sentence summary of the news.
-    2. **in_practice**: A short paragraph (3-4 sentences) explaining what the news means in practice.
+    2. **in_practice**: A brief paragraph (3-4 sentences) describing the real-world implications of the news.
     3. **breakdown**: A short paragraph (4-5 sentences) providing broader market context.
        Use market_context_source to explain how the news fits in the larger market,
        competitive landscape, and external environment.
