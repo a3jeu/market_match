@@ -64,10 +64,36 @@ find_ai_economy_news:
   output_file: editions/edition_{edition_number}_{edition_date}/search_economy_news.json
   agent: ai_economy_news_scout
 
+find_ai_research_papers:
+  description: >
+    Search academic paper sources for {news_per_topic} recent research papers or technical reports
+    about artificial intelligence applied to sports, finance, or economics.
+    The papers must be recent (ideally submitted or published in the last 14 days). The current date is {edition_date}.
+
+    Use the arXiv search tools or SerperDevTool with targeted queries to search for 
+    research papers related to AI applications in the sports, finance, or economics, such as
+    sports prediction, financial modeling, algorithmic trading or economic forecasting
+
+    Prioritize papers with:
+    - new models, benchmarks, or architectures applied to sport, finance, or economics
+    - significant empirical results or real-world applications
+    - clear domain relevance (at least one of: sports, finance, economics)
+
+    Prioritize major researchs, institutions, or labs, and papers that have received attention from credible sources.
+    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+    Ignore news already covered in previous editions. You MUST use the 
+    read_published_news_history tool to check past editions and make sure to not use news that were already covered.
+    Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
+  expected_output: >
+    A list of {news_per_topic} recent research papers about AI applied to sports, finance, or economics.
+  output_file: editions/edition_{edition_number}_{edition_date}/search_research_papers.json
+  agent: ai_research_paper_scout
+
 enrich_news_research:
   description: >
     You are providing a list of recent news stories about artificial intelligence: 
-    {news_per_topic} about the impact of AI on sport, {news_per_topic} about the impact of AI on finance, {news_per_topic} about the impact of AI on the economy.
+    {news_per_topic} about the impact of AI on sport, {news_per_topic} about the impact of AI on finance, {news_per_topic} about the impact of AI on the economy,
+    and {news_per_topic} recent academic research papers about AI applied to sports, finance, or economics.
 
     Review all the news items selected in the previous tasks and enrich each of them with additional source.
     For each news item, find 1 additional source or article covering the same topic, the same event, or the same primary announcement.
@@ -86,7 +112,7 @@ enrich_news_research:
     Make sure the choosen sources are valid sources.
     The content of the additional source MUST be different from the original source and provide complementary information.
     You MUST return all news items that was provided, enriched with an additional source.
-    Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy), url, published_at, source and article_content,
+    Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy, or research), url, published_at, source and article_content,
     enriched with the additional source (title, url, published_at, source and article_content).
   expected_output: >
     A list of {news_preliminary_total} recent news stories with the original information enriched with additional sources.
@@ -96,11 +122,13 @@ enrich_news_research:
     - find_ai_sports_news
     - find_ai_finance_news
     - find_ai_economy_news
+    - find_ai_research_papers
 
 enrich_news_market_context:
   description: >
     You are providing a list of recent news stories about artificial intelligence: 
-    {news_per_topic} about the impact of AI on sport, {news_per_topic} about the impact of AI on finance, {news_per_topic} about the impact of AI on the economy.
+    {news_per_topic} about the impact of AI on sport, {news_per_topic} about the impact of AI on finance, {news_per_topic} about the impact of AI on the economy,
+    and {news_per_topic} recent academic research papers about AI applied to sports, finance, or economics.
 
     A previous agent already enriched all news items with an additional source providing complementary details about the same announcement. 
     Your task is now to add a second additional source for each news item, but this time focused on providing broader market context rather than the exact same announcement.
@@ -122,7 +150,7 @@ enrich_news_market_context:
     Make sure the choosen sources are valid sources.
     The content of the additional source MUST be different from the original source and provide complementary information.
     You MUST return all news items that was provided, with an additional source and the market context source.
-    Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy), url, published_at, source and article_content,
+    Return a list of {news_per_topic} recent news, each with the original title, topic (sport, finance, economy, or research), url, published_at, source and article_content,
     enriched with the additional source (title, url, published_at, source and article_content) 
     and the market context source (title, url, published_at, source and article_content).
   expected_output: >
@@ -136,7 +164,8 @@ select_best_news:
   description: >
     Review all the proposed news items and select the {news_to_keep}
     best news for a future newsletter about the impact of AI in the sports industry,
-    the finance industry, and the broader economy.
+    the finance industry, the broader economy, and recent AI research papers
+    applied to sports, finance, or economics.
 
     The target audience consists of readers passionate about technology,
     artificial intelligence, sports, finance, and economics.
@@ -147,9 +176,10 @@ select_best_news:
     - sufficiently deep;
     - technically interesting when relevant;
     - useful for a high-quality newsletter;
-    - relevant for understanding the real impact of AI on sports, finance, or the economy;
+    - relevant for understanding the real impact of AI on sports, finance, the economy, or research;
 
     Keep exactly {news_to_keep} news, with at least one news about sports, one news about finance, and one news about the economy.
+    Research papers may be selected in addition to or instead of general news items when they are exceptional.
     Choose the best {news_to_keep} news and reorder them from the best to the least good.
     Avoid redundant news or news that are too similar to each other.
     Avoid topics that are too weak, overly promotional, or too general.
@@ -163,7 +193,7 @@ select_best_news:
     [
       {
         "title": str,
-        "topic": str, # "sport", "finance", or "economy"
+        "topic": str, # "sport", "finance", "economy", or "research"
         "url": str,
         "article_content": str,
         "published_at": str,

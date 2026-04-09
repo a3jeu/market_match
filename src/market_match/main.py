@@ -29,7 +29,7 @@ def run():
         'edition_date': datetime.now().date().isoformat(),
         'edition_number': next_edition_number(),
         'news_per_topic': news_per_topic,
-        'news_preliminary_total': news_per_topic * 3,
+        'news_preliminary_total': news_per_topic * 4,
         'news_to_keep': news_to_keep,
     }
 

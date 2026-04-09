@@ -15,6 +15,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, crew, task
 from crewai.tasks.task_output import TaskOutput
+from crewai_tools import ScrapeWebsiteTool, SerperDevTool
 
 from market_match.models import (
     EnrichedNewsItem,
@@ -28,12 +29,14 @@ from market_match.models import (
     WrittenNewsArticle,
 )
 from market_match.tools import (
+    ArxivSearchTool,
     AssembleNewsletterHtmlTool,
     LimitedScrapeWebsiteTool,
     NewsAPISearchTool,
     NewsOnlySerperDevTool,
     ReadPublishedNewsTool,
     SavePublishedEditionTool,
+    SemanticScholarSearchTool,
 )
 from market_match.utils.utils import extract_json, format_template, safe_slug
 from market_match.utils.editions import (
@@ -258,6 +261,20 @@ class MarketMatch:
         )
 
     @agent
+    def ai_research_paper_scout(self) -> Agent:
+        return Agent(
+            config=self.agents_config["ai_research_paper_scout"],
+            tools=[
+                ArxivSearchTool(), 
+                # SemanticScholarSearchTool(), # No API Key yet
+                SerperDevTool(),
+                ReadPublishedNewsTool(), 
+                LimitedScrapeWebsiteTool()
+            ],
+            verbose=True,
+        )
+
+    @agent
     def news_enricher(self) -> Agent:
         return Agent(
             config=self.agents_config["news_enricher"],
@@ -302,6 +319,13 @@ class MarketMatch:
         return Task(
             config=self.tasks_config["find_ai_economy_news"],
             # output_pydantic=RecentNewsList,
+            async_execution=False,
+        )
+
+    @task
+    def find_ai_research_papers(self) -> Task:
+        return Task(
+            config=self.tasks_config["find_ai_research_papers"],
             async_execution=False,
         )
 
