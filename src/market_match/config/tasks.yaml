@@ -353,9 +353,9 @@ write_newsletter_title:
     - Capture what makes this edition unique
 
     Here some examples of good newsletter titles:
-    - "Anthropic contre le gouvernement américain, la transformation de Nano Banana, Frontier Agent Management, les solutions mathématiques de Google"
-    - "Modèles de raisonnement autonome, ChatGPT ajoute des publicités, accord d'Apple avec Google, génération 3D Pronto"
-    - "LLM vont à la confession, recherche scientifique automatisée, ce que veulent les utilisateurs de Copilot, raisonnement pour moins"
+    - "Market & Match #5 - Anthropic contre le gouvernement américain, la transformation de Nano Banana, Frontier Agent Management, les solutions mathématiques de Google"
+    - "Market & Match #6 - Modèles de raisonnement autonome, ChatGPT ajoute des publicités, accord d'Apple avec Google, génération 3D Pronto"
+    - "Market & Match #7 - LLM vont à la confession, recherche scientifique automatisée, ce que veulent les utilisateurs de Copilot, raisonnement pour moins"
 
     The title should be in plain text, without formatting or markdown, in French.    
   expected_output: >
