@@ -34,6 +34,7 @@ from market_match.tools import (
     LimitedScrapeWebsiteTool,
     NewsAPISearchTool,
     NewsOnlySerperDevTool,
+    PlaywrightScrapeWebsiteTool,
     ReadPublishedNewsTool,
     SavePublishedEditionTool,
     SemanticScholarSearchTool,
@@ -240,7 +241,7 @@ class MarketMatch:
     def ai_sports_news_scout(self) -> Agent:
         return Agent(
             config=self.agents_config["ai_sports_news_scout"], 
-            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), LimitedScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -248,7 +249,7 @@ class MarketMatch:
     def ai_finance_news_scout(self) -> Agent:
         return Agent(
             config=self.agents_config["ai_finance_news_scout"], 
-            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), LimitedScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -256,7 +257,7 @@ class MarketMatch:
     def ai_economy_news_scout(self) -> Agent:
         return Agent(
             config=self.agents_config["ai_economy_news_scout"], 
-            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), LimitedScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
@@ -269,6 +270,7 @@ class MarketMatch:
                 # SemanticScholarSearchTool(), # No API Key yet
                 SerperDevTool(),
                 ReadPublishedNewsTool(), 
+                PlaywrightScrapeWebsiteTool(),
                 LimitedScrapeWebsiteTool()
             ],
             verbose=True,
@@ -278,7 +280,7 @@ class MarketMatch:
     def news_enricher(self) -> Agent:
         return Agent(
             config=self.agents_config["news_enricher"],
-            tools=[NewsOnlySerperDevTool(), LimitedScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
@@ -286,7 +288,7 @@ class MarketMatch:
     def market_context_researcher(self) -> Agent:
         return Agent(
             config=self.agents_config["market_context_researcher"],
-            tools=[NewsOnlySerperDevTool(), LimitedScrapeWebsiteTool()],
+            tools=[NewsOnlySerperDevTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -294,7 +296,7 @@ class MarketMatch:
     def news_selector(self) -> Agent:
         return Agent(
             config=self.agents_config["news_selector"],
-            tools=[LimitedScrapeWebsiteTool(), SavePublishedEditionTool(), ReadPublishedNewsTool()],
+            tools=[PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool(), SavePublishedEditionTool(), ReadPublishedNewsTool()],
             verbose=True,
         )
 
@@ -372,7 +374,7 @@ class MarketMatch:
     def article_writer(self) -> Agent:
         return Agent(
             config=self.agents_config["article_writer"],
-            tools=[LimitedScrapeWebsiteTool()],
+            tools=[PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
