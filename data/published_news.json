@@ -205,6 +205,42 @@
           "signature": "c970cb80afd0e9c83c2ccd2e0ee9dd09f18f7dfd701d327762692d81d103bb59"
         }
       ]
+    },
+    {
+      "edition_number": 7,
+      "edition_date": "2026-04-15",
+      "items": [
+        {
+          "title": "Infosys and Carlos Alcaraz Partner to Launch Generative AI Performance Tools",
+          "summary": "Infosys has announced a multi-year global partnership with seven-time Grand Slam champion Carlos Alcaraz, appointing him as a brand ambassador to spearhead a new era of AI-driven tennis analytics. Beyond marketing, the collaboration focuses on the co-development of a generative AI-led \"Performance Architect\" toolset. This platform will utilize Infosys’s Topaz AI suite to analyze match footage and biometric data, providing Alcaraz’s coaching team with real-time strategic adjustments and predictive modeling for upcoming opponents. The partnership aims to democratize high-level coaching insights by eventually integrating these AI tools into the Infosys Tennis Platform, which serves fans and amateur players at major tournaments like Roland-Garros and the Australian Open. The initiative highlights a shift in the industry toward \"athlete-centric AI,\" where professional players actively participate in training the models that analyze their unique physical and tactical profiles.",
+          "source": "https://www.stocktitan.net/news/INFY/7-time-grand-slam-champion-carlos-alcaraz-is-infosys-global-brand-nduygwsk3ttx.html",
+          "signature": "6c29cc601de7e575bf9697733fe6ae0e95ba77031068d5fb6c3a4220b4252eef"
+        },
+        {
+          "title": "PwC 2026 AI Performance Study: 20% of Companies Capture 74% of AI Value",
+          "summary": "LONDON, 13 April 2026 – A small group of companies is pulling sharply ahead in the race to generate real financial returns from artificial intelligence, according to PwC’s new AI Performance study. The global study interviewed 1,217 senior executives, primarily at large, publicly listed companies across 25 sectors, asking them about the revenue and efficiency gains they are seeing from AI today.\n\nIt finds that nearly three‑quarters (74%) of AI’s economic value is captured by just one‑fifth (20%) of organisations, revealing a stark and widening divide between a small group of AI leaders and the majority of businesses still stuck in pilot mode. The research shows that these top‑performing companies are not simply deploying more AI tools. Instead, they are using AI as a catalyst for growth and business reinvention, particularly by pursuing new revenue opportunities created as industries converge, while building strong foundations around data, governance and trust.\n\nKey findings include:\n- Growth vs. Productivity\n- Decision Automation\n- Trust and Governance\n\nThe study warns that without a shift in approach, the performance gap between AI leaders and laggards is likely to widen further as leaders scale proven use cases and automate decisions safely.",
+          "source": "https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-performance-study.html",
+          "signature": "2eaefce253ea551ac73185e1f028658e2c51a7f37f57e0586602f9fdd9418b18"
+        },
+        {
+          "title": "Oracle Financial Services Extends Agentic AI Platform to Corporate Banking",
+          "summary": "Financial Services Summit, London—April 14, 2026: Oracle Financial Services is transforming corporate banking with new embedded AI capabilities and agents. With these advancements, financial institutions and corporate banks can now benefit from an enterprise-class suite of AI-infused applications and pre-built AI agents for treasury, trade finance, credit, and lending. These enhancements automate mission-critical processes and speed decision-making to help banks and their corporate clients navigate market volatility and risk, accelerate loan processing, and unlock new opportunities for enhanced growth and service. By enabling AI experience agents to engage directly with clients and bankers, and domain agents to collaborate across workflows, Oracle is helping corporate banks transition from fragmented, manual operations to a unified, real-time, data-driven system of intelligence that improves efficiency, compliance, and client experiences.\n\n“Corporate banking runs on precision, resiliency, and trust,” said Sovan Shatpathy, senior vice president, product management and development, Oracle Financial Services. “Our AI-powered platform embeds intelligence directly into mission-critical processes, accelerating decisions and strengthening governance so banks can serve clients with greater speed and confidence.”\n\nThe new corporate banking capabilities are powered by Oracle’s next-generation banking platform that embeds AI experiences and decisioning at the core of every customer engagement and business process. Key corporate banking innovations include:\n- Corporate Credit Loan Data Extraction Agent\n- Financial Data Extraction Agent\n- Loan Data Validation Agent\n- Documents Data Extraction Agent\n- Narrative Generation Agent\n- Trade and Supply Chain Finance Application Validator Agent\n\nThese agents are a sampling of the hundreds of corporate and retail banking agents Oracle Financial Services plans to make available within the next 12 months.",
+          "source": "https://www.oracle.com/be/news/announcement/oracle-financial-services-extends-agentic-ai-platform-to-corporate-banking-2026-04-14/",
+          "signature": "e854708ee0a6f67c128a4f4e35406c6a99e5032dc8c5f24774815069fb9cd880"
+        },
+        {
+          "title": "Do VLMs Truly ”Read” Candlesticks? A Multi-Scale Benchmark for Visual Stock Price Forecasting",
+          "summary": "arXiv:2604.12659v1 [cs.LG] 14 Apr 2026\nDo VLMs Truly ”Read” Candlesticks? A Multi-Scale Benchmark for Visual Stock Price Forecasting\nAuthors: Kaiqi Hu, Linda Xiao, Shiyue Xu, Ziyi Tang, Mingwen Liu\n\nAbstract.\nVision–language models (VLMs) are increasingly applied to visual stock price forecasting, yet existing benchmarks inadequately evaluate their understanding of stock price in candlestick charts. First, prior studies fail to isolate VLMs’ comprehension of visual stock price inputs, and it remains unclear whether visual inputs genuinely improve predictive performance and whether VLMs truly comprehend candlestick patterns. Further, most existing datasets and evaluation setups are designed around single-period or tabular inputs. However, human analysts strongly rely on multi-scale candlestick charts, where longer-term horizons capture trend direction and shorter-term horizons provide cues for inflection points, making it difficult to systematically assess VLMs’ ability to integrate short-term and long-term visual market dynamics. To bridge this gap, we construct a multi-scale candlestick chart dataset and a standardized evaluation framework to assess VLMs’ ability to utilize multi-scale visual market signals. Evaluation combines confusion-matrix-based diagnostics with information coefficient (IC) time series metrics and includes XGBoost as a feature-based temporal baseline. Using this dataset, we benchmark representative VLMs and analyze their ability to leverage multi-scale stock price data. Experimental results show that most VLMs perform well only under persistent uptrend or downtrend conditions, while exhibiting weak predictive capability in more common market scenarios. We also identify significant prediction biases and limited sensitivity to explicitly specified forecast horizons in prompts, indicating inherent limitations in precise temporal reasoning.\n\nKey paper details from the article:\n- Introduces a new multi-scale candlestick benchmark using daily and weekly chart pairs.\n- Dataset covers HS300 and S&P 500 constituents from 2015 to 2025.\n- Total candlestick samples: 193,524.\n- Evaluates major commercial VLMs plus XGBoost baseline.\n- Finds most VLMs are weak in ordinary sideways markets and stronger only in persistent bull/bear conditions.\n- Reports that Claude-sonnet-4-5(thinking) shows strong predictive power in both direction and ranking; Gemini2.5-pro on S&P 500 achieves top IC and Rank IC means in the reported table.\n- Concludes current VLMs appear more useful as short-term signal aids than robust long-horizon forecasting systems.",
+          "source": "https://arxiv.org/html/2604.12659v1",
+          "signature": "d880c24dbd54c75204d0d12c7dbe361d909ea2b0392194268d56cb058881754d"
+        },
+        {
+          "title": "Research: AI Exposure Linked to Job and Wage Growth in Efficient Labor Markets",
+          "summary": "In a new research paper, labor economist Christos Makridis (ASU) and Andrew Johnston analyze how exposure to generative AI affected U.S. industries between 2017 and 2024. Using administrative data covering nearly all employers, the researchers measured AI exposure based on occupation-level task data, comparing industries with high language-processing and data-task requirements against those with physical labor requirements.\n\nThe study found that industries most exposed to AI experienced faster productivity growth beginning in 2021, driven by enterprise tools like GitHub Copilot and Jasper. By 2024, industries with AI exposure one standard deviation higher saw productivity gains of 10%, a 3.9% increase in jobs, and 4.8% higher wage growth compared to peers.\n\nKey differentiators identified:\n- Augmentation vs. Displacement\n- Economic Output\n- Organizational Trust\n\nThe findings suggest that AI is currently acting as a productivity-enhancing tool that boosts overall demand for labor by lowering the cost of tasks and expanding business output, provided labor markets are efficient and management creates safe environments for experimentation.",
+          "source": "https://theconversation.com/industries-most-exposed-to-ai-are-not-only-seeing-productivity-gains-but-jobs-and-wage-growth-too-224487",
+          "signature": "609ba6b67f1979b0cc85eb43279068f00e41eaa06bc971d3bcf8dbbd63d099ea"
+        }
+      ]
     }
   ],
   "seen_signatures": [
@@ -212,13 +248,16 @@
     "0b41653b0eb016040cde3276e88683450418b1e01cd9909bc4d98dc7659c5b76",
     "10f1879a35a2fad74c62517ea88a244d511cee218328609ee227bf9705d90e32",
     "1ecffebee7d08b317e7123f64b4c6b8629e06980fc9885ac6fa8b82fd235cb12",
+    "2eaefce253ea551ac73185e1f028658e2c51a7f37f57e0586602f9fdd9418b18",
     "2ef05da85adf5c5de5e7dd7a4bd60104b3b818f5264b3b18414ace2a07f2f29b",
     "3cfd8b5a749ee3b3dd0a9e0e813fffb7caf35202883609069e7a2ec0c25157a5",
     "3edc78057135e5770e60347bdf486a09b34dc2d03a98c538d24212a3034da6ff",
     "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c",
     "4e563497b9516b2cd575a9d5eef7a04c545132104c7441f439922ca34d8aa631",
     "5ca013a62104c3e2407de956787f1aa7d37b38ac140517ea5d1140ad940eca71",
+    "609ba6b67f1979b0cc85eb43279068f00e41eaa06bc971d3bcf8dbbd63d099ea",
     "6b6033842523bd7dda05c856b6cf144f5539c10c26223edb06782432fbfb78b9",
+    "6c29cc601de7e575bf9697733fe6ae0e95ba77031068d5fb6c3a4220b4252eef",
     "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be",
     "7841976cc89f86792286d0a8cd44b1bd1e2b4b38ae6c952fce752b1da771dcd7",
     "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27",
@@ -235,7 +274,9 @@
     "cc7166930f10d1a8ab20f81324f4bf0e3de990f01f606f9010c3676422e3bd62",
     "ce53bf87ba88ee68e2123c646ed0266ff88373c5b0243eba3a8068b4d0531e55",
     "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771",
+    "d880c24dbd54c75204d0d12c7dbe361d909ea2b0392194268d56cb058881754d",
     "dafdac8bfa0a5ef8e92d7278d8913b0b6f5ce77cbb80795a33621477dc46dc1e",
+    "e854708ee0a6f67c128a4f4e35406c6a99e5032dc8c5f24774815069fb9cd880",
     "f5fed1f01e0c4ab6460dba56aba81284b567ef50ea304a6a4e69faf896ed608d"
   ]
 }

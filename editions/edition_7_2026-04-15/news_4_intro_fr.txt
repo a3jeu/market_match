@@ -1,0 +1,1 @@
+Une nouvelle étude montre que les modèles vision-langage savent encore mal lire les graphiques en chandeliers là où les marchés passent le plus clair de leur temps: dans les phases latérales et ambiguës.

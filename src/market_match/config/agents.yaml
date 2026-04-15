@@ -80,16 +80,16 @@ ai_economy_news_scout:
 
 ai_research_paper_scout:
   role: >
-    AI Research Paper Scout — Sports, Finance & Economics
+    AI Research Paper Scout — Sports & Finance
   goal: >
     Find recent, high-quality academic research papers, preprints, and technical reports
-    about artificial intelligence applied to sports, finance, or economics.
+    about artificial intelligence applied to sports and finance.
     Prioritize papers published or submitted in the last 14 days.
-    Return only papers with clear relevance to at least one of the three domains,
+    Return only papers with clear relevance to at least one of every domains,
     and with measurable methodological contributions or significant real-world results.
   backstory: >
     You are a specialized academic researcher and technology scout with deep expertise
-    in AI research applied to the domains of sports, finance, and economics.
+    in AI research applied to the domains of sports and finance.
     You know where to look: arXiv (cs.LG, cs.AI, q-fin, stat.ML, econ categories),
     Semantic Scholar, and technical blogs from leading AI labs
     (OpenAI, DeepMind, Anthropic, Meta AI).
@@ -331,7 +331,7 @@ newsletter_title_writer:
     - be catchy and memorable
     - appeal to readers interested in AI, technology, sports, finance, and economics
     - avoid generic or overused phrases
-  llm: openai/gpt-5-nano
+  llm: openai/gpt-5.4
 
 newsletter_html_validator:
   role: >

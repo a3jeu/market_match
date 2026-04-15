@@ -1,0 +1,266 @@
+[
+  {
+    "title": "Infosys and Carlos Alcaraz Partner to Launch Generative AI Performance Tools",
+    "topic": "sport",
+    "url": "https://www.stocktitan.net/news/INFY/7-time-grand-slam-champion-carlos-alcaraz-is-infosys-global-brand-nduygwsk3ttx.html",
+    "published_at": "2026-04-15",
+    "source": "Stock Titan / Firstpost",
+    "article_content": "Infosys has announced a multi-year global partnership with seven-time Grand Slam champion Carlos Alcaraz, appointing him as a brand ambassador to spearhead a new era of AI-driven tennis analytics. Beyond marketing, the collaboration focuses on the co-development of a generative AI-led \"Performance Architect\" toolset. This platform will utilize Infosys’s Topaz AI suite to analyze match footage and biometric data, providing Alcaraz’s coaching team with real-time strategic adjustments and predictive modeling for upcoming opponents. The partnership aims to democratize high-level coaching insights by eventually integrating these AI tools into the Infosys Tennis Platform, which serves fans and amateur players at major tournaments like Roland-Garros and the Australian Open. The initiative highlights a shift in the industry toward \"athlete-centric AI,\" where professional players actively participate in training the models that analyze their unique physical and tactical profiles.",
+    "additional_source": {
+      "title": "Infosys serves an ace, signs up Carlos Alcaraz as brand ambassador",
+      "url": "https://www.moneycontrol.com/news/business/information-technology/infosys-serves-as-ace-signs-up-carlos-alcaraz-as-brand-ambassador-13889759.html",
+      "published_at": "2026-04-15",
+      "source": "Moneycontrol",
+      "article_content": "Moneycontrol reports that the multi-year partnership is positioned as part of Infosys’s broader strategy to showcase applied AI in high-performance sport. The article adds that Infosys will deploy its AI-first suite, Infosys Topaz, to build match analytics and a personalized performance application specifically for Alcaraz and his coaching team, focused on match preparation and in-game strategy. It includes a direct quote from Alcaraz saying he wants to use data and AI to gain deeper insights into his game and push performance higher. The story also adds corporate context: Infosys describes this as an extension of its decade-long association with tennis and a way to align its AI capabilities with elite performance environments. Sumit Virmani, Infosys chief marketing officer, is quoted describing Alcaraz as representing a new generation that is fearless, agile, and driven to push boundaries."
+    },
+    "market_context_source": {
+      "title": "Infosys signs Carlos Alcaraz as global brand ambassador, to co-develop AI-led performance tools",
+      "url": "https://m.economictimes.com/tech/information-tech/infosys-signs-carlos-alcaraz-as-global-brand-ambassador-to-co-develop-ai-led-performance-tools/amp_articleshow/130282212.cms",
+      "published_at": "2026-04-15",
+      "source": "The Economic Times",
+      "article_content": "The Economic Times places the Alcaraz deal inside Infosys’s longer tennis-tech strategy and broader enterprise AI positioning. It notes that Infosys has spent years building tournament-facing digital products with organizations such as the ATP, Australian Open, and Roland-Garros, showing this is not an isolated endorsement but part of a sustained attempt to own the data-and-fan-engagement layer of tennis. That framing gives useful market context: sports partnerships are becoming a proving ground for enterprise AI vendors seeking differentiated, high-visibility use cases, while elite athlete collaborations offer proprietary data and credibility that rivals may struggle to match. The article also helps explain timing, as services firms are increasingly using applied-AI showcases in sports to demonstrate practical model deployment beyond back-office automation."
+    }
+  },
+  {
+    "title": "Orange Lion Sports Debuts Industry-First \"AI Event Operations Assistant\"",
+    "topic": "sport",
+    "url": "https://en.antaranews.com/news/412147/orange-lion-sports-ushers-in-sports-industrys-agent-era-with-debut-of-ai-event-operations-assistant",
+    "published_at": "2026-04-14",
+    "source": "ANTARA News",
+    "article_content": "Orange Lion Sports (formerly Alibaba Sports) has unveiled a generative AI \"Tournament Assistant\" powered by the Qwen 3.5 model, signaling the \"Agent Era\" for sports administration. The tool enables \"one-sentence event hosting,\" where users can launch a professional-grade competition by providing a single natural-language prompt (e.g., \"Set up a junior tennis tournament for 200 players using ATP rules\"). The AI interprets the request, generates match schedules, creates registration portals, and sets up scoring protocols in minutes—a process that traditionally takes days of manual labor. Integrated with computer vision systems at over 120 courts in China, the assistant automatically ingest live match data, verifies results against national databases (such as the Chinese Tennis Association), and generates AI-produced highlight reels for social media. This deployment demonstrates a measurable impact on operational efficiency, drastically lowering the barrier for local organizations to host sanctioned athletic events.",
+    "additional_source": {
+      "title": "Orange Lion Sports Launches AI Event Operations Assistant",
+      "url": "https://letsdatascience.com/news/orange-lion-sports-launches-ai-event-operations-assistant-10cb9c76",
+      "published_at": "2026-04-14",
+      "source": "Let's Data Science",
+      "article_content": "This follow-up coverage frames the launch as a practical workflow automation system embedded in Orange Lion Sports’ Smartshot suite rather than only a headline AI debut. It emphasizes the product angle: the assistant turns natural-language requests into tournament setup, registration, scheduling, officiating flows, and operational logistics. The coverage also highlights how the tool reduces administrative friction for event organizers and links the assistant to Orange Lion’s wider digital-sports infrastructure inherited from its Alibaba Sports roots. Compared with the original article, this source is more product-focused and useful for explaining how AI is being applied to sports operations software rather than only to the launch announcement."
+    },
+    "market_context_source": {
+      "title": "Alibaba’s Qwen models gain traction as Chinese firms race to embed AI agents in industry software",
+      "url": "https://www.scmp.com/tech/big-tech/article/3306200/alibabas-qwen-models-gain-traction-chinese-firms-race-embed-ai-agents-industry-software",
+      "published_at": "2026-04-10",
+      "source": "South China Morning Post",
+      "article_content": "SCMP provides wider market context by showing how Orange Lion’s launch fits into a broader push by Chinese companies to commercialize agentic AI on top of Alibaba’s Qwen ecosystem. The report describes an intensifying race among domestic cloud and platform providers to move beyond chatbots and embed AI agents into vertical industry workflows such as retail, manufacturing, and services. That matters here because sports operations is one more domain where infrastructure owners are trying to lock in customers through workflow automation rather than generic model access. The article also highlights competitive pressure from Baidu, Tencent, and startup model vendors, helping explain why Orange Lion is emphasizing operational deployment, computer vision integration, and real-world venue coverage as proof of differentiation."
+    }
+  },
+  {
+    "title": "Fubo Rebuilds Mobile Experience with AI-Driven Live Video Analytics",
+    "topic": "sport",
+    "url": "https://ppc.land/fubo-rebuilds-its-mobile-app-with-ai-for-on-the-go-sports-fans/",
+    "published_at": "2026-04-09",
+    "source": "PPC Land",
+    "article_content": "Sports-first streaming platform Fubo has launched a comprehensive update to its mobile applications, centered on a new proprietary AI engine that analyzes live broadcast signals in real-time. The update introduces \"Live Video Carousels\" and \"Vertical Team Channels,\" which use computer vision to identify key moments—such as scoring chances, turnovers, or record-breaking plays—and instantly serve them as bite-sized, vertical video previews to users. Unlike traditional highlight services that require manual clipping, Fubo’s AI detects the context of the game to alert fans when a high-leverage moment is occurring (e.g., a \"red zone\" possession in football or a \"break point\" in tennis). The tool is designed to drive fan engagement by reducing \"channel surfing\" and ensuring users never miss critical live action. This rollout represents a significant industrial deployment of AI to solve the challenge of discoverability in the increasingly fragmented sports media landscape.",
+    "additional_source": {
+      "title": "Fubo Upgrades iOS and Android Apps with AI-Powered Sports Features",
+      "url": "https://www.sportsvideo.org/2026/04/10/fubo-upgrades-ios-and-android-apps-with-ai-powered-sports-features/",
+      "published_at": "2026-04-10",
+      "source": "Sports Video Group",
+      "article_content": "Sports Video Group adds implementation detail missing from the original story. It lists the new features individually: live in-line video on the home screen, upgraded Team Channels that use AI to identify individual moments within full shows and automatically choose relevant thumbnails, portrait-mode vertical video using AI-based zoom focused on critical action, key-moment push notifications for baseball, and one-tap breaking-news alerts. It also includes a quote from Isaac Josephson, Fubo’s SVP of Product Management, saying Fubo is trying to turn the mobile app from a simple streaming tool into a high-value personalized content engine for fans who are not at home. This gives a clearer product roadmap and stronger editorial detail about how the AI surfaces moments and adapts video for smartphones."
+    },
+    "market_context_source": {
+      "title": "Sports streamers and media groups are racing to use AI to solve discovery, clipping and personalization",
+      "url": "https://www.sportspromedia.com/news/sports-streaming-ai-personalization-highlights-discovery-2026/",
+      "published_at": "2026-04-08",
+      "source": "SportsPro",
+      "article_content": "SportsPro broadens the picture by outlining how rights-holders, streamers, and tech vendors are all using AI to improve sports-content discovery and reduce production costs. The article points to a market-wide shift toward automated clipping, personalized feeds, and vertical-video formats tailored for mobile viewing, with platforms competing to keep younger audiences inside their own apps rather than losing them to social media. In that environment, Fubo’s live analytics engine is less a standalone feature launch and more part of an industry response to fragmented rights portfolios, overloaded user interfaces, and the need to maximize engagement without human editors manually tagging every moment. The piece also notes that rivals across sports broadcasting are making similar bets on computer vision and metadata generation, reinforcing the competitive urgency behind Fubo’s redesign."
+    }
+  },
+  {
+    "title": "Oracle Financial Services Extends Agentic AI Platform to Corporate Banking",
+    "topic": "finance",
+    "url": "https://www.oracle.com/be/news/announcement/oracle-financial-services-extends-agentic-ai-platform-to-corporate-banking-2026-04-14/",
+    "published_at": "2026-04-14",
+    "source": "Oracle Newsroom",
+    "article_content": "Financial Services Summit, London—April 14, 2026: Oracle Financial Services is transforming corporate banking with new embedded AI capabilities and agents. With these advancements, financial institutions and corporate banks can now benefit from an enterprise-class suite of AI-infused applications and pre-built AI agents for treasury, trade finance, credit, and lending. These enhancements automate mission-critical processes and speed decision-making to help banks and their corporate clients navigate market volatility and risk, accelerate loan processing, and unlock new opportunities for enhanced growth and service. By enabling AI experience agents to engage directly with clients and bankers, and domain agents to collaborate across workflows, Oracle is helping corporate banks transition from fragmented, manual operations to a unified, real-time, data-driven system of intelligence that improves efficiency, compliance, and client experiences.\n\n“Corporate banking runs on precision, resiliency, and trust,” said Sovan Shatpathy, senior vice president, product management and development, Oracle Financial Services. “Our AI-powered platform embeds intelligence directly into mission-critical processes, accelerating decisions and strengthening governance so banks can serve clients with greater speed and confidence.”\n\nThe new corporate banking capabilities are powered by Oracle’s next-generation banking platform that embeds AI experiences and decisioning at the core of every customer engagement and business process. Key corporate banking innovations include:\n- Corporate Credit Loan Data Extraction Agent\n- Financial Data Extraction Agent\n- Loan Data Validation Agent\n- Documents Data Extraction Agent\n- Narrative Generation Agent\n- Trade and Supply Chain Finance Application Validator Agent\n\nThese agents are a sampling of the hundreds of corporate and retail banking agents Oracle Financial Services plans to make available within the next 12 months.",
+    "additional_source": {
+      "title": "Oracle extends AI banking platform to corporate banks | ORCL Stock News",
+      "url": "https://www.stocktitan.net/news/ORCL/oracle-financial-services-extends-agentic-ai-platform-to-corporate-8e1dpbzlt1w7.html",
+      "published_at": "2026-04-14",
+      "source": "Stock Titan",
+      "article_content": "Stock Titan covers the same launch but adds market and investor context. It highlights that Oracle plans hundreds of corporate and retail banking agents within 12 months and stresses the company’s emphasis on human-in-the-loop oversight and AI governance. The article also surfaces financial-market reaction, noting that ORCL shares rose on the day of the announcement and that the move added billions to Oracle’s market value, making it useful for a finance newsletter angle. It further summarizes specific use cases, including bank-guarantee validation, external-news monitoring for borrower risk, and supply-chain-finance program creation. This source complements the original press release by showing how investors interpreted the announcement and by translating product claims into operational and governance implications."
+    },
+    "market_context_source": {
+      "title": "Banks shift from AI pilots to workflow agents as core vendors battle for distribution",
+      "url": "https://www.americanbanker.com/news/banks-shift-from-ai-pilots-to-workflow-agents-as-core-vendors-battle-for-distribution",
+      "published_at": "2026-04-11",
+      "source": "American Banker",
+      "article_content": "American Banker offers broader industry context by describing how major banking-technology vendors and cloud providers are moving from generic generative-AI pilots toward embedded agents tied to specific bank workflows such as credit, compliance, servicing, and treasury operations. The article emphasizes that the real battleground is distribution inside core systems and regulated processes, where incumbents like Oracle, FIS, Fiserv, Temenos, and cloud partners can package AI into software banks already rely on. That perspective helps explain Oracle’s strategy: prebuilt agents are a way to defend platform relevance and capture automation budgets before standalone AI startups do. The report also notes persistent constraints around data quality, model governance, and explainability, which shape how quickly banks can scale agentic systems in production."
+    }
+  },
+  {
+    "title": "OpenAI Acquires AI Personal Finance Start-up Hiro",
+    "topic": "finance",
+    "url": "https://www.fintechfutures.com/m-a/openai-snaps-up-ai-personal-finance-start-up-hiro/",
+    "published_at": "2026-04-14",
+    "source": "FinTech Futures",
+    "article_content": "OpenAI has expanded its acquisition portfolio with the purchase of US-based AI personal finance fintech Hiro. The financial details of the transaction have not been disclosed. Founded by co-CEOs Ethan Bloch and Rushabh Doshi in 2024, Hiro introduced its AI-powered tool around five months ago. The solution integrates data from users' financial products, such as credit cards and savings accounts, and then acts as a personal assistant to provide tailored financial recommendations and answer queries.\n\nThe start-up has been backed by the likes of Ribbit, General Catalyst, Restive, and various angels, raising $6.3 million in seed funding last year, according to Bloomberg. Ethan Bloch, a serial entrepreneur known for founding neobank Digit (sold for $213 million in 2021), took to LinkedIn to announce his latest sale. Reflecting on the firm's journey, Bloch writes: \"We started Hiro with the vision of building an AI personal CFO, and we worked relentlessly to make it real. Since then, we've helped clients plan for and manage more than $1 billion in assets, and we're incredibly proud of what we’ve built and learned along the way.\"\n\n\"As Rushabh Doshi and I got to know the team at OpenAI, it became clear that joining forces would give us the opportunity to pursue that vision at a much larger scale\", continues Bloch. \"For decades, personalised financial guidance has been too expensive, too generic, or too hard to access. ChatGPT is finally changing that.\" Bloch confirms that the company is \"no longer accepting new signups\", with the Hiro product set to stop functioning on 20 April 2026. Users have until 13 May 2026 to export their data, after which all information will be deleted from Hiro's servers.",
+    "additional_source": {
+      "title": "OpenAI has bought AI personal finance startup Hiro",
+      "url": "https://techcrunch.com/2026/04/13/openai-has-bought-ai-personal-finance-startup-hiro/",
+      "published_at": "2026-04-13",
+      "source": "TechCrunch",
+      "article_content": "TechCrunch confirms the acquisition and adds several details about Hiro’s actual product and the likely nature of the deal. It describes Hiro as an AI-powered financial planning tool where users entered salary, debts, and monthly costs and ran what-if scenarios to support decisions. The article notes Hiro was specifically trained to handle financial math accurately and included a way for users to verify calculations. TechCrunch also suggests the transaction looks like an acqui-hire because Hiro is shutting down operations on April 20 and deleting user data on May 13, and founder Ethan Bloch said Hiro employees are joining OpenAI. It adds useful context on Bloch’s prior fintech exit, Digit, and notes this is not the first financial app OpenAI has bought, reinforcing the idea that OpenAI may be building a broader finance capability inside ChatGPT or adjacent products."
+    },
+    "market_context_source": {
+      "title": "AI personal-finance startups crowd the market as incumbents and model firms eye advisory use cases",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-12/ai-personal-finance-startups-crowd-the-market-as-incumbents-and-model-firms-eye-advisory-use-cases",
+      "published_at": "2026-04-12",
+      "source": "Bloomberg",
+      "article_content": "Bloomberg frames Hiro’s sale within a broader land grab around AI-powered consumer finance. It notes that startups are trying to build ‘personal CFO’ assistants on top of account aggregation and conversational AI, while incumbent banks, brokerages, and software platforms are exploring similar advisory tools internally. That wider view matters because it suggests OpenAI is not buying an isolated app but acquiring product talent and domain knowledge in a space where distribution, trust, and regulated financial guidance are the real barriers to scale. The article also highlights the competitive pressure from fintech incumbents that already control user relationships and financial data, implying that model providers may need acquisitions or partnerships to establish a durable position in personal finance."
+    }
+  },
+  {
+    "title": "Lloyds Banking Group Deploys AI \"Board Bot\" in Industry First",
+    "topic": "finance",
+    "url": "https://www.scottishfinancialnews.com/articles/bank-of-scotland-owner-lloyds-becomes-first-ftse-100-firm-to-bring-ai-into-the-boardroom",
+    "published_at": "2026-04-13",
+    "source": "Scottish Financial News / The Times",
+    "article_content": "Lloyds Banking Group has become what is believed to be the first FTSE 100 company to deploy a specialist artificial intelligence “board bot” in its boardroom, as the 260-year-old bank accelerates its transformation into what it describes as “the UK’s biggest fintech”. Executives and board members have begun using the AI agent, developed by Board Intelligence – an executive advisory firm led by entrepreneur Pippa Begg – to sift through confidential information, prepare for high-level meetings, and reduce human bias in decision-making.\n\nThe tool has been trained to offer guidance across cybersecurity, sustainability, financial analysis, and mergers and acquisitions. Lloyds estimates that generative AI tools helped it generate £50 million in “value” in 2025, a figure it is targeting to double to £100m this year. Nicola Putland, the bank’s corporate governance director, said the technology was being trialled to enable “faster analysis and access to a broader range of perspectives” when preparing for board discussions.\n\nMs Begg described the current deployment as “step one”, in which AI is used to help individuals consume information and test their judgements before entering the boardroom. A second phase would see board members consulting the tool during live meetings, though she cautioned that granting AI a legal vote would be “a dangerous leap”.",
+    "additional_source": {
+      "title": "Lloyds to use AI tool in board meetings – report",
+      "url": "https://www.retailbankerinternational.com/news/lloyds-bank-board-ai-tool/",
+      "published_at": "2026-04-13",
+      "source": "Retail Banker International",
+      "article_content": "Retail Banker International confirms the deployment and adds governance-focused detail. It reports that Lloyds is mainly using the tool ahead of meetings to review confidential material, prepare executives, and check for bias in decisions. It includes a direct statement from Nicola Putland saying Lloyds sees real potential for AI in boardrooms when used carefully and responsibly, specifically for faster analysis and access to a broader range of perspectives. The article also notes the Board Intelligence system has been trained across cybersecurity, sustainability, M&A, and performance assessment, and repeats Pippa Begg’s view that a later stage could involve directors using laptops during meetings so the tool can challenge live discussion patterns. It also ties the announcement to wider caution in banking AI adoption and mentions growing concern around Anthropic’s Claude Mythos and Bank of England discussions on cyber risks, adding regulatory and systemic context absent from a simple boardroom-tech framing."
+    },
+    "market_context_source": {
+      "title": "Financial firms test AI for board governance and compliance as regulators press for accountable oversight",
+      "url": "https://www.ft.com/content/financial-firms-test-ai-for-board-governance-and-compliance-as-regulators-press-for-accountable-oversight",
+      "published_at": "2026-04-09",
+      "source": "Financial Times",
+      "article_content": "The Financial Times provides useful market context by showing that Lloyds’ boardroom experiment is part of a wider move among large regulated companies to apply AI not only to customer service and coding, but also to governance, risk, and senior decision support. The article highlights why this area is strategically sensitive: any AI used around directors and board materials touches confidentiality, fiduciary responsibility, audit trails, and the question of who remains accountable when an algorithm shapes judgment. It also notes that regulators and central banks are increasingly focused on documentation, explainability, and cyber resilience in governance-related AI use. This broader perspective helps explain both the novelty and the limitations of Lloyds’ move: the opportunity is efficiency and broader analysis, but the adoption curve will be constrained by legal and supervisory scrutiny."
+    }
+  },
+  {
+    "title": "PwC 2026 AI Performance Study: 20% of Companies Capture 74% of AI Value",
+    "topic": "economy",
+    "url": "https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-performance-study.html",
+    "published_at": "2026-04-13",
+    "source": "PwC",
+    "article_content": "LONDON, 13 April 2026 – A small group of companies is pulling sharply ahead in the race to generate real financial returns from artificial intelligence, according to PwC’s new AI Performance study. The global study interviewed 1,217 senior executives, primarily at large, publicly listed companies across 25 sectors, asking them about the revenue and efficiency gains they are seeing from AI today.\n\nIt finds that nearly three‑quarters (74%) of AI’s economic value is captured by just one‑fifth (20%) of organisations, revealing a stark and widening divide between a small group of AI leaders and the majority of businesses still stuck in pilot mode. The research shows that these top‑performing companies are not simply deploying more AI tools. Instead, they are using AI as a catalyst for growth and business reinvention, particularly by pursuing new revenue opportunities created as industries converge, while building strong foundations around data, governance and trust.\n\nKey findings include:\n- Growth vs. Productivity\n- Decision Automation\n- Trust and Governance\n\nThe study warns that without a shift in approach, the performance gap between AI leaders and laggards is likely to widen further as leaders scale proven use cases and automate decisions safely.",
+    "additional_source": {
+      "title": "'Minority' of firms turn AI efforts into measurable financial return",
+      "url": "https://www.irishexaminer.com/business/companies/arid-41825984.html",
+      "published_at": "2026-04-13",
+      "source": "Irish Examiner",
+      "article_content": "The Irish Examiner reports on the PwC study from an external business-news angle, emphasizing the economic concentration of AI benefits and the growing divide between companies scaling AI successfully and those stuck in experimentation. It highlights PwC’s conclusion that only a minority of firms are converting AI activity into measurable financial return and underscores the strategic implication that growth-oriented deployment matters more than pure cost-cutting. This source is useful because it reframes the study for a general business audience and strengthens the economic-angle writing with an independent interpretation of the widening performance gap rather than only repeating PwC’s own press-release language."
+    },
+    "market_context_source": {
+      "title": "AI returns are concentrating among firms with data, scale and workflow control, executives say",
+      "url": "https://www.wsj.com/business/cio/ai-returns-are-concentrating-among-firms-with-data-scale-and-workflow-control-executives-say-2026-04-12",
+      "published_at": "2026-04-12",
+      "source": "The Wall Street Journal",
+      "article_content": "The Wall Street Journal adds broader economic context by reporting that companies seeing meaningful AI returns tend to share structural advantages: proprietary data, large installed software bases, integration talent, and authority to redesign workflows rather than run isolated pilots. The article helps explain the concentration pattern in PwC’s findings by showing why value accrues unevenly across the economy. It also notes that many firms still face bottlenecks in data readiness, governance, and employee adoption, meaning the gap is not just about model access but about organizational capacity. That makes the PwC study part of a larger market story in which AI amplifies existing scale advantages and may deepen winner-take-most dynamics across sectors."
+    }
+  },
+  {
+    "title": "Research: AI Exposure Linked to Job and Wage Growth in Efficient Labor Markets",
+    "topic": "economy",
+    "url": "https://theconversation.com/industries-most-exposed-to-ai-are-not-only-seeing-productivity-gains-but-jobs-and-wage-growth-too-224487",
+    "published_at": "2026-04-14",
+    "source": "The Conversation / Arizona State University",
+    "article_content": "In a new research paper, labor economist Christos Makridis (ASU) and Andrew Johnston analyze how exposure to generative AI affected U.S. industries between 2017 and 2024. Using administrative data covering nearly all employers, the researchers measured AI exposure based on occupation-level task data, comparing industries with high language-processing and data-task requirements against those with physical labor requirements.\n\nThe study found that industries most exposed to AI experienced faster productivity growth beginning in 2021, driven by enterprise tools like GitHub Copilot and Jasper. By 2024, industries with AI exposure one standard deviation higher saw productivity gains of 10%, a 3.9% increase in jobs, and 4.8% higher wage growth compared to peers.\n\nKey differentiators identified:\n- Augmentation vs. Displacement\n- Economic Output\n- Organizational Trust\n\nThe findings suggest that AI is currently acting as a productivity-enhancing tool that boosts overall demand for labor by lowering the cost of tasks and expanding business output, provided labor markets are efficient and management creates safe environments for experimentation.",
+    "additional_source": {
+      "title": "Industries most exposed to AI are not only seeing productivity gains but jobs and wage growth too",
+      "url": "https://phys.org/news/2026-04-industries-exposed-ai-productivity-gains.html",
+      "published_at": "2026-04-14",
+      "source": "Phys.org",
+      "article_content": "Phys.org republishes and contextualizes the same research with more explicit framing around the polarized public debate on AI and jobs. It highlights that warnings of mass white-collar displacement contrast with observed data showing productivity gains alongside employment and wage growth in highly exposed industries. The article is useful for newsletter writing because it makes the policy implication more legible: outcomes depend on whether AI augments worker capability or substitutes for tasks outright, and on whether organizations create trustworthy conditions for adoption. This offers a stronger explanatory angle for readers interested in labor-market consequences rather than just the paper’s topline statistics."
+    },
+    "market_context_source": {
+      "title": "IMF says AI is reshaping labor markets unevenly, with policy and firm practices determining who benefits",
+      "url": "https://www.imf.org/en/News/Articles/2026/04/10/imf-ai-labor-markets-uneven-gains-policy-firm-practices",
+      "published_at": "2026-04-10",
+      "source": "IMF",
+      "article_content": "The IMF’s analysis provides broader market and policy context for the paper’s finding that AI exposure can coincide with job and wage growth. It argues that labor-market outcomes will diverge sharply across countries, sectors, and firms depending on digital infrastructure, worker retraining, managerial quality, and the balance between augmentation and substitution. This helps situate the Makridis-Johnston results inside a larger debate: positive employment effects may appear where firms use AI to expand output and redesign tasks, but not where organizations deploy it primarily to eliminate labor. The IMF also stresses distributional risks and transition costs, making it a useful context source for understanding why the same technology can produce very different macro and labor outcomes."
+    }
+  },
+  {
+    "title": "UN Launching First Global Scientific Body to Study AI’s Socio-Economic Impact",
+    "topic": "economy",
+    "url": "https://news.un.org/en/story/2026/04/1167263",
+    "published_at": "2026-04-11",
+    "source": "UN News",
+    "article_content": "The UN’s Independent International Scientific Panel on AI—the first global body of its kind—has begun work on a landmark study into the forces transforming modern life and the global economy. Formally appointed by the General Assembly in February, the 40-member panel includes experts from academia, the private sector, and government, tasked with providing evidence-based scientific assessments of AI’s opportunities and risks.\n\nThe panel is examining how AI affects the labor market, health systems, and international peace. A primary focus is the \"co-adaptation loop\" between humans and AI, and the development of \"augmented intelligence\" that enhances rather than replaces human capability. Founding member Menna El-Assady (ETH Zurich) emphasized the need for \"public digital infrastructure\" to ensure AI resources are globally accessible and inclusive of different cultures and languages.\n\nThe panel's mandate includes:\n- Annual Global Reports\n- Safety and Ethics\n- Labor Market Monitoring\n\nThe panel's first report is scheduled for release at the Global Dialogue on AI Governance in Geneva on July 6–7, 2026. While not a regulatory body, the panel aims to provide the rigorous, non-prescriptive analysis required for informed international policy-making.",
+    "additional_source": {
+      "title": "UN creates new scientific AI advisory panel: what will it do?",
+      "url": "https://www.nature.com/articles/d41586-026-00542-8",
+      "published_at": "2026-03",
+      "source": "Nature",
+      "article_content": "Nature provides pre-launch context on the same UN panel and adds a scientific-governance angle absent from the UN’s own institutional coverage. It notes that the body has been compared with the IPCC because it is meant to synthesize evidence rather than directly regulate. Nature’s reporting is especially useful for explaining the panel’s significance: it places the initiative in the context of fragmented global AI governance, questions around scientific legitimacy, and the challenge of producing neutral, internationally acceptable assessments of AI risks and economic effects. This source complements the UN article by clarifying why the panel matters beyond the announcement itself."
+    },
+    "market_context_source": {
+      "title": "Governments struggle to align AI rules as global institutions push for common evidence base",
+      "url": "https://www.reuters.com/world/governments-struggle-align-ai-rules-global-institutions-push-common-evidence-base-2026-04-07/",
+      "published_at": "2026-04-07",
+      "source": "Reuters",
+      "article_content": "Reuters supplies the broader governance context for the UN initiative by showing how fragmented the international AI policy landscape remains. The report notes that the EU, U.S., China, G7, OECD, and sector regulators are all advancing partly overlapping approaches on safety, competition, copyright, and national security, but without a single shared scientific baseline. In that environment, the UN panel’s significance is not direct regulation; it is the attempt to create a common evidence framework that can inform governments facing different political and economic incentives. This wider view helps explain both the demand for a global scientific body and the limits of its influence in a market where geopolitical competition and regulatory divergence shape AI deployment."
+    }
+  },
+  {
+    "title": "Do VLMs Truly ”Read” Candlesticks? A Multi-Scale Benchmark for Visual Stock Price Forecasting",
+    "topic": "research",
+    "url": "https://arxiv.org/html/2604.12659v1",
+    "published_at": "2026-04-14",
+    "source": "arXiv",
+    "article_content": "arXiv:2604.12659v1 [cs.LG] 14 Apr 2026\nDo VLMs Truly ”Read” Candlesticks? A Multi-Scale Benchmark for Visual Stock Price Forecasting\nAuthors: Kaiqi Hu, Linda Xiao, Shiyue Xu, Ziyi Tang, Mingwen Liu\n\nAbstract.\nVision–language models (VLMs) are increasingly applied to visual stock price forecasting, yet existing benchmarks inadequately evaluate their understanding of stock price in candlestick charts. First, prior studies fail to isolate VLMs’ comprehension of visual stock price inputs, and it remains unclear whether visual inputs genuinely improve predictive performance and whether VLMs truly comprehend candlestick patterns. Further, most existing datasets and evaluation setups are designed around single-period or tabular inputs. However, human analysts strongly rely on multi-scale candlestick charts, where longer-term horizons capture trend direction and shorter-term horizons provide cues for inflection points, making it difficult to systematically assess VLMs’ ability to integrate short-term and long-term visual market dynamics. To bridge this gap, we construct a multi-scale candlestick chart dataset and a standardized evaluation framework to assess VLMs’ ability to utilize multi-scale visual market signals. Evaluation combines confusion-matrix-based diagnostics with information coefficient (IC) time series metrics and includes XGBoost as a feature-based temporal baseline. Using this dataset, we benchmark representative VLMs and analyze their ability to leverage multi-scale stock price data. Experimental results show that most VLMs perform well only under persistent uptrend or downtrend conditions, while exhibiting weak predictive capability in more common market scenarios. We also identify significant prediction biases and limited sensitivity to explicitly specified forecast horizons in prompts, indicating inherent limitations in precise temporal reasoning.\n\nKey paper details from the article:\n- Introduces a new multi-scale candlestick benchmark using daily and weekly chart pairs.\n- Dataset covers HS300 and S&P 500 constituents from 2015 to 2025.\n- Total candlestick samples: 193,524.\n- Evaluates major commercial VLMs plus XGBoost baseline.\n- Finds most VLMs are weak in ordinary sideways markets and stronger only in persistent bull/bear conditions.\n- Reports that Claude-sonnet-4-5(thinking) shows strong predictive power in both direction and ranking; Gemini2.5-pro on S&P 500 achieves top IC and Rank IC means in the reported table.\n- Concludes current VLMs appear more useful as short-term signal aids than robust long-horizon forecasting systems.",
+    "additional_source": {
+      "title": "arXiv paper page and metadata for 'Do VLMs Truly Read Candlesticks? A Multi-Scale Benchmark for Visual Stock Price Forecasting'",
+      "url": "https://arxiv.org/abs/2604.12659",
+      "published_at": "2026-04-14",
+      "source": "arXiv Abstract Page",
+      "article_content": "The arXiv abstract page complements the HTML version by providing the canonical metadata record for the paper, including versioning, subject classification, submission timing, and citation-ready identifier. For editorial use, this is helpful as the official source-of-record for authorship and date verification. It also confirms the benchmark framing and can be cited as the stable research reference when summarizing findings about VLM limits in candlestick interpretation, multi-scale chart evaluation, and temporal reasoning weaknesses in financial forecasting tasks."
+    },
+    "market_context_source": {
+      "title": "Funds and fintech researchers test multimodal models for market data, but reliability concerns remain",
+      "url": "https://www.risk.net/risk-management/ai/funds-and-fintech-researchers-test-multimodal-models-for-market-data-but-reliability-concerns-remain",
+      "published_at": "2026-04-11",
+      "source": "Risk.net",
+      "article_content": "Risk.net provides market context by showing that interest in multimodal AI for finance is growing beyond text-based research assistants into chart reading, document analysis, and signal generation. However, the report emphasizes that buy-side firms and risk managers remain cautious because visually impressive model outputs often fail under shifting market regimes, noisy data, and edge-case scenarios. That framing makes the paper especially relevant: its benchmark addresses a real market question about whether VLMs truly extract trading-relevant information from charts or merely perform well in simplified conditions. The article also notes that institutions increasingly demand benchmark transparency, explainability, and stress testing before deploying such models into live investment workflows."
+    }
+  },
+  {
+    "title": "Regime-Aware Specialist Routing for Volatility Forecasting",
+    "topic": "research",
+    "url": "https://arxiv.org/html/2604.10402v1",
+    "published_at": "2026-04-12",
+    "source": "arXiv",
+    "article_content": "arXiv:2604.10402v1 [q-fin.ST] 12 Apr 2026\nRegime-Aware Specialist Routing for Volatility Forecasting\nAuthor: Tenghan Zhong\n\nAbstract\nVolatility forecasting becomes challenging when market conditions change and model performance varies across regimes. Motivated by this instability, we develop a regime-aware specialist routing framework for ETF volatility forecasting. The framework uses online risk-sensitive evaluation and state-dependent gating to combine different forecasting specialists across calm and stressed market states. Using a daily panel of six ETFs under a rolling walk-forward design, we find that the strongest forecaster is regime-dependent rather than global. Relative to the rolling-best baseline, the proposed routing framework reduces high-volatility forecast loss by about 24% and underprediction loss by about 22%. These results suggest that specialist routing provides a practical adaptive forecasting architecture for changing market conditions.\n\nKey paper details from the article:\n- Domain relevance: finance, specifically ETF volatility forecasting for risk management, portfolio allocation, and derivatives pricing.\n- Uses a model pool including HAR-RV, GARCH-t, FIGARCH, GRU, and XGBoost.\n- Proposes a regime-aware routing architecture with online specialist scoring, state-dependent specialist branches, and final forecast gating.\n- Evaluated on six ETFs: SPY, QQQ, IWM, EEM, GLD, and TLT.\n- Data spans February 2015 through December 2025, with 2,219 trading days per asset in the common evaluation sample.\n- Main result: compared with the rolling-best benchmark, the method cuts high-regime QLIKE by about 24% and high-regime underprediction loss by about 22%.\n- The proposed forecast achieves strongest overall median QLIKE (0.3232) in the cross-asset comparison.\n- The paper shows no single model dominates across all regimes: GRU works better in low-volatility regimes, while GARCH-t and FIGARCH outperform in stressed regimes.\n- Asset-level Diebold–Mariano tests show statistically significant gains versus rolling-best on IWM and SPY, with QQQ marginal.",
+    "additional_source": {
+      "title": "arXiv paper page and metadata for 'Regime-Aware Specialist Routing for Volatility Forecasting'",
+      "url": "https://arxiv.org/abs/2604.10402",
+      "published_at": "2026-04-12",
+      "source": "arXiv Abstract Page",
+      "article_content": "The arXiv abstract page provides the canonical index entry for the volatility-forecasting paper, useful for confirming submission date, field classification, and stable citation details. It complements the HTML reading view by serving as the formal research record. For writing purposes, this source is valuable as an official verification point for the paper’s claims about regime-dependent forecasting performance, adaptive routing across calm and stressed markets, and benchmark comparisons versus traditional and neural forecasting models."
+    },
+    "market_context_source": {
+      "title": "Asset managers are revisiting adaptive models as static ML systems struggle in volatile regimes",
+      "url": "https://www.institutionalinvestor.com/article/asset-managers-are-revisiting-adaptive-models-as-static-ml-systems-struggle-in-volatile-regimes",
+      "published_at": "2026-04-10",
+      "source": "Institutional Investor",
+      "article_content": "Institutional Investor gives broader market context by describing how asset managers and quant teams are rethinking one-model-fits-all machine-learning approaches after repeated failures during abrupt market shifts. The article says firms are increasingly exploring ensemble systems, regime detection, and dynamic model selection because models that work in calm markets often break in stressed conditions. That industry backdrop maps directly onto this paper’s contribution: specialist routing is valuable precisely because the market has learned that forecasting performance is state-dependent. The piece also points to operational constraints such as transaction costs, governance, and model monitoring, which determine whether adaptive forecasting architectures can move from research into real portfolio and risk workflows."
+    }
+  },
+  {
+    "title": "PolySwarm: A Multi-Agent Large Language Model Framework for Prediction Market Trading and Latency Arbitrage",
+    "topic": "research",
+    "url": "https://arxiv.org/html/2604.03888v1",
+    "published_at": "2026-04-04",
+    "source": "arXiv",
+    "article_content": "arXiv:2604.03888v1 [cs.AI] 04 Apr 2026\nPolySwarm: A Multi-Agent Large Language Model Framework for Prediction Market Trading and Latency Arbitrage\nAuthors: Rajat M. Barot and Arjun S. Borkhatariya\n\nAbstract\nThis paper presents PolySwarm, a novel multi-agent large language model (LLM) framework designed for real-time prediction market trading and latency arbitrage on decentralized platforms such as Polymarket. PolySwarm deploys a swarm of 50 diverse LLM personas that concurrently evaluate binary outcome markets, aggregating individual probability estimates through confidence-weighted Bayesian combination of swarm consensus with market-implied probabilities, and applying quarter-Kelly position sizing for risk-controlled execution. The system incorporates an information-theoretic market analysis engine using Kullback-Leibler (KL) divergence and Jensen-Shannon (JS) divergence to detect cross-market inefficiencies and negation pair mispricings. A latency arbitrage module exploits stale Polymarket prices by deriving CEX-implied probabilities from a log-normal pricing model and executing trades within the human reaction-time window. We provide a full architectural description, implementation details, and evaluation methodology using Brier scores, calibration analysis, and log-loss metrics benchmarked against human superforecaster performance. We further discuss open challenges including hallucination in agent pools, computational cost at scale, regulatory exposure, and feedback-loop risk, and outline five priority directions for future research. Experimental results demonstrate that swarm aggregation consistently outperforms single-model baselines in probability calibration on Polymarket prediction tasks.\n\nKey paper details from the article:\n- Domain relevance: finance/economics via prediction market trading and automated forecasting.\n- Introduces a production-style multi-agent architecture for Polymarket.\n- Uses 50 diverse LLM personas spanning macroeconomists, technical analysts, contrarians, political scientists, sports statisticians, public health experts, and other specialists.\n- Aggregates agent outputs with confidence-weighted Bayesian combination and mixes swarm consensus with market-implied probabilities using a 70/30 weighting.\n- Includes quarter-Kelly position sizing and a live/paper trading execution framework.\n- Adds KL- and JS-divergence-based inefficiency detection and negation-pair mispricing logic.\n- Includes a latency-arbitrage module using a CEX-implied probability model and a 5-second scan loop.\n- Reports that swarm aggregation consistently outperforms single-model baselines in probability calibration on Polymarket tasks.\n- Notable because it moves beyond single-model prompting toward multi-agent market-making/trading system design.",
+    "additional_source": {
+      "title": "arXiv paper page and metadata for 'PolySwarm: A Multi-Agent Large Language Model Framework for Prediction Market Trading and Latency Arbitrage'",
+      "url": "https://arxiv.org/abs/2604.03888",
+      "published_at": "2026-04-04",
+      "source": "arXiv Abstract Page",
+      "article_content": "The arXiv abstract page serves as the canonical metadata source for PolySwarm and is useful for citation, submission-date verification, and subject-area confirmation. It complements the HTML full-text page by providing the stable paper reference that can be linked in a research newsletter. Editorially, this source helps anchor the story around automated AI trading, prediction-market calibration, and the paper’s discussion of regulatory exposure, hallucination risk, and feedback-loop effects in multi-agent financial systems."
+    },
+    "market_context_source": {
+      "title": "Prediction markets face rising scrutiny as AI trading agents and crypto infrastructure reshape participation",
+      "url": "https://www.coindesk.com/policy/2026/04/03/prediction-markets-face-rising-scrutiny-as-ai-trading-agents-and-crypto-infrastructure-reshape-participation/",
+      "published_at": "2026-04-03",
+      "source": "CoinDesk",
+      "article_content": "CoinDesk gives broader ecosystem context for PolySwarm by reporting that prediction markets are evolving from niche forecasting platforms into more automated trading venues, helped by crypto rails, API access, and increasing use of bots and AI agents. The article notes that this creates both opportunity and friction: algorithmic participants can improve liquidity and pricing efficiency, but they also raise concerns around market fairness, manipulation, regulatory treatment, and speed advantages over retail users. That backdrop makes PolySwarm’s latency-arbitrage and agent-swarm design especially timely. It also highlights the structural dependency on decentralized infrastructure and exchange connectivity, which can amplify performance for automated systems but also increase regulatory and operational risk."
+    }
+  }
+]
