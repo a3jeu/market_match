@@ -1,0 +1,58 @@
+1. **Title:** Dissecting AI Trading: Behavioral Finance and Market Bubbles  
+   **URL:** https://arxiv.org/html/2604.18373v1  
+   **Published At:** 2026-04-20  
+   **Source:** arXiv  
+   **Article Content:**  
+   Dissecting AI Trading: Behavioral Finance and Market Bubbles  
+   Authors: Shumiao Ouyang (Saïd Business School, University of Oxford), Pengfei Sui (Chinese University of Hong Kong, Shenzhen)
+
+   **Abstract**  
+   We study how AI agents form expectations and trade in experimental asset markets. Using a simulated open-call auction populated by autonomous Large Language Model (LLM) agents, we document three main findings. First, AI agents exhibit classic behavioral patterns: a pronounced disposition effect and recency-weighted extrapolative beliefs. Second, these individual-level patterns aggregate into equilibrium dynamics that replicate classic experimental findings, including the predictive power of excess demand for future prices and the positive relationship between disagreement and trading volume. Third, by analyzing the agents’ reasoning text through a twenty-mechanism scoring framework, we show that targeted prompt interventions causally amplify or suppress specific behavioral mechanisms, significantly altering the magnitude of market bubbles.
+
+   **Key details from the paper**  
+   - Submitted on 2026-04-20.  
+   - Simulates a full asset market using autonomous LLM traders in an open-call auction setting.  
+   - Finds AI traders reproduce classic human finance biases, including the disposition effect and extrapolative expectations.  
+   - Shows these micro-level biases aggregate into macro-level bubble dynamics and predictable volume/disagreement relationships.  
+   - Demonstrates that prompt-based “cognitive guardrails” can reduce bubble magnitude, suggesting a practical control lever for AI-driven financial markets.  
+   - Strong relevance for algorithmic trading, financial stability, and AI-agent governance in markets.
+
+2. **Title:** QRAFTI: An Agentic Framework for Empirical Research in Quantitative Finance  
+   **URL:** https://arxiv.org/html/2604.18500v1  
+   **Published At:** 2026-04-20  
+   **Source:** arXiv  
+   **Article Content:**  
+   QRAFTI: An Agentic Framework for Empirical Research in Quantitative Finance  
+   Authors: Terence Lim, Kumar Muthuraman, Michael Sury  
+   Affiliations: Graphen Inc.; The University of Texas at Austin
+
+   **Abstract**  
+   Quantitative financial research is a multi-stage process that typically involves generating ideas grounded in economic intuition, acquiring and cleaning data, constructing signals and factors, backtesting portfolios, adjusting for risk, evaluating robustness to model uncertainty and data-mining bias, and producing research reports that enable peer verification. Recent advances in agentic AI create an opportunity to assist parts of this workflow while potentially improving reproducibility and explainability. We introduce QRAFTI, a multi-agent framework intended to emulate parts of a quantitative research team and support equity factor research on large financial panel datasets. It integrates an empirical research toolkit for panel data with MCP servers that expose data access, factor construction, and custom coding operations as callable tools. Through this architecture, QRAFTI can help replicate established factors, formulate and test new signals, and generate standardized research reports accompanied by narrative analysis and computational traces. Our initial evaluations suggest that, on multi-step empirical research tasks, the system offers better performance and explainability using chained tool calls and reflection-based planning than dynamic code generation alone.
+
+   **Key details from the paper**  
+   - Submitted on 2026-04-20.  
+   - Introduces a multi-agent AI research assistant for quantitative equity factor research.  
+   - Designed to support factor replication, factor generation, backtesting, robustness checks, and standardized reporting.  
+   - Benchmarks show strong replication performance, including near-perfect similarity for some multi-step factor workflows when reflection planning is enabled.  
+   - Especially relevant to hedge funds, quant researchers, and financial institutions building agentic research pipelines.  
+   - Focuses on reproducibility, explainability, and auditable computational traces rather than black-box signal generation.
+
+3. **Title:** Cross-Stock Predictability via LLM-Augmented Semantic Networks  
+   **URL:** https://arxiv.org/html/2604.19476v1  
+   **Published At:** 2026-04-21  
+   **Source:** arXiv  
+   **Article Content:**  
+   Cross-Stock Predictability via LLM-Augmented Semantic Networks  
+   Authors: Yikuan Huang, Zheqi Fan, Kaiqi Hu, Yifan Ye  
+   Affiliations: Hong Kong University of Science and Technology; Rutgers Business School; Beijing Normal–Hong Kong Baptist University
+
+   **Abstract**  
+   Text-based financial networks are increasingly used to study cross-stock return predictability. A common approach constructs links from similarities in firms’ disclosure embeddings, but such networks often contain spurious edges because textual proximity does not necessarily imply economic connection. We propose a two-stage framework that first builds a sparse candidate graph from 10-K embeddings and then uses a large language model to classify and filter candidate edges according to their economic relations. The refined graph is used to aggregate pair-level mean-reversion signals into stock-level trading signals with relation-aware and distance-based weights. In a backtest on S&P 500 constituents from 2011 to 2019, LLM-based edge filtering improves the long-short Sharpe ratio from 0.742 to 0.820 and reduces maximum drawdown from -10.47% to -7.85%. These results suggest that LLM-based reasoning can improve the economic fidelity of text-derived financial networks and strengthen cross-stock predictability.
+
+   **Key details from the paper**  
+   - Submitted on 2026-04-21.  
+   - Proposes a Retrieve-then-Reason framework combining disclosure embeddings with LLM-based economic relationship classification.  
+   - Uses 10-K data to distinguish competitors, supply-chain links, complementary firms, substitutes, peers, and unrelated firms.  
+   - Improves long-short portfolio Sharpe ratio from 0.742 to 0.820 and reduces max drawdown by 262 bps in S&P 500 backtests.  
+   - Outperforms both random graph and SIC-industry network baselines.  
+   - Clear practitioner relevance for cross-sectional alpha generation, statistical arbitrage, and LLM-enhanced portfolio construction.

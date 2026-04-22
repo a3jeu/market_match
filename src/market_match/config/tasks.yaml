@@ -67,17 +67,17 @@ find_ai_economy_news:
 find_ai_research_papers:
   description: >
     Search academic paper sources for {news_per_topic} recent research papers or technical reports
-    about artificial intelligence applied to sports or finance.
+    about artificial intelligence applied to sports.
     The papers must be recent (ideally submitted or published in the last 14 days). The current date is {edition_date}.
 
     Use the arXiv search tools or SerperDevTool with targeted queries to search for 
-    research papers related to AI applications in sports or finance, such as
+    research papers related to AI applications in sports, such as
     sports prediction, financial modeling, algorithmic trading or economic forecasting
 
     Prioritize papers with:
-    - new models, benchmarks, or architectures applied to sports or finance
+    - new models, benchmarks, or architectures applied to sports
     - significant empirical results or real-world applications
-    - clear domain relevance (at least one of: sports, finance)
+    - clear domain relevance
 
     Prioritize major researchs, institutions, or labs, and papers that have received attention from credible sources.
     Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
@@ -85,7 +85,7 @@ find_ai_research_papers:
     read_published_news_history tool to check past editions and make sure to not use news that were already covered.
     Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
   expected_output: >
-    A list of {news_per_topic} recent research papers about AI applied to sports or finance.
+    A list of {news_per_topic} recent research papers about AI applied to sports.
   output_file: editions/edition_{edition_number}_{edition_date}/search_research_papers.json
   agent: ai_research_paper_scout
 
@@ -363,6 +363,8 @@ write_image_prompt:
     - Include concrete visual composition cues (scene, subject, camera framing, lighting)
 
     The image could be a literal representation of the news, a graph, a comic, a table, as long as it is visually engaging and relevant.
+
+    Avoid futurist styles
 
     Return only the image prompt text in plain English, without JSON or markdown.
   expected_output: >

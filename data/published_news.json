@@ -241,6 +241,42 @@
           "signature": "609ba6b67f1979b0cc85eb43279068f00e41eaa06bc971d3bcf8dbbd63d099ea"
         }
       ]
+    },
+    {
+      "edition_number": 8,
+      "edition_date": "2026-04-22",
+      "items": [
+        {
+          "title": "Banks rush for access to Anthropic’s Mythos as regulators flag rising cybersecurity risks",
+          "summary": "Major global financial institutions, including JPMorgan Chase, Bank of America, Morgan Stanley, Goldman Sachs, and Citigroup, have begun internal testing of Anthropic’s latest AI model, \"Mythos.\" The model, developed under the restricted \"Project Glasswing\" initiative, has drawn intense interest for its advanced reasoning and coding capabilities. However, its deployment has triggered a wave of regulatory concern regarding its potential for \"cyber offence.\"\n\nThe UK government issued a formal warning on April 15, 2026, stating that testing showed Mythos is substantially more capable of executing cyberattacks than previous models, posing a direct threat to banks reliant on legacy infrastructure. On the sidelines of the IMF Spring Meetings, executives from Deutsche Bank and Barclays described the model as a \"serious risk to the global banking system\" if not strictly governed. Regulators in South Korea and the European Central Bank (ECB) have initiated \"quiz\" sessions with bank leadership to evaluate their preparedness for AI-supercharged threats. Despite these risks, banks are racing for access to avoid a perceived competitive disadvantage in automated software development and risk modeling.",
+          "source": "https://www.storyboard18.com/amp/digital/banks-rush-for-access-to-anthropics-mythos-as-regulators-flag-rising-cybersecurity-risks-95741.htm",
+          "signature": "2ca4769c97754dca811e4382fc4adfd45f0556f49726b3f4fcb3cbe57a177ad6"
+        },
+        {
+          "title": "Lloyds pilots AI investment guidance tool as UK regulator studies impact",
+          "summary": "Lloyds Banking Group has officially become the first major UK lender to deploy a generative AI-powered \"investment guidance\" tool for retail customers. The pilot program, launched on April 21, 2026, aims to bridge the \"advice gap\" by providing personalized portfolio suggestions and market education to customers who do not meet the high-net-worth thresholds for traditional human financial advisors.\n\nThe tool utilizes a proprietary large language model (LLM) to analyze customer risk profiles and financial goals, offering real-time explanations for specific asset allocations. The launch coincides with a thematic review by the Financial Conduct Authority (FCA), which is closely monitoring the deployment to ensure the AI does not cross the boundary into \"unregulated advice\" or display harmful biases. Lloyds’ initiative is seen as a test case for the industry’s ability to use AI for mass-market wealth management while adhering to the UK’s strict \"Consumer Duty\" regulations.",
+          "source": "https://www.channelnewsasia.com/business/lloyds-pilots-ai-investment-guidance-tool-uk-regulator-studies-impact-6070966",
+          "signature": "4d4100d0555a2f46a4d68645a825fd598015e9075e6db06df9eaa2af34e87892"
+        },
+        {
+          "title": "Amazon broadcast details: Prime Vision, Rapid Recap, more features on platform's first NBA playoffs coverage",
+          "summary": "Amazon Prime Video has launched its first-ever NBA playoff coverage (beginning April 18, 2026) following a landmark media rights deal. Central to the broadcast is \"Prime Vision,\" an AI-enhanced viewing mode that provides real-time tactical overlays. The AI model analyzes player positioning to identify mismatches—such as a size advantage or a defensive lapse—and highlights them for viewers using on-screen graphic circles.\n\nIn addition to live tactical analysis, the platform utilizes AWS-powered advanced statistics to provide \"Rapid Recap\" and \"Key Moments\" features. These tools use machine learning to automatically curate highlight reels, bringing late-arriving fans up to speed by identifying the most significant plays based on momentum shifts and scoring impact. The broadcast also integrates personalized bet tracking via FanDuel, further demonstrating how AI is being used to create a more interactive and data-rich \"second-screen\" experience for sports fans.",
+          "source": "https://www.sportingnews.com/us/nba/news/amazon-broadcast-prime-vision-features-nba-playoffs/f4db8dd04e78c181040d22a3",
+          "signature": "4d025e5714158fe3e263feaf971721ab2e624a049379c2c96a5adc796fbca7d8"
+        },
+        {
+          "title": "Dissecting AI Trading: Behavioral Finance and Market Bubbles",
+          "summary": "Dissecting AI Trading: Behavioral Finance and Market Bubbles  \nAuthors: Shumiao Ouyang (Saïd Business School, University of Oxford), Pengfei Sui (Chinese University of Hong Kong, Shenzhen)  \n\n**Abstract**  \nWe study how AI agents form expectations and trade in experimental asset markets. Using a simulated open-call auction populated by autonomous Large Language Model (LLM) agents, we document three main findings. First, AI agents exhibit classic behavioral patterns: a pronounced disposition effect and recency-weighted extrapolative beliefs. Second, these individual-level patterns aggregate into equilibrium dynamics that replicate classic experimental findings, including the predictive power of excess demand for future prices and the positive relationship between disagreement and trading volume. Third, by analyzing the agents’ reasoning text through a twenty-mechanism scoring framework, we show that targeted prompt interventions causally amplify or suppress specific behavioral mechanisms, significantly altering the magnitude of market bubbles.\n\n**Key details from the paper**  \n- Submitted on 2026-04-20.  \n- Simulates a full asset market using autonomous LLM traders in an open-call auction setting.  \n- Finds AI traders reproduce classic human finance biases, including the disposition effect and extrapolative expectations.  \n- Shows these micro-level biases aggregate into macro-level bubble dynamics and predictable volume/disagreement relationships.  \n- Demonstrates that prompt-based “cognitive guardrails” can reduce bubble magnitude, suggesting a practical control lever for AI-driven financial markets.  \n- Strong relevance for algorithmic trading, financial stability, and AI-agent governance in markets.",
+          "source": "https://arxiv.org/html/2604.18373v1",
+          "signature": "467e3aa792ab8abb3e7c9959e25d45f10b1d6f61c57e175503813089d542d358"
+        },
+        {
+          "title": "Thousands of CEOs admit AI had no impact on employment or productivity—and it has economists resurrecting a paradox from 40 years ago",
+          "summary": "In 1987, economist and Nobel laureate Robert Solow made a stark observation about the stalling evolution of the Information Age: Following the advent of transistors, microprocessors, integrated circuits, and memory chips of the 1960s, economists and companies expected these new technologies to disrupt workplaces and result in a surge of productivity. Instead, productivity growth slowed, dropping from 2.9% from 1948 to 1973, to 1.1% after 1973. This unexpected outcome became known as Solow’s productivity paradox. “You can see the computer age everywhere but in the productivity statistics,” Solow wrote.\n\nData on how C-suite executives are—or aren’t—using AI shows history is repeating itself. Despite 374 companies in the S&P 500 mentioning AI in earnings calls, a study published by the National Bureau of Economic Research (NBER) found that among 6,000 CEOs and CFOs in the U.S., U.K., Germany, and Australia, the vast majority see little impact from AI on their operations. Nearly 90% of firms said AI has had no impact on employment or productivity over the past three years. While about two-thirds of executives reported using AI, that usage amounted to only about 1.5 hours per week.\n\nHowever, firms’ expectations remain substantial: Executives forecast AI will increase productivity by 1.4% and output by 0.8% over the next three years. Apollo chief economist Torsten Slok invoked Solow’s observation, noting that \"AI is everywhere except in the incoming macroeconomic data.\" Slok suggested the future impact might resemble a “J-curve”—an initial slowdown in performance followed by an exponential surge, depending on how AI is implemented across different sectors rather than the mere existence of the technology itself.",
+          "source": "https://fortune.com/article/why-do-thousands-of-ceos-believe-ai-not-having-impact-productivity-employment-study/",
+          "signature": "e5b411a40cd1be487e7df424461f7b01b110e0bb3fd1eb412f0c02fe6ff7659c"
+        }
+      ]
     }
   ],
   "seen_signatures": [
@@ -248,11 +284,15 @@
     "0b41653b0eb016040cde3276e88683450418b1e01cd9909bc4d98dc7659c5b76",
     "10f1879a35a2fad74c62517ea88a244d511cee218328609ee227bf9705d90e32",
     "1ecffebee7d08b317e7123f64b4c6b8629e06980fc9885ac6fa8b82fd235cb12",
+    "2ca4769c97754dca811e4382fc4adfd45f0556f49726b3f4fcb3cbe57a177ad6",
     "2eaefce253ea551ac73185e1f028658e2c51a7f37f57e0586602f9fdd9418b18",
     "2ef05da85adf5c5de5e7dd7a4bd60104b3b818f5264b3b18414ace2a07f2f29b",
     "3cfd8b5a749ee3b3dd0a9e0e813fffb7caf35202883609069e7a2ec0c25157a5",
     "3edc78057135e5770e60347bdf486a09b34dc2d03a98c538d24212a3034da6ff",
     "40b7dbf789606b99dfb88e0ecde8267eec66d293dbf7cb9b4ffc31af02fb3e7c",
+    "467e3aa792ab8abb3e7c9959e25d45f10b1d6f61c57e175503813089d542d358",
+    "4d025e5714158fe3e263feaf971721ab2e624a049379c2c96a5adc796fbca7d8",
+    "4d4100d0555a2f46a4d68645a825fd598015e9075e6db06df9eaa2af34e87892",
     "4e563497b9516b2cd575a9d5eef7a04c545132104c7441f439922ca34d8aa631",
     "5ca013a62104c3e2407de956787f1aa7d37b38ac140517ea5d1140ad940eca71",
     "609ba6b67f1979b0cc85eb43279068f00e41eaa06bc971d3bcf8dbbd63d099ea",
@@ -276,6 +316,7 @@
     "d220fe449a700e22ef935bec18928d4e58bfc05add9eb7535d7e0a6f46bc8771",
     "d880c24dbd54c75204d0d12c7dbe361d909ea2b0392194268d56cb058881754d",
     "dafdac8bfa0a5ef8e92d7278d8913b0b6f5ce77cbb80795a33621477dc46dc1e",
+    "e5b411a40cd1be487e7df424461f7b01b110e0bb3fd1eb412f0c02fe6ff7659c",
     "e854708ee0a6f67c128a4f4e35406c6a99e5032dc8c5f24774815069fb9cd880",
     "f5fed1f01e0c4ab6460dba56aba81284b567ef50ea304a6a4e69faf896ed608d"
   ]

@@ -1,0 +1,1 @@
+Une étude montre que des agents de trading fondés sur des grands modèles de langage ne se contentent pas d’imiter les biais humains, mais peuvent aussi les transformer en bulles de marché que de simples ajustements de prompts suffisent à gonfler ou à contenir.

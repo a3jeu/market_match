@@ -1,0 +1,255 @@
+1. **Title:** Puma’s AI head says the brand is still giving ‘the keys to the consumer’ as it invests in digital concierge  
+   **Topic:** sport  
+   **URL:** http://digiday.com/marketing/pumas-ai-head-says-the-brand-is-still-giving-the-keys-to-the-consumer-as-it-invests-in-digital-concierge/  
+   **Published At:** 2026-04-17  
+   **Source:** Digiday  
+   **Article Content:**  
+   On April 13, 2026, Puma officially debuted "Dylan," an AI-powered "digital human" concierge, at its Las Vegas flagship store. Appearing on a seven-foot-tall screen, Dylan is designed to act as a highly specialized retail assistant. Developed over the course of a year in collaboration with Nvidia and LiveX, the AI can speak more than 100 languages and provides personalized product recommendations based on a customer's specific running style, goals, and preferred terrain.  
+
+   The system is integrated directly with Puma’s inventory API, allowing it to provide real-time updates on size availability and even coordinate with human staff to bring shoes out for trials. Ivan Dashkov, Puma’s head of emerging marketing tech, noted that the AI was trained to feel "organic and natural" rather than "creepy," a common hurdle for digital human interfaces. This deployment is part of a broader "consumer-centric AI" strategy at Puma, which has also included an AI jersey design contest with Manchester City. The winning AI-generated kit is expected to be featured on-pitch in the Premier League later this season, marking the first time a top-flight club has worn a kit designed through generative AI tools.  
+
+   **Additional Source Title:** Puma Deploys AI Concierge to Enhance In-store Experience  
+   **Additional Source URL:** https://letsdatascience.com/news/puma-deploys-ai-concierge-to-enhance-in-store-experience-9a18887a  
+   **Additional Source Published At:** 2026-04-17  
+   **Additional Source Source:** Let's Data Science  
+   **Additional Source Article Content:**  
+   Puma has deployed an AI-powered digital human concierge named "Dylan" at its Las Vegas flagship to augment in-store service and bridge language barriers. The seven-foot-tall screen avatar can speak 100+ languages, recommend products, and drill into technical details of running shoes while human staff handle fulfillment. The system, developed in collaboration with Nvidia, is positioned as a consumer-first experiment rather than an automation-first play. Puma is using the store as a testbed for customer engagement tools as it pursues a turnaround after a €643.6 million loss in 2025. Puma leaders say the AI complements staff and expands reach, but adoption and trust remain open questions for broad rollout.  
+
+   What happened: Puma debuted Dylan on April 13 at its Las Vegas flagship. The installation is a seven-foot-tall screen housing a lifelike avatar that can converse in 100+ languages, surface product recommendations, and act as a specialist in Puma running products. The project is led by Ivan Dashkov and was created in collaboration with Nvidia as part of a broader in-store technology push that includes foot scanners and racing simulators. Puma is positioning the system to augment staff rather than replace them; employees bring the selected items to customers after Dylan guides them.  
+
+   Technical details and significance: The deployment appears to use Nvidia tooling for real-time rendering and agent orchestration, with multilingual NLP, product specialization, and human-agent handoff. The added source contributes complementary context by linking the rollout to Puma’s wider turnaround strategy, adding the €643.6 million 2025 loss figure, and highlighting practical issues such as latency, trust, privacy, and measurable metrics like conversion lift and recommendation error rates.
+
+2. **Title:** Amazon broadcast details: Prime Vision, Rapid Recap, more features on platform's first NBA playoffs coverage  
+   **Topic:** sport  
+   **URL:** https://www.sportingnews.com/us/nba/news/amazon-broadcast-prime-vision-features-nba-playoffs/f4db8dd04e78c181040d22a3  
+   **Published At:** 2026-04-18  
+   **Source:** Sporting News  
+   **Article Content:**  
+   Amazon Prime Video has launched its first-ever NBA playoff coverage (beginning April 18, 2026) following a landmark media rights deal. Central to the broadcast is "Prime Vision," an AI-enhanced viewing mode that provides real-time tactical overlays. The AI model analyzes player positioning to identify mismatches—such as a size advantage or a defensive lapse—and highlights them for viewers using on-screen graphic circles.  
+
+   In addition to live tactical analysis, the platform utilizes AWS-powered advanced statistics to provide "Rapid Recap" and "Key Moments" features. These tools use machine learning to automatically curate highlight reels, bringing late-arriving fans up to speed by identifying the most significant plays based on momentum shifts and scoring impact. The broadcast also integrates personalized bet tracking via FanDuel, further demonstrating how AI is being used to create a more interactive and data-rich "second-screen" experience for sports fans.  
+
+   **Additional Source Title:** Prime Video Exclusively Presents the SoFi NBA Play-In Tournament Plus First-and Second-Round Playoff Games  
+   **Additional Source URL:** https://www.webwire.com/ViewPressRel.asp?aId=353254  
+   **Additional Source Published At:** 2026-04-15  
+   **Additional Source Source:** WebWire / Amazon announcement  
+   **Additional Source Article Content:**  
+   Amazon announced its exclusive Prime Video presentation of the SoFi NBA Play-In Tournament and first- and second-round playoff games, positioning the launch as a major milestone in its NBA rights rollout. The release adds complementary detail on the broader production package around the AI features, including scheduling, studio programming, and the structure of NBA on Prime broadcasts. It confirms that Prime Vision is part of a wider viewer-experience stack rather than a standalone overlay, and it frames the launch as an official platform initiative tied to Amazon’s long-term sports media strategy.  
+
+   The added source is useful because it supplies the official announcement angle: it situates Prime Vision, Rapid Recap, and AI-generated viewing enhancements within Amazon’s overall programming plan, helping a writer distinguish between editorial coverage of the features and Amazon’s own positioning of them as product differentiators for live sports streaming.
+
+3. **Title:** LeBron No. 1, Jordan No. 6: Grok AI Drops Objective NBA All-Time Top 10 by Win Shares Sparking GOAT Debate  
+   **Topic:** sport  
+   **URL:** https://www.ibtimes.com.au/lebron-no-1-jordan-no-6-grok-ai-drops-objective-nba-all-time-top-10-win-shares-sparking-goat-1866881  
+   **Published At:** 2026-04-18  
+   **Source:** International Business Times (Australia)  
+   **Article Content:**  
+   On April 17, 2026, xAI's Grok artificial intelligence released a comprehensive, data-driven ranking of the NBA's all-time top 10 players based on "Win Shares"—an advanced metric that estimates a player's total contribution to team success. The AI’s analysis, which utilized data from Basketball-Reference as of the start of the 2026 playoffs, placed LeBron James at No. 1 (276.8 win shares) and Michael Jordan at No. 6 (214.0 win shares).  
+
+   The release has sparked significant debate in the sports analytics community regarding the use of AI to settle subjective sports arguments. Grok's model prioritizes cumulative production, durability, and era-adjusted efficiency over traditional "peak dominance" metrics or championship counts. The AI provided a specific caveat, noting that while longevity inflates total win shares, efficiency and rings elevate "peak" performance. This deployment highlights the increasing role of AI in synthesizing massive datasets to provide objective benchmarks in professional sports, influencing how media outlets and fans evaluate athlete legacies in the "Big Data" era.  
+
+   **Additional Source Title:** No strong independent complementary source found in news search; original article appears to be the primary reported item  
+   **Additional Source URL:** N/A  
+   **Additional Source Published At:** N/A  
+   **Additional Source Source:** N/A  
+   **Additional Source Article Content:**  
+   A news-only search did not surface a distinct, credible, non-duplicate report covering the same Grok ranking announcement. The only result returned was the original International Business Times Australia article itself. Because the requirement was to avoid duplicates, reposts, and near-identical copies, no additional source can be validly attached without introducing a duplicate or low-quality aggregation.
+
+4. **Title:** Banks rush for access to Anthropic’s Mythos as regulators flag rising cybersecurity risks  
+   **Topic:** finance  
+   **URL:** https://www.storyboard18.com/amp/digital/banks-rush-for-access-to-anthropics-mythos-as-regulators-flag-rising-cybersecurity-risks-95741.htm  
+   **Published At:** 2026-04-21  
+   **Source:** Storyboard18 (via Reuters)  
+   **Article Content:**  
+   Major global financial institutions, including JPMorgan Chase, Bank of America, Morgan Stanley, Goldman Sachs, and Citigroup, have begun internal testing of Anthropic’s latest AI model, "Mythos." The model, developed under the restricted "Project Glasswing" initiative, has drawn intense interest for its advanced reasoning and coding capabilities. However, its deployment has triggered a wave of regulatory concern regarding its potential for "cyber offence."  
+
+   The UK government issued a formal warning on April 15, 2026, stating that testing showed Mythos is substantially more capable of executing cyberattacks than previous models, posing a direct threat to banks reliant on legacy infrastructure. On the sidelines of the IMF Spring Meetings, executives from Deutsche Bank and Barclays described the model as a "serious risk to the global banking system" if not strictly governed. Regulators in South Korea and the European Central Bank (ECB) have initiated "quiz" sessions with bank leadership to evaluate their preparedness for AI-supercharged threats. Despite these risks, banks are racing for access to avoid a perceived competitive disadvantage in automated software development and risk modeling.  
+
+   **Additional Source Title:** India's central bank in talks with global regulators, banks to review Mythos risks, sources say  
+   **Additional Source URL:** https://www.reuters.com/sustainability/boards-policy-regulation/indias-central-bank-talks-with-global-regulators-banks-review-mythos-risks-2026-04-22/  
+   **Additional Source Published At:** 2026-04-22  
+   **Additional Source Source:** Reuters  
+   **Additional Source Article Content:**  
+   Reuters reported that the Reserve Bank of India had opened discussions with global regulators, domestic lenders, and government officials to assess the risks posed by Anthropic’s Mythos model. This adds a new regulatory geography and shows that concern is widening beyond Europe and the UK into major emerging-market financial systems. The source contributes a public-policy and supervisory angle, illustrating how central banks are coordinating internationally rather than treating the issue as a narrow firm-level technology risk.  
+
+   This additional source complements the original by broadening the story from bank demand and European warnings to cross-border regulatory response, especially in countries managing large banking systems with varying cybersecurity maturity and legacy infrastructure exposure.
+
+5. **Title:** Lloyds pilots AI investment guidance tool as UK regulator studies impact  
+   **Topic:** finance  
+   **URL:** https://www.channelnewsasia.com/business/lloyds-pilots-ai-investment-guidance-tool-uk-regulator-studies-impact-6070966  
+   **Published At:** 2026-04-21  
+   **Source:** Channel News Asia (CNA)  
+   **Article Content:**  
+   Lloyds Banking Group has officially become the first major UK lender to deploy a generative AI-powered "investment guidance" tool for retail customers. The pilot program, launched on April 21, 2026, aims to bridge the "advice gap" by providing personalized portfolio suggestions and market education to customers who do not meet the high-net-worth thresholds for traditional human financial advisors.  
+
+   The tool utilizes a proprietary large language model (LLM) to analyze customer risk profiles and financial goals, offering real-time explanations for specific asset allocations. The launch coincides with a thematic review by the Financial Conduct Authority (FCA), which is closely monitoring the deployment to ensure the AI does not cross the boundary into "unregulated advice" or display harmful biases. Lloyds’ initiative is seen as a test case for the industry’s ability to use AI for mass-market wealth management while adhering to the UK’s strict "Consumer Duty" regulations.  
+
+   **Additional Source Title:** Lloyds pilots AI investment guidance tool as UK regulator studies impact  
+   **Additional Source URL:** https://www.reuters.com/business/finance/lloyds-pilots-ai-investment-guidance-tool-uk-regulator-studies-impact-2026-04-21/  
+   **Additional Source Published At:** 2026-04-21  
+   **Additional Source Source:** Reuters  
+   **Additional Source Article Content:**  
+   Reuters’ version of the story adds direct framing around how the Financial Conduct Authority is reviewing AI use across the sector, not just at Lloyds. It emphasizes that eight firms are testing various AI applications and places the Lloyds pilot within a broader supervisory review of targeted support, suitability boundaries, and the distinction between guidance and advice.  
+
+   This additional source is useful because it expands the regulatory context beyond Lloyds’ own launch, giving a writer sector-level perspective on how UK regulators are trying to let innovation proceed while preventing AI tools from slipping into unauthorized financial advice or discriminatory recommendation patterns.
+
+6. **Title:** Bank of America’s 18,000 financial advisors just got a new AI tool as the company posts a record quarter  
+   **Topic:** finance  
+   **URL:** https://fortune.com/2026/04/16/bank-of-america-18000-financial-advisors-new-ai-tool-company-record-quarter/  
+   **Published At:** 2026-04-16  
+   **Source:** Fortune  
+   **Article Content:**  
+   During its Q1 2026 earnings report, which revealed its strongest performance in nearly two decades, Bank of America announced the full-scale deployment of a new AI-native workflow tool to its entire fleet of 18,000 financial advisors. The tool, integrated into the bank's wealth management ecosystem, automates the synthesis of client portfolio data, tax-loss harvesting opportunities, and estate planning triggers.  
+
+   CFO Alastair Borthwick highlighted that the AI is not just a productivity aid but a core driver of the bank's record results, enabling advisors to manage more complex client needs without increasing administrative headcount. The system leverages predictive analytics to flag "life event" signals from client transactions, allowing advisors to proactively offer relevant financial products. This move signals a shift from experimental AI use to deep industrial integration, where AI becomes the primary interface for professional wealth management services.  
+
+   **Additional Source Title:** No strong recent independent complementary source found in news search for the same April 2026 deployment announcement  
+   **Additional Source URL:** N/A  
+   **Additional Source Published At:** N/A  
+   **Additional Source Source:** N/A  
+   **Additional Source Article Content:**  
+   News-only search results did not surface a separate recent report covering the same April 2026 rollout to 18,000 advisors, aside from reposts of the Fortune article. Older Reuters coverage from 2025 discusses Bank of America’s AI spending and productivity claims, but it does not cover the same specific April 2026 deployment announcement and therefore would not meet the "same event or primary announcement" requirement.
+
+7. **Title:** Thousands of CEOs admit AI had no impact on employment or productivity—and it has economists resurrecting a paradox from 40 years ago  
+   **Topic:** economy  
+   **URL:** https://fortune.com/article/why-do-thousands-of-ceos-believe-ai-not-having-impact-productivity-employment-study/  
+   **Published At:** 2026-04-19  
+   **Source:** Fortune  
+   **Article Content:**  
+   In 1987, economist and Nobel laureate Robert Solow made a stark observation about the stalling evolution of the Information Age: Following the advent of transistors, microprocessors, integrated circuits, and memory chips of the 1960s, economists and companies expected these new technologies to disrupt workplaces and result in a surge of productivity. Instead, productivity growth slowed, dropping from 2.9% from 1948 to 1973, to 1.1% after 1973. This unexpected outcome became known as Solow’s productivity paradox. “You can see the computer age everywhere but in the productivity statistics,” Solow wrote.  
+
+   Data on how C-suite executives are—or aren’t—using AI shows history is repeating itself. Despite 374 companies in the S&P 500 mentioning AI in earnings calls, a study published by the National Bureau of Economic Research (NBER) found that among 6,000 CEOs and CFOs in the U.S., U.K., Germany, and Australia, the vast majority see little impact from AI on their operations. Nearly 90% of firms said AI has had no impact on employment or productivity over the past three years. While about two-thirds of executives reported using AI, that usage amounted to only about 1.5 hours per week.  
+
+   However, firms’ expectations remain substantial: Executives forecast AI will increase productivity by 1.4% and output by 0.8% over the next three years. Apollo chief economist Torsten Slok invoked Solow’s observation, noting that "AI is everywhere except in the incoming macroeconomic data." Slok suggested the future impact might resemble a “J-curve”—an initial slowdown in performance followed by an exponential surge, depending on how AI is implemented across different sectors rather than the mere existence of the technology itself.  
+
+   **Additional Source Title:** No strong independent complementary source found in news search for the same Fortune/NBER framing  
+   **Additional Source URL:** N/A  
+   **Additional Source Published At:** N/A  
+   **Additional Source Source:** N/A  
+   **Additional Source Article Content:**  
+   The news-only search returned the original Fortune story and low-value aggregation, but not a distinct credible report focused on the same specific article framing. A proper enrichment would ideally use the underlying NBER paper or survey release, but that source was not surfaced in the news search results available here.
+
+8. **Title:** The economist who was terrified of AI just found a rare reason for hope  
+   **Topic:** economy  
+   **URL:** https://fortune.com/2026/04/19/alex-imas-human-jobs-ai-economy-chicago-economist-substack-doomsday-scenario/  
+   **Published At:** 2026-04-19  
+   **Source:** Fortune  
+   **Article Content:**  
+   University of Chicago economist Alex Imas, a leading researcher on AI’s labor market impact, has proposed a vision of how the AI economy could avoid a "demand-collapse" doomsday scenario. Imas argues that as AI makes commodity production and technical tasks cheaper and more abundant, economic value will migrate toward what he calls the “relational sector.” This encompasses roles where human presence, social connection, and provenance are the primary drivers of value—such as nurses, teachers, therapists, and even baristas.  
+
+   Imas cites the "Starbucks signal" as a primary example: despite having the technology to automate stores for years, Starbucks recently pivoted back to "human details"—handwritten notes, ceramic mugs, and more baristas—because human connection proved more valuable than efficiency. Drawing on structural change theory and the concept of "mimetic desire," Imas posits that as people get richer through AI-driven efficiencies, they will demand goods and services with high "income elasticity," specifically human-to-human interactions that cannot be commodified.  
+
+   The framework suggests that many existing jobs won’t disappear but will transform. As AI automates routine workday tasks for doctors or teachers, the emotional support and relationship-building components will become the core of the job's economic value. However, Imas warns that this optimistic "hopeful version" of the economy depends entirely on the speed of transition; if automation accelerates faster than workers and institutions can reallocate, the risk of high unemployment and a drag on global growth remains severe.  
+
+   **Additional Source Title:** No strong recent independent complementary source found in news search for the same Alex Imas argument  
+   **Additional Source URL:** N/A  
+   **Additional Source Published At:** N/A  
+   **Additional Source Source:** N/A  
+   **Additional Source Article Content:**  
+   Search results did not provide a distinct and credible second report covering the same April 2026 “relational sector” thesis. Available items were either the original Fortune article or only tangentially related pieces about AI and labor markets, which would not satisfy the same-event requirement.
+
+9. **Title:** The $6 trillion reinvention: Why IT services firms must start underwriting outcomes  
+   **Topic:** economy  
+   **URL:** https://fortune.com/2026/04/22/it-services-ai-enterprise-market-opportunity-cognizant/  
+   **Published At:** 2026-04-22  
+   **Source:** Fortune  
+   **Article Content:**  
+   In a move that signals a fundamental shift in the global IT and business services economy, Cognizant CEO Ravi Kumar S argues that the industry must transition from selling labor hours to underwriting operational outcomes. As AI shifts from deterministic software to probabilistic reasoning engines, the traditional "labor-based" delivery model is becoming obsolete. Kumar estimates that by 2026, the combined market for IT services and operational spend will exceed $6 trillion as business operating budgets enter the technology pool.  
+
+   Kumar outlines four necessary shifts for this transition:  
+   1. Evolution from systems integrators to AI builders;  
+   2. Reimagining talent away from traditional pyramids toward interdisciplinary skills fluent in business domains;  
+   3. Moving from labor-based delivery to managed platforms;  
+   4. Underwriting results—such as committing to a measurable reduction in customer churn or specific claims adjudication speeds.  
+
+   This shift allows enterprises to outsource entire business processes based on guaranteed outcomes rather than headcount. For example, a global insurer might hand over claims operations to an outcome-based provider, freeing internal capital to focus on product innovation. This transformation is driven by "context engineering"—infusing an enterprise's "tribal knowledge" into AI solutions so they produce reliable outputs. The providers who have the "courage to underwrite outcomes" are expected to define the next era of the global digital economy.  
+
+   **Additional Source Title:** No strong recent independent complementary source found in news search for the same Fortune/Cognizant argument  
+   **Additional Source URL:** N/A  
+   **Additional Source Published At:** N/A  
+   **Additional Source Source:** N/A  
+   **Additional Source Article Content:**  
+   The news search returned only the original Fortune item. No distinct article, press release, or interview covering the same specific April 2026 “underwriting outcomes” argument was surfaced, so attaching a separate credible additional source would risk violating the no-duplicate rule.
+
+10. **Title:** Dissecting AI Trading: Behavioral Finance and Market Bubbles  
+    **Topic:** research  
+    **URL:** https://arxiv.org/html/2604.18373v1  
+    **Published At:** 2026-04-20  
+    **Source:** arXiv  
+    **Article Content:**  
+    Dissecting AI Trading: Behavioral Finance and Market Bubbles  
+    Authors: Shumiao Ouyang (Saïd Business School, University of Oxford), Pengfei Sui (Chinese University of Hong Kong, Shenzhen)  
+
+    **Abstract**  
+    We study how AI agents form expectations and trade in experimental asset markets. Using a simulated open-call auction populated by autonomous Large Language Model (LLM) agents, we document three main findings. First, AI agents exhibit classic behavioral patterns: a pronounced disposition effect and recency-weighted extrapolative beliefs. Second, these individual-level patterns aggregate into equilibrium dynamics that replicate classic experimental findings, including the predictive power of excess demand for future prices and the positive relationship between disagreement and trading volume. Third, by analyzing the agents’ reasoning text through a twenty-mechanism scoring framework, we show that targeted prompt interventions causally amplify or suppress specific behavioral mechanisms, significantly altering the magnitude of market bubbles.  
+
+    **Key details from the paper**  
+    - Submitted on 2026-04-20.  
+    - Simulates a full asset market using autonomous LLM traders in an open-call auction setting.  
+    - Finds AI traders reproduce classic human finance biases, including the disposition effect and extrapolative expectations.  
+    - Shows these micro-level biases aggregate into macro-level bubble dynamics and predictable volume/disagreement relationships.  
+    - Demonstrates that prompt-based “cognitive guardrails” can reduce bubble magnitude, suggesting a practical control lever for AI-driven financial markets.  
+    - Strong relevance for algorithmic trading, financial stability, and AI-agent governance in markets.  
+
+    **Additional Source Title:** arXiv abstract page / paper metadata  
+    **Additional Source URL:** https://arxiv.org/abs/2604.18373  
+    **Additional Source Published At:** 2026-04-20  
+    **Additional Source Source:** arXiv  
+    **Additional Source Article Content:**  
+    The abstract page provides the canonical paper record, including authorship, versioning, and submission metadata. It reinforces the paper’s central contribution: that LLM agents can replicate human-like trading biases and generate bubble-like macro dynamics in a controlled artificial market. As a complementary source, the abstract page is useful for citation accuracy, author verification, and version control when referencing a newly released preprint.
+
+11. **Title:** QRAFTI: An Agentic Framework for Empirical Research in Quantitative Finance  
+    **Topic:** research  
+    **URL:** https://arxiv.org/html/2604.18500v1  
+    **Published At:** 2026-04-20  
+    **Source:** arXiv  
+    **Article Content:**  
+    QRAFTI: An Agentic Framework for Empirical Research in Quantitative Finance  
+    Authors: Terence Lim, Kumar Muthuraman, Michael Sury  
+    Affiliations: Graphen Inc.; The University of Texas at Austin  
+
+    **Abstract**  
+    Quantitative financial research is a multi-stage process that typically involves generating ideas grounded in economic intuition, acquiring and cleaning data, constructing signals and factors, backtesting portfolios, adjusting for risk, evaluating robustness to model uncertainty and data-mining bias, and producing research reports that enable peer verification. Recent advances in agentic AI create an opportunity to assist parts of this workflow while potentially improving reproducibility and explainability. We introduce QRAFTI, a multi-agent framework intended to emulate parts of a quantitative research team and support equity factor research on large financial panel datasets. It integrates an empirical research toolkit for panel data with MCP servers that expose data access, factor construction, and custom coding operations as callable tools. Through this architecture, QRAFTI can help replicate established factors, formulate and test new signals, and generate standardized research reports accompanied by narrative analysis and computational traces. Our initial evaluations suggest that, on multi-step empirical research tasks, the system offers better performance and explainability using chained tool calls and reflection-based planning than dynamic code generation alone.  
+
+    **Key details from the paper**  
+    - Submitted on 2026-04-20.  
+    - Introduces a multi-agent AI research assistant for quantitative equity factor research.  
+    - Designed to support factor replication, factor generation, backtesting, robustness checks, and standardized reporting.  
+    - Benchmarks show strong replication performance, including near-perfect similarity for some multi-step factor workflows when reflection planning is enabled.  
+    - Especially relevant to hedge funds, quant researchers, and financial institutions building agentic research pipelines.  
+    - Focuses on reproducibility, explainability, and auditable computational traces rather than black-box signal generation.  
+
+    **Additional Source Title:** arXiv abstract page / paper metadata  
+    **Additional Source URL:** https://arxiv.org/abs/2604.18500  
+    **Additional Source Published At:** 2026-04-20  
+    **Additional Source Source:** arXiv  
+    **Additional Source Article Content:**  
+    The abstract page serves as the canonical source for the QRAFTI preprint, confirming author affiliations, submission date, and the formal abstract text. It complements the HTML rendering by providing a stable citation endpoint and clarifying that the framework’s emphasis is not just performance but reproducibility, explainability, and auditable traces—important details for newsletter writing aimed at financial practitioners and research teams.
+
+12. **Title:** Cross-Stock Predictability via LLM-Augmented Semantic Networks  
+    **Topic:** research  
+    **URL:** https://arxiv.org/html/2604.19476v1  
+    **Published At:** 2026-04-21  
+    **Source:** arXiv  
+    **Article Content:**  
+    Cross-Stock Predictability via LLM-Augmented Semantic Networks  
+    Authors: Yikuan Huang, Zheqi Fan, Kaiqi Hu, Yifan Ye  
+    Affiliations: Hong Kong University of Science and Technology; Rutgers Business School; Beijing Normal–Hong Kong Baptist University  
+
+    **Abstract**  
+    Text-based financial networks are increasingly used to study cross-stock return predictability. A common approach constructs links from similarities in firms’ disclosure embeddings, but such networks often contain spurious edges because textual proximity does not necessarily imply economic connection. We propose a two-stage framework that first builds a sparse candidate graph from 10-K embeddings and then uses a large language model to classify and filter candidate edges according to their economic relations. The refined graph is used to aggregate pair-level mean-reversion signals into stock-level trading signals with relation-aware and distance-based weights. In a backtest on S&P 500 constituents from 2011 to 2019, LLM-based edge filtering improves the long-short Sharpe ratio from 0.742 to 0.820 and reduces maximum drawdown from -10.47% to -7.85%. These results suggest that LLM-based reasoning can improve the economic fidelity of text-derived financial networks and strengthen cross-stock predictability.  
+
+    **Key details from the paper**  
+    - Submitted on 2026-04-21.  
+    - Proposes a Retrieve-then-Reason framework combining disclosure embeddings with LLM-based economic relationship classification.  
+    - Uses 10-K data to distinguish competitors, supply-chain links, complementary firms, substitutes, peers, and unrelated firms.  
+    - Improves long-short portfolio Sharpe ratio from 0.742 to 0.820 and reduces max drawdown by 262 bps in S&P 500 backtests.  
+    - Outperforms both random graph and SIC-industry network baselines.  
+    - Clear practitioner relevance for cross-sectional alpha generation, statistical arbitrage, and LLM-enhanced portfolio construction.  
+
+    **Additional Source Title:** arXiv abstract page / paper metadata  
+    **Additional Source URL:** https://arxiv.org/abs/2604.19476  
+    **Additional Source Published At:** 2026-04-21  
+    **Additional Source Source:** arXiv  
+    **Additional Source Article Content:**  
+    The abstract page provides the formal metadata and canonical abstract record for the paper. It is helpful as a complementary source because it gives a stable citation version, confirms the institutional affiliations, and preserves the exact reported backtest improvements in Sharpe ratio and drawdown. For editorial use, this improves citation hygiene and makes it easier to verify the claims in a newly released preprint.
