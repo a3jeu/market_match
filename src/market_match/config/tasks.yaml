@@ -43,26 +43,26 @@ find_ai_finance_news:
   output_file: editions/edition_{edition_number}_{edition_date}/search_finance_news.json
   agent: ai_finance_news_scout
 
-find_ai_economy_news:
-  description: >
-    Search the web for {news_per_topic} recent news stories about artificial intelligence and its impact on the economy.
-    The news must be recent (ideally less than 7 days old). The current date is {edition_date}.
-    Search for news related to AI applications in the economy, such as:
-    - Research papers on AI applied to economics, economic modeling, or macroeconomic analysis;
-    - New methods or techniques using AI to study economic behavior, policy impacts, or economic forecasting;
-    - Case studies where AI is used to support economic decision-making by governments, central banks, or international organizations;
-    - Major regulatory changes affecting the use of AI in economic analysis, public policy or public decision-making;
-    - Recent examples of AI adoption in the economy with measurable impact on labor markets, or productivity.
-    Compare multiple sources to ensure credibility and depth of the news, since the topic will be covered in-depth in the newsletter article.
-    Prioritize official announcements, credible media outlets, technical blog posts, and measurable results.
-    Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
-    Ignore news already covered in previous editions. You MUST use the 
-    read_published_news_history tool to check past editions and make sure to not use news that were already covered.
-    Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
-  expected_output: >
-    A list of {news_per_topic} recent news stories about AI and the economy.
-  output_file: editions/edition_{edition_number}_{edition_date}/search_economy_news.json
-  agent: ai_economy_news_scout
+# find_ai_economy_news:
+#   description: >
+#     Search the web for {news_per_topic} recent news stories about artificial intelligence and its impact on the economy.
+#     The news must be recent (ideally less than 7 days old). The current date is {edition_date}.
+#     Search for news related to AI applications in the economy, such as:
+#     - Research papers on AI applied to economics, economic modeling, or macroeconomic analysis;
+#     - New methods or techniques using AI to study economic behavior, policy impacts, or economic forecasting;
+#     - Case studies where AI is used to support economic decision-making by governments, central banks, or international organizations;
+#     - Major regulatory changes affecting the use of AI in economic analysis, public policy or public decision-making;
+#     - Recent examples of AI adoption in the economy with measurable impact on labor markets, or productivity.
+#     Compare multiple sources to ensure credibility and depth of the news, since the topic will be covered in-depth in the newsletter article.
+#     Prioritize official announcements, credible media outlets, technical blog posts, and measurable results.
+#     Ignore marketing announcements, unverified rumors, and topics already covered in previous editions.
+#     Ignore news already covered in previous editions. You MUST use the 
+#     read_published_news_history tool to check past editions and make sure to not use news that were already covered.
+#     Return a list of {news_per_topic} recent news, each with title, url, published_at, source and article_content.
+#   expected_output: >
+#     A list of {news_per_topic} recent news stories about AI and the economy.
+#   output_file: editions/edition_{edition_number}_{edition_date}/search_economy_news.json
+#   agent: ai_economy_news_scout
 
 find_ai_research_papers:
   description: >
@@ -121,7 +121,6 @@ enrich_news_research:
   context:
     - find_ai_sports_news
     - find_ai_finance_news
-    - find_ai_economy_news
     - find_ai_research_papers
 
 enrich_news_market_context:

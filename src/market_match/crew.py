@@ -253,13 +253,13 @@ class MarketMatch:
             verbose=True,
         )
         
-    @agent
-    def ai_economy_news_scout(self) -> Agent:
-        return Agent(
-            config=self.agents_config["ai_economy_news_scout"], 
-            tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
-            verbose=True,
-        )
+    # @agent
+    # def ai_economy_news_scout(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config["ai_economy_news_scout"], 
+    #         tools=[NewsOnlySerperDevTool(), NewsAPISearchTool(), ReadPublishedNewsTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
+    #         verbose=True,
+    #     )
 
     @agent
     def ai_research_paper_scout(self) -> Agent:
@@ -280,7 +280,7 @@ class MarketMatch:
     def news_enricher(self) -> Agent:
         return Agent(
             config=self.agents_config["news_enricher"],
-            tools=[NewsOnlySerperDevTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
+            tools=[SerperDevTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
 
@@ -288,7 +288,7 @@ class MarketMatch:
     def market_context_researcher(self) -> Agent:
         return Agent(
             config=self.agents_config["market_context_researcher"],
-            tools=[NewsOnlySerperDevTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
+            tools=[SerperDevTool(), PlaywrightScrapeWebsiteTool(), LimitedScrapeWebsiteTool()],
             verbose=True,
         )
         
@@ -316,13 +316,13 @@ class MarketMatch:
             async_execution=False,
         )
         
-    @task
-    def find_ai_economy_news(self) -> Task:
-        return Task(
-            config=self.tasks_config["find_ai_economy_news"],
-            # output_pydantic=RecentNewsList,
-            async_execution=False,
-        )
+    # @task
+    # def find_ai_economy_news(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config["find_ai_economy_news"],
+    #         # output_pydantic=RecentNewsList,
+    #         async_execution=False,
+    #     )
 
     @task
     def find_ai_research_papers(self) -> Task:

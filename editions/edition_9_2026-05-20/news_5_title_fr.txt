@@ -1,0 +1,1 @@
+Un cadre RAG pour le coaching en natation

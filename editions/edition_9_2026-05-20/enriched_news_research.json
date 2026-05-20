@@ -1,0 +1,137 @@
+[
+  {
+    "title": "Technology that breaks down barriers in parasports wins Best Paper Award at CHI",
+    "topic": "sport",
+    "url": "https://www.eurekalert.org/news-releases/1128809",
+    "published_at": "2026-05-19",
+    "source": "EurekAlert! / Harvard John A. Paulson School of Engineering and Applied Sciences",
+    "article_content": "Harvard’s Visual Computing Group developed BRIDGE, a simulation system that converts standard standing-basketball footage into realistic wheelchair-basketball videos. BRIDGE uses an embodiment-aware reconstruction pipeline that tracks players and the ball in 3D, then remaps head, trunk, and wheelchair base movements. The Harvard-led study won a Best Paper Award at CHI 2026. Researchers said the project was motivated by the lack of accessible sports-analysis tools for para-athletes and by the cognitive burden wheelchair-basketball players face when mentally translating conventional basketball footage into wheelchair play. In controlled studies with 20 participants, including 10 Japanese national wheelchair-basketball team players and 10 non-elite players, BRIDGE significantly improved perceived naturalness of player postures and made tactical intentions easier to understand. Participants said the system better reflected players’ functional capabilities than standard non-disabled video resources. The team said the work points toward broader uses of embodiment transformation in parasports, rehabilitation, and training for youth and older athletes.",
+    "additional_source": {
+      "title": "BRIDGE: Borderless Reconfiguration for Inclusive and Diverse Gameplay Experience in Wheelchair Basketball",
+      "url": "https://dl.acm.org/doi/10.1145/3772318.3790805",
+      "published_at": "2026",
+      "source": "ACM Digital Library / CHI 2026 paper record",
+      "article_content": "The ACM paper record provides the formal research framing behind the award announcement. It identifies BRIDGE as a system for transforming conventional basketball broadcast footage into wheelchair-basketball visualizations while preserving tactical meaning under different embodiment constraints. The paper description notes two controlled studies with 20 participants, split between national wheelchair-basketball players and amateur players, and reports that the system improved both tactical understanding and the realism of player movement representations. As a complementary source, the ACM listing is useful because it confirms the peer-reviewed venue, authorship, and evaluation setup, and it frames the work not just as a press announcement but as a human-computer interaction contribution focused on inclusive gameplay experience and embodiment-aware visualization design."
+    }
+  },
+  {
+    "title": "Enhanced (NYSE: ENHA) Selects Rezolve Ai (NASDAQ: RZLV) to Power AI-Native Live Enhanced Consumer Platform and Digital Fan Ecosystem",
+    "topic": "sport",
+    "url": "https://rezolve.com/press-releases/enhanced-nyse-enha-selects-rezolve-ai-nasdaq-rzlv-to-power-ai-native-live-enhanced-consumer-platform-and-digital-fan-ecosystem/",
+    "published_at": "2026-05-18",
+    "source": "Rezolve",
+    "article_content": "Rezolve Ai announced a multi-million dollar strategic partnership with Enhanced, the company behind Enhanced Games and the Live Enhanced consumer platform. The deal centers on AI-enabled fan engagement and consumer health technologies across Enhanced’s digital ecosystem. The initial rollout covers a mobile-first web experience for the inaugural Enhanced Games, with ticket access, athlete and event information, race results, highlights, media content, and a conversational AI concierge for real-time fan interaction. The companies also outlined a broader roadmap including tele-health functionality, AI Doctor capabilities, and deeper personalization intended to improve scalability, efficiency, and customer engagement. Executives from both companies described the partnership as foundational, with Rezolve’s technology integrated from the outset across fan experience and future platform services.",
+    "additional_source": {
+      "title": "Enhanced (NYSE: ENHA) to Build AI-Native Technology Within its Live Enhanced Consumer Platform with Rezolve Ai (NASDAQ: RZLV) in Multi-Million Dollar Strategic Partnership",
+      "url": "https://www.prnewswire.com/news-releases/enhanced-nyse-enha-to-build-ai-native-technology-within-its-live-enhanced-consumer-platform-with-rezolve-ai-nasdaq-rzlv-in-multi-million-dollar-strategic-partnership-302774526.html",
+      "published_at": "2026-05-18",
+      "source": "PR Newswire",
+      "article_content": "This additional version of the announcement contributes event-specific commercial detail absent from the base release. It states that the inaugural Enhanced Games are scheduled for May 24, 2026, at a purpose-built competition complex at Resorts World Las Vegas, giving a concrete deployment timeline for the AI fan-engagement stack. It also emphasizes that the platform is being built as AI-native from the start, reinforcing that the partnership is not a bolt-on chatbot deployment but part of the core consumer platform architecture. For newsletter writing, this source is useful because it adds logistics, venue context, and clearer timing around when the technology will first be visible to fans."
+    }
+  },
+  {
+    "title": "Tyson Fury, The Gypsy King, Joins Datavault AI as International Spokesperson to Champion Athlete Data Monetization",
+    "topic": "sport",
+    "url": "https://www.stocktitan.net/news/DVLT/tyson-fury-the-gypsy-king-joins-datavault-ai-as-international-wo4r26dok5po.html",
+    "published_at": "2026-05-18",
+    "source": "Stock Titan / Accesswire",
+    "article_content": "Datavault AI said Tyson Fury has signed on as international spokesperson ahead of the launch of the Sports Illustrated Exchange, a platform aimed at helping athletes, influencers, and rights holders monetize name, image, and likeness assets. The announcement ties Fury’s global profile and commercial experience to Datavault AI’s push into secure data monetization, credentialing, digital engagement, and real-world asset tokenization. The company says its Information Data Exchange links digital rights and physical assets to immutable metadata to support licensing and monetization, with an emphasis on cybersecurity and responsible AI. Datavault framed Fury’s appointment as a way to raise awareness of NIL monetization and athlete ownership in the digital era.",
+    "additional_source": {
+      "title": "Datavault AI Announces Agreement with Sports Illustrated in Connection with the Launch of Sports Illustrated Exchange",
+      "url": "https://www.stocktitan.net/news/DVLT/datavault-ai-announces-agreement-with-sports-illustrated-in-r8pxbxxop0m4.html",
+      "published_at": "2026-05-15",
+      "source": "Stock Titan / Datavault AI press release",
+      "article_content": "This closely related source covers the same primary launch cycle around Sports Illustrated Exchange and adds market-sizing context that complements the Tyson Fury spokesperson news. Datavault cites a projected U.S. collegiate NIL market of $2.55 billion by 2026 and references broader growth in the global sports sponsorship market, helping quantify the commercial rationale behind the platform. It also provides more direct detail on the Sports Illustrated relationship itself, which is only referenced secondarily in the Fury announcement. For newsletter use, this source strengthens the story by connecting celebrity endorsement to the underlying commercial platform, intellectual-property strategy, and size of the NIL monetization opportunity."
+    }
+  },
+  {
+    "title": "AI Disruption in Financial Services: Wall Street's $47B Profit Paradox and What It Means for Investors",
+    "topic": "finance",
+    "url": "https://intellectia.ai/blog/ai-disruption-financial-services-2026",
+    "published_at": "2026-05-20",
+    "source": "Intellectia AI",
+    "article_content": "The article argues that financial services are seeing a sharp AI-driven restructuring, with April 2026 job cuts linked to AI and automation reaching 21,490 according to Challenger. It highlights that the six largest U.S. banks generated $47 billion in first-quarter profits while cutting 15,000 jobs, framing the sector’s transformation as a mix of productivity gains and labor displacement. It points to JPMorgan’s nearly $20 billion technology budget, patent activity around AI-generated stock ratings, and executive comments from Standard Chartered on potentially large job reductions as evidence that AI is moving from experimental tool to core banking infrastructure. The piece positions the trend as highly relevant for investors assessing cost structures, industry competition, and the long-term implications for white-collar finance work.",
+    "additional_source": {
+      "title": "Job Cuts Driven by A.I. Are Rising on Wall Street",
+      "url": "https://www.nytimes.com/2026/04/21/business/ai-job-cuts-wall-street.html",
+      "published_at": "2026-04-21",
+      "source": "The New York Times",
+      "article_content": "The New York Times article provides an independent reported account of the same phenomenon cited in the Intellectia piece. It reports that JPMorgan Chase, Citi, Bank of America, Goldman Sachs, Morgan Stanley, and Wells Fargo generated $47 billion in collective profits, up 18%, while cutting jobs as AI adoption accelerated. The article adds newsroom-style reporting on the human and organizational implications of these reductions, helping validate the profit-versus-layoff contrast with a mainstream source rather than a market commentary blog. This is useful enrichment because it supplies a separate editorial lens on the same core data point and makes the labor-market dimension more concrete for readers."
+    }
+  },
+  {
+    "title": "Numero AI Acquires Royu to Accelerate the Future of AI-Native Finance Teams",
+    "topic": "finance",
+    "url": "https://markets.businessinsider.com/news/stocks/numero-ai-acquires-royu-to-accelerate-the-future-of-ai-native-finance-teams-1036172096",
+    "published_at": "2026-05-18",
+    "source": "Business Insider / Press Release",
+    "article_content": "Numero AI announced the acquisition of Royu in an undisclosed cash-and-stock transaction to expand its agentic finance platform for the Office of the CFO. The combined company says it is building a system where AI workers execute finance workflows such as close, reconciliation, reporting, order-to-cash, SEC filings, and technical accounting, with humans governing and reviewing outputs. Executives stressed reliability, enterprise control, and auditability as key requirements for finance teams. The release also notes Numero’s existing enterprise footprint and advisory partnerships, presenting the transaction as an effort to speed product development and meet demand for AI-native finance operations.",
+    "additional_source": {
+      "title": "US AI finance firm Numero acquires Chennai-based startup Royu",
+      "url": "https://indianstartupnews.com/news/us-ai-finance-firm-numero-acquires-chennai-based-startup-royu-11833470",
+      "published_at": "2026-05-14",
+      "source": "IndianStartupNews",
+      "article_content": "This additional coverage offers a complementary geographic and startup-ecosystem angle on the same acquisition. It identifies Royu as a Chennai-based finance automation startup and places the deal in the context of cross-border AI startup consolidation. Compared with the original press-release framing, this source is more useful for understanding Royu’s origin, India connection, and how the transaction is being viewed within the startup market rather than purely through vendor messaging. That broader perspective can help newsletter readers understand why the deal matters beyond product roadmap language."
+    }
+  },
+  {
+    "title": "The Bank, FCA and HM Treasury joint statement on Frontier AI models and cyber resilience",
+    "topic": "finance",
+    "url": "https://www.bankofengland.co.uk/news/2026/may/boe-fca-and-hm-treasury-joint-statement-on-frontier-ai-models-and-cyber-resilience",
+    "published_at": "2026-05-15",
+    "source": "Bank of England / Financial Conduct Authority / HM Treasury",
+    "article_content": "The UK authorities warned that frontier AI models represent a step-change in cyber capability and could materially raise risks to financial firms, customers, market integrity, and financial stability. The statement says such models can identify and exploit vulnerabilities faster, more cheaply, and at greater scale than skilled human attackers. It urges firms and financial market infrastructures to strengthen governance, speed vulnerability remediation, manage third-party and supply-chain risk, adopt AI-enabled defenses, and improve response and recovery capabilities. The note ties these warnings to existing operational resilience expectations and signals continued engagement with industry through the Cross Market Operational Resilience Group.",
+    "additional_source": {
+      "title": "UK firms should take steps to limit risks from frontier AI models, UK says",
+      "url": "https://www.reuters.com/legal/litigation/uk-firms-should-take-steps-limit-risks-frontier-ai-models-uk-says-2026-05-15/",
+      "published_at": "2026-05-15",
+      "source": "Reuters",
+      "article_content": "Reuters reports the same joint statement but adds an independent policy and market interpretation. It frames the message as a government-backed warning to British companies to plan for and mitigate risks from powerful new AI models, emphasizing the regulatory significance of the alert beyond the text of the official release. Reuters is especially useful as a complementary source because it distills the practical implication for firms: this is not just general guidance, but a sign that frontier-AI cyber threats are being elevated into mainstream supervisory concern. That context helps newsletter readers see the announcement as part of a broader regulatory shift in financial-sector AI oversight."
+    }
+  },
+  {
+    "title": "Synthesizing the Expert: A Validated Multimodal Dataset for Trustworthy AI-Assisted Swimming Coaching",
+    "topic": "research",
+    "url": "https://arxiv.org/html/2605.12799v1",
+    "published_at": "2026-05-12",
+    "source": "arXiv",
+    "article_content": "This paper introduces a multimodal, validated dataset and agentic RAG framework for AI-assisted swimming coaching. The authors assemble a heterogeneous knowledge base from physiological data, literature, IMU-based kinematic sensor streams, coaching manuals, and performance records, then use a multi-agent LLM pipeline to synthesize expert coaching triplets. The resulting corpus contains 1,864 validated question-context-answer triplets from 1,914 drafts, tested against 12 physiological soundness rules. The paper reports a knowledge base of 181,389 indexed chunks from 376 source files, 88 performance anchors identified by the Architect Agent, and a 97.4% validated acceptance rate after Critic-Agent review and regeneration loops. The contribution is positioned as a trustworthy AI resource for swimming coaching, athlete monitoring, periodization, and evidence-based intervention design.",
+    "additional_source": {
+      "title": "arXiv abstract page for 'Synthesizing the Expert: A Validated Multimodal Dataset for Trustworthy AI-Assisted Swimming Coaching'",
+      "url": "https://arxiv.org/abs/2605.12799",
+      "published_at": "2026-05-12",
+      "source": "arXiv abstract record",
+      "article_content": "The abstract record provides the formal metadata and canonical citation for the same paper, useful for verification and referencing. It confirms the title, authors, submission date, and versioning, and serves as the stable source for linking the work in a newsletter. As a complementary source, the abstract page is valuable because it is distinct from the HTML-rendered full text and provides the standard bibliographic entry readers expect when tracking new academic work."
+    }
+  },
+  {
+    "title": "RefereeBench: Are Video MLLMs Ready to be Multi-Sport Referees?",
+    "topic": "research",
+    "url": "https://arxiv.org/html/2604.15736v1",
+    "published_at": "2026-04-17",
+    "source": "arXiv",
+    "article_content": "This paper presents RefereeBench, a benchmark for evaluating multimodal large language models as automatic sports referees across 11 sports. The dataset includes 925 curated videos and 6,475 expert-authored question-answer pairs covering foul detection, foul and penalty classification, reasoning, entity perception, and temporal grounding. All data were manually curated by certified referees. The study finds that even leading proprietary MLLMs remain well short of dependable officiating performance, with top systems reaching only around 60% overall accuracy and the best open-source model around 47%. The authors also show that adding audio can improve performance by roughly 16 percentage points, highlighting the role of multimodal evidence in officiating.",
+    "additional_source": {
+      "title": "arXiv abstract page for 'RefereeBench: Are Video MLLMs Ready to be Multi-Sport Referees?'",
+      "url": "https://arxiv.org/abs/2604.15736",
+      "published_at": "2026-04-17",
+      "source": "arXiv abstract record",
+      "article_content": "The abstract page supplies the canonical citation details for RefereeBench and is useful as a second, distinct source for the same research item. It confirms the author list, date, category, and versioning, while providing the concise abstract that summarizes the benchmark’s scope and findings. For editorial use, this helps validate the paper and gives readers a standard research landing page separate from the HTML-rendered manuscript."
+    }
+  },
+  {
+    "title": "Action Spotting and Precise Event Detection in Sports",
+    "topic": "research",
+    "url": "https://arxiv.org/html/2505.03991v1",
+    "published_at": "2025-05-06",
+    "source": "arXiv",
+    "article_content": "This recent arXiv survey reviews action spotting and precise event detection in sports, a central computer-vision problem underlying applications such as highlight generation, tactical indexing, officiating support, and automated match analysis. The paper distinguishes action spotting from related temporal localization tasks, surveys deep-learning and computer-vision methods, and discusses benchmark datasets, evaluation practices, and deployment requirements including temporal precision and multi-camera context. Its value lies in synthesizing the technical evolution of sports event detection and identifying practical system constraints relevant to production sports analytics tools.",
+    "additional_source": {
+      "title": "arXiv abstract page for 'Action Spotting and Precise Event Detection in Sports'",
+      "url": "https://arxiv.org/abs/2505.03991",
+      "published_at": "2025-05-06",
+      "source": "arXiv abstract record",
+      "article_content": "The abstract record provides the standard bibliographic source for this survey and is distinct from the HTML full-text rendering. It helps confirm the paper’s scope as a survey of sports event localization methods and gives a stable reference point for readers seeking citation details, PDF access, and arXiv metadata. For a newsletter package, this is a practical complementary source because it supports accurate linking and verification of the research item."
+    }
+  }
+]

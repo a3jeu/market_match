@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Synthesizing the Expert: A Validated Multimodal Dataset for Trustworthy AI-Assisted Swimming Coaching",
+    "url": "https://arxiv.org/html/2605.12799v1",
+    "published_at": "2026-05-12",
+    "source": "arXiv",
+    "article_content": "arXiv:2605.12799v1 [cs.MA] 12 May 2026. Authors: Ahmad Al-Kabbany, Esraa Kassem. This paper introduces a multimodal, validated dataset and agentic RAG framework for AI-assisted swimming coaching. The authors build a heterogeneous swimming knowledge base from physiological data, literature, IMU-based kinematic sensor streams, coaching manuals, and performance records, then use a multi-agent LLM pipeline to synthesize expert-level coaching triplets. The resulting corpus contains 1,864 validated Question-Context-Answer triplets, generated from 1,914 drafts and evaluated against 12 physiological soundness rules. The work emphasizes trustworthy AI in sports by grounding outputs in expert sources and rejecting physiologically unsound recommendations. The paper reports a knowledge base of 181,389 indexed chunks from 376 source files, 88 performance anchors discovered by the Architect Agent, and a final 97.4% validated acceptance rate after Critic-Agent review and regeneration loops. The contribution is practically relevant for swimming coaching, athlete monitoring, periodization, and AI systems that translate multimodal athlete data into actionable, evidence-based interventions."
+  },
+  {
+    "title": "RefereeBench: Are Video MLLMs Ready to be Multi-Sport Referees?",
+    "url": "https://arxiv.org/html/2604.15736v1",
+    "published_at": "2026-04-17",
+    "source": "arXiv",
+    "article_content": "arXiv:2604.15736v1 [cs.CV] 17 Apr 2026. Authors: Yichen Xu, Yuanhang Liu, Chuhan Wang, Zihan Zhao, Jinghan Luo, Jianzhe Ma, Wenxuan Wang, Qin Jin. This paper presents RefereeBench, the first large-scale benchmark for evaluating multimodal large language models as automatic sports referees across multiple sports. The benchmark spans 11 sports, 925 curated videos, and 6,475 expert-authored QA pairs covering foul existence, foul and penalty classification, reasoning, entity perception, and temporal grounding. All data were manually curated by certified referees. The benchmark reveals that even strong proprietary MLLMs remain far from dependable: top models such as Doubao-Seed-1.8 and Gemini-3 variants achieve only around 60% overall accuracy, while the best open-source model reaches about 47%. The paper also shows that adding audio materially improves performance, boosting some systems by about 16 points, which underlines the importance of multimodal evidence in officiating. The work is highly relevant for AI-assisted officiating, sports video analysis, rule-grounded reasoning, and trustworthy deployment of multimodal AI in high-stakes sports decision support."
+  },
+  {
+    "title": "Action Spotting and Precise Event Detection in Sports",
+    "url": "https://arxiv.org/html/2505.03991v1",
+    "published_at": "2025-05-06",
+    "source": "arXiv",
+    "article_content": "arXiv:2505.03991v1. This recent arXiv survey focuses on action spotting and precise event detection in sports, a core computer-vision problem underpinning many applied sports AI systems such as highlight generation, tactical indexing, officiating support, and automated match analysis. The paper provides a structured review of deep-learning and computer-vision methods for temporal localization of sports events, distinguishing between action spotting, event detection, and closely related tasks. It synthesizes the methodological evolution of the field, discusses benchmark datasets and evaluation practices, and highlights practical system requirements such as temporal precision, multi-camera context, and real-world deployment constraints. While broader than a single-sport application, the paper is directly relevant to practitioners building sports analytics pipelines because event spotting is a foundational layer for downstream applications including prediction, coaching tools, and broadcast intelligence."
+  }
+]

@@ -277,6 +277,42 @@
           "signature": "e5b411a40cd1be487e7df424461f7b01b110e0bb3fd1eb412f0c02fe6ff7659c"
         }
       ]
+    },
+    {
+      "edition_number": 9,
+      "edition_date": "2026-05-20",
+      "items": [
+        {
+          "title": "The Bank, FCA and HM Treasury joint statement on Frontier AI models and cyber resilience",
+          "summary": "The UK authorities warned that frontier AI models represent a step-change in cyber capability and could materially raise risks to financial firms, customers, market integrity, and financial stability. The statement says such models can identify and exploit vulnerabilities faster, more cheaply, and at greater scale than skilled human attackers. It urges firms and financial market infrastructures to strengthen governance, speed vulnerability remediation, manage third-party and supply-chain risk, adopt AI-enabled defenses, and improve response and recovery capabilities. The note ties these warnings to existing operational resilience expectations and signals continued engagement with industry through the Cross Market Operational Resilience Group.",
+          "source": "https://www.bankofengland.co.uk/news/2026/may/boe-fca-and-hm-treasury-joint-statement-on-frontier-ai-models-and-cyber-resilience",
+          "signature": "bb98397dc88ebf1b072a4462bfebf790a3a42c5ca3ef70cbe31f1b4d4dc216e3"
+        },
+        {
+          "title": "Technology that breaks down barriers in parasports wins Best Paper Award at CHI",
+          "summary": "Harvard’s Visual Computing Group developed BRIDGE, a simulation system that converts standard standing-basketball footage into realistic wheelchair-basketball videos. BRIDGE uses an embodiment-aware reconstruction pipeline that tracks players and the ball in 3D, then remaps head, trunk, and wheelchair base movements. The Harvard-led study won a Best Paper Award at CHI 2026. Researchers said the project was motivated by the lack of accessible sports-analysis tools for para-athletes and by the cognitive burden wheelchair-basketball players face when mentally translating conventional basketball footage into wheelchair play. In controlled studies with 20 participants, including 10 Japanese national wheelchair-basketball team players and 10 non-elite players, BRIDGE significantly improved perceived naturalness of player postures and made tactical intentions easier to understand. Participants said the system better reflected players’ functional capabilities than standard non-disabled video resources. The team said the work points toward broader uses of embodiment transformation in parasports, rehabilitation, and training for youth and older athletes.",
+          "source": "https://www.eurekalert.org/news-releases/1128809",
+          "signature": "88501a65e91bac20f8b89a15d421140a3152279379b3627ecbbdc94f3425fef9"
+        },
+        {
+          "title": "AI Disruption in Financial Services: Wall Street's $47B Profit Paradox and What It Means for Investors",
+          "summary": "The article argues that financial services are seeing a sharp AI-driven restructuring, with April 2026 job cuts linked to AI and automation reaching 21,490 according to Challenger. It highlights that the six largest U.S. banks generated $47 billion in first-quarter profits while cutting 15,000 jobs, framing the sector’s transformation as a mix of productivity gains and labor displacement. It points to JPMorgan’s nearly $20 billion technology budget, patent activity around AI-generated stock ratings, and executive comments from Standard Chartered on potentially large job reductions as evidence that AI is moving from experimental tool to core banking infrastructure. The piece positions the trend as highly relevant for investors assessing cost structures, industry competition, and the long-term implications for white-collar finance work.",
+          "source": "https://intellectia.ai/blog/ai-disruption-financial-services-2026",
+          "signature": "6ea927b145232a1d79bf480fc58e17f2fbd121addcfe675c97a54bbb7b004d21"
+        },
+        {
+          "title": "Synthesizing the Expert: A Validated Multimodal Dataset for Trustworthy AI-Assisted Swimming Coaching",
+          "summary": "This paper introduces a multimodal, validated dataset and agentic RAG framework for AI-assisted swimming coaching. The authors assemble a heterogeneous knowledge base from physiological data, literature, IMU-based kinematic sensor streams, coaching manuals, and performance records, then use a multi-agent LLM pipeline to synthesize expert coaching triplets. The resulting corpus contains 1,864 validated question-context-answer triplets from 1,914 drafts, tested against 12 physiological soundness rules. The paper reports a knowledge base of 181,389 indexed chunks from 376 source files, 88 performance anchors identified by the Architect Agent, and a 97.4% validated acceptance rate after Critic-Agent review and regeneration loops. The contribution is positioned as a trustworthy AI resource for swimming coaching, athlete monitoring, periodization, and evidence-based intervention design.",
+          "source": "https://arxiv.org/html/2605.12799v1",
+          "signature": "fa90fad2037441d66304cf622c99b83607a3e320dd343f9319098f7c1d95b75e"
+        },
+        {
+          "title": "RefereeBench: Are Video MLLMs Ready to be Multi-Sport Referees?",
+          "summary": "This paper presents RefereeBench, a benchmark for evaluating multimodal large language models as automatic sports referees across 11 sports. The dataset includes 925 curated videos and 6,475 expert-authored question-answer pairs covering foul detection, foul and penalty classification, reasoning, entity perception, and temporal grounding. All data were manually curated by certified referees. The study finds that even leading proprietary MLLMs remain well short of dependable officiating performance, with top systems reaching only around 60% overall accuracy and the best open-source model around 47%. The authors also show that adding audio can improve performance by roughly 16 percentage points, highlighting the role of multimodal evidence in officiating.",
+          "source": "https://arxiv.org/html/2604.15736v1",
+          "signature": "52e76ed1297197e0c6bf56149918bcd4d33940d7fc16ce60c0e301d5d5255b90"
+        }
+      ]
     }
   ],
   "seen_signatures": [
@@ -294,17 +330,21 @@
     "4d025e5714158fe3e263feaf971721ab2e624a049379c2c96a5adc796fbca7d8",
     "4d4100d0555a2f46a4d68645a825fd598015e9075e6db06df9eaa2af34e87892",
     "4e563497b9516b2cd575a9d5eef7a04c545132104c7441f439922ca34d8aa631",
+    "52e76ed1297197e0c6bf56149918bcd4d33940d7fc16ce60c0e301d5d5255b90",
     "5ca013a62104c3e2407de956787f1aa7d37b38ac140517ea5d1140ad940eca71",
     "609ba6b67f1979b0cc85eb43279068f00e41eaa06bc971d3bcf8dbbd63d099ea",
     "6b6033842523bd7dda05c856b6cf144f5539c10c26223edb06782432fbfb78b9",
     "6c29cc601de7e575bf9697733fe6ae0e95ba77031068d5fb6c3a4220b4252eef",
+    "6ea927b145232a1d79bf480fc58e17f2fbd121addcfe675c97a54bbb7b004d21",
     "709b7cb20bf56cad849ee1f5329851a1edcc05dd82c805d084236c175c00d8be",
     "7841976cc89f86792286d0a8cd44b1bd1e2b4b38ae6c952fce752b1da771dcd7",
     "7ca7850f31ef4cae9a6ec4623f2ba8b75db3f1af985fa66d762a564ef3724a27",
     "80754222f5d9c200375a562fa38735589baf580e476a542d3b38ac17a771584f",
+    "88501a65e91bac20f8b89a15d421140a3152279379b3627ecbbdc94f3425fef9",
     "8852018e45b6267ef9fed4b459aa4a9dfb63d3eae4ce30dd50d6ed5025cb1d7c",
     "974f45e4cb183670e6314317bb7668b53128d63f3c57f91a48e189c6f39b0e93",
     "9815dbb7bd6cb6705c90b6d0947f9f41c5445c8b18da4eb328579f2c074caec2",
+    "bb98397dc88ebf1b072a4462bfebf790a3a42c5ca3ef70cbe31f1b4d4dc216e3",
     "c1adcfd9134304bd089f814da53bf2af5975ac275349ce160f6cd0dbe61420d6",
     "c1bc7f27c31c2fd1cf607026762051594eefac943e01c59f3e3f25d2b5675933",
     "c42b1ada83ef18efd1bf621ed8d7f34a2d21257fe6870789696139006ea84e36",
@@ -318,6 +358,7 @@
     "dafdac8bfa0a5ef8e92d7278d8913b0b6f5ce77cbb80795a33621477dc46dc1e",
     "e5b411a40cd1be487e7df424461f7b01b110e0bb3fd1eb412f0c02fe6ff7659c",
     "e854708ee0a6f67c128a4f4e35406c6a99e5032dc8c5f24774815069fb9cd880",
-    "f5fed1f01e0c4ab6460dba56aba81284b567ef50ea304a6a4e69faf896ed608d"
+    "f5fed1f01e0c4ab6460dba56aba81284b567ef50ea304a6a4e69faf896ed608d",
+    "fa90fad2037441d66304cf622c99b83607a3e320dd343f9319098f7c1d95b75e"
   ]
 }
